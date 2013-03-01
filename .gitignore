@@ -14,3 +14,16 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+
+.DS_Store
+*~
+.idea/
+*.iml
+*.ipr
+*.iws
