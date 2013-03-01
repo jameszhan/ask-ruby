@@ -7,6 +7,7 @@ gem 'rails', '3.2.12'
 
 #gem 'sqlite3'
 gem 'mongoid'
+gem 'devise'
 
 
 # Gems used only for assets and not required
@@ -38,6 +39,12 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+group :development, :test do
+  gem'rspec-rails'
+  gem'factory_girl_rails'
+
+end
+
 group :development do
   gem 'capistrano'
   gem 'pry'
@@ -46,6 +53,9 @@ group :development do
 end
 
 group :test do
-  gem'rspec-rails'
-  gem'factory_girl_rails'
+  gem "mongoid-rspec"
+  gem "email_spec"
+  gem "launchy"
+  gem "capybara"
+  gem "database_cleaner"
 end
