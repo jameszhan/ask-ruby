@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
@@ -40,8 +42,13 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 group :development, :test do
-  gem'rspec-rails'
-  gem'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec'
+
+  #spork
+  gem 'guard-spork'
+  gem 'spork'
 end
 
 group :development do
@@ -55,6 +62,18 @@ group :test do
   gem "mongoid-rspec"
   gem "email_spec"
   gem "launchy"
-  gem "capybara"
-  gem "database_cleaner"
+  gem "database_cleaner"  
+  gem 'capybara', '1.1.2'
 end
+
+# Linux 中需要的测试组 gem
+# group :test do
+#   gem 'rb-inotify'
+#   gem 'libnotify'
+# end
+
+# Mac OS X 中需要的测试组 gem
+# group :test do
+#   gem 'rb-fsevent', '0.9.1', :require => false
+#   gem 'growl', '1.0.3'
+# end
