@@ -20,6 +20,8 @@ pickle-email-*.html
 _yardoc
 doc/
 
+config/mongoid.yml
+
 
 .DS_Store
 *~
