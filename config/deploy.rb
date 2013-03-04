@@ -34,4 +34,6 @@ namespace :deploy do
    end
 end
 
+set :recipe_mods, [:rbenv, :check, :nginx, :nodejs, :unicorn, :mongodb]
+
 require File.expand_path("../../lib/plugins/capistrano/init", __FILE__)

@@ -18,7 +18,7 @@ namespace :mongodb do
   desc "Generate the database.yml configuration file."
   task :setup, roles: :app do
     run "mkdir -p #{shared_path}/config"
-    template "monogoid.yml.erb", "#{shared_path}/config/mongoid.yml"
+    template "mongoid.yml.erb", "#{shared_path}/config/mongoid.yml"
   end   
   after "deploy:setup", "mongodb:setup"  
 

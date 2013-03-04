@@ -10,7 +10,7 @@ production:
       # server setup, and at least 3 for a replica set. Hosts must be
       # an array of host:port pairs. This session is single server.
       hosts:
-      <% mongodb_endpoints.each do |endpoint|%>
+      <% mongodb_endpoints.each do |endpoint| %>
         - <%= endpoint %>
       <% end %>
       # Define the default database name.
@@ -23,7 +23,7 @@ production:
     replica_set:
       # This configuration is a 3 node replica set.
       hosts:
-      <% replia_sets.each do |endpoint|%>
+      <% replica_sets.each do |endpoint|%>
         - <%= endpoint %>
       <% end %>
       database: <%= mongodb_database %>
