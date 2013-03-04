@@ -8,6 +8,8 @@ gem 'rails', '3.2.12'
 #gem 'sqlite3'
 gem 'mongoid'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-github'
 
 
 # Gems used only for assets and not required
@@ -33,8 +35,6 @@ gem 'jquery-rails'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
