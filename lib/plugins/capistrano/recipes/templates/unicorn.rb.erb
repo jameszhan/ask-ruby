@@ -1,0 +1,10 @@
+working_directory "<%= current_path %>"
+pid "<%= unicorn_pid %>"
+stderr_path "<%= unicorn_log %>"
+stdout_path "<%= unicorn_log %>"
+
+preload_app true
+
+listen "/tmp/unicorn.<%= application %>.sock"
+worker_processes <%= unicorn_workers %>
+timeout 30
