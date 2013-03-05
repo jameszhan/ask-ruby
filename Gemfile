@@ -69,6 +69,8 @@ group :test do
   gem "database_cleaner"  
   gem 'capybara', '1.1.2'
   
+  gem 'shoulda-matchers'
+
   case HOST_OS
     when /linux/i
       #Linux relative gem
