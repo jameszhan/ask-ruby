@@ -29,3 +29,5 @@ config/mongoid.yml
 *.iml
 *.ipr
 *.iws
+
+Gemfile.lock
