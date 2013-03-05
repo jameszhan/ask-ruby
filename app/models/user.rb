@@ -6,7 +6,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ## Database authenticatable
+  ## Database authenticatable       
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
   
@@ -24,14 +24,20 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
   
+  @@validation = true
+  def self.with_no_validation 
+    @@validation = false
+    yield
+  ensure 
+    @@validation = true
+  end
+  
   def password_required?
-    p authentications
-    false #super && authentications.empty? 
+    @@validation && super
   end
 
   def email_required?
-    p authentications
-    false #super && authentications.empty? 
+    @@validation && super
   end
 
   ## Confirmable
@@ -50,15 +56,25 @@ class User
   
   has_many :authentications
   
-  def self.from_omniauth(auth)
-    Authentication.first_or_create(auth.slice(:provider, :uid)) do |authentication|
-      unless authentication.user
-        user = create(password: Devise.friendly_token[0, 20], 
-          email: auth.info.email, 
-          username: auth.info.nickname)
-        user.authentications << authentication
+  def self.from_omniauth(omniauth)    
+    authentication = Authentication.where(omniauth.slice(:provider, :uid)).first_or_create do |auth|
+      unless auth.user
+        with_no_validation do
+          user = create_user_from_omniauth(omniauth)
+          user.authentications << auth
+        end
       end
     end
+    authentication.user   
   end
+  
+  private 
+    def self.create_user_from_omniauth(omniauth)
+     create(username: omniauth.info.nickname) do |user|
+        user.email = omniauth.info.email if omniauth.info.email
+        user.password = Devise.friendly_token[0, 20]
+        user.username = omniauth.info.nickname 
+      end
+    end
   
 end
