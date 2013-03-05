@@ -68,16 +68,17 @@ group :test do
   gem "launchy"
   gem "database_cleaner"  
   gem 'capybara', '1.1.2'
+  
+  case HOST_OS
+    when /linux/i
+      #Linux relative gem
+      gem 'rb-inotify'
+      gem 'libnotify'
+    when /darwin/i
+      # Mac OS X relative gem
+      gem 'rb-fsevent', '0.9.1', :require => false
+      gem 'growl', '1.0.3'
+  end
 end
 
-case HOST_OS
-  when /linux/i
-    #Linux 中需要的测试组 gem
-    gem 'rb-inotify', :group=> :test
-    gem 'libnotify', :group=> :test
 
-  when /darwin/i
-    # Mac OS X 中需要的测试组 gem
-    gem 'rb-fsevent', '0.9.1', :require => false, :group=> :test
-    gem 'growl', '1.0.3', :group=> :test
-end
