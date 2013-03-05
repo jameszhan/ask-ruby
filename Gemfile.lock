@@ -109,6 +109,8 @@ GEM
       multi_json (>= 1.0)
     launchy (2.2.0)
       addressable (~> 2.3)
+    libnotify (0.8.0)
+      ffi (>= 1.0.11)
     listen (0.7.3)
     lumberjack (1.0.2)
     mail (2.4.4)
@@ -182,6 +184,8 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
+    rb-inotify (0.9.0)
+      ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     rspec (2.13.0)
@@ -250,12 +254,14 @@ DEPENDENCIES
   guard-spork
   jquery-rails
   launchy
+  libnotify
   mongoid
   mongoid-rspec
   omniauth
   omniauth-github
   pry
   rails (= 3.2.12)
+  rb-inotify
   rspec-rails
   sass-rails (~> 3.2.3)
   spork
