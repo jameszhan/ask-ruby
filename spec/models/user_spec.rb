@@ -1,66 +1,60 @@
 require 'spec_helper'
 
 describe User do
-  it { validate_presence_of(:username)}
-  it { validate_uniqueness_of(:username)}
-  it { validate_presence_of(:authentications) }
-
+  
+  let(:username){ "James" }
+  let(:email){ "zhiqiangzhan@gmail.com" }
+  let(:uid){ "123556" }
+  let(:provider) { "github" }
   
   let(:omniauth){
     Hashie::Mash.new(
-      uid: "123356", 
-      provider: "github", 
+      uid: uid, 
+      provider: provider, 
       info: {
-        nickname: "James", 
-        email: "zhiqiangzhan@gmail.com"
+        nickname: username
       }
     )
   }
-
-  let(:omniauth_without_email){
-    omniauth.merge(info: {email: nil})
+  
+  let(:omniauth_with_email){
+    omniauth.merge(uid: "111111", info: {email: email})
   }
-  
-  context 'new user with full info' do
-    let(:user) { User.from_omniauth(omniauth) }
-    
-    it "add user info from omniauth" do
-      user.authentications.should_not be_empty
-      user.email.should_not be_blank
-      user.persisted?.should be_true      
-    end
-
-    it "new user from omniauth" do
+  context "Save user to database." do       
+    it "new user" do
+      auth = Authentication.where(omniauth.slice(:uid, :provider)).each { |auth| auth.user.try(:destroy) }
       expect {
-        user     
+        User.from_omniauth(omniauth)          
       }.to change(User, :count).by(1)   
     end
-  end
-
-  context 'new user without email' do
-    let(:otheruser) { User.from_omniauth(omniauth_without_email) }
-    
-    it "without email" do
-      otheruser.authentications.should_not be_empty
-      otheruser.email.should be_blank
-      otheruser.persisted?.should be_true
-    end
-
-    it "new user from omniauth without email" do
+      
+    it "existing user" do    
+      user = User.from_omniauth(omniauth) 
       expect {
-        otheruser          
-      }.to change(User, :count).by(1)   
-    end
-
-  end
-  
-  context " User cann't save repeat " do 
-    it "existing user" do  
-      expect {
-        user1 = User.from_omniauth(omniauth)
         user2 = User.from_omniauth(omniauth)
-        user2.should == user1
-      }.to change(User, :count).by(1)        
+        user2.should == user
+      }.to change(User, :count).by(0)        
     end
-  end  
+  end
+
+  context 'check user necessary field' do
+    let(:user) { User.from_omniauth(omniauth) }
+    let(:user_with_email) { User.from_omniauth(omniauth_with_email) }
+    
+    it "check email" do
+      user.email.should be_blank
+      user_with_email.email.should == email
+    end
+  
+    it "check username" do
+      user.username.should == username
+    end
+    
+    it "check authentications" do
+      user.authentications.should_not be_empty
+      user.authentications.detect{|auth| auth.uid.eql?(uid) && auth.provider.eql?(provider)}.should_not be_nil
+    end
+
+  end
+  
 end

@@ -22,7 +22,23 @@ class User
   field :current_sign_in_at, :type => Time
   field :last_sign_in_at,    :type => Time
   field :current_sign_in_ip, :type => String
-  field :last_sign_in_ip,    :type => String
+  field :last_sign_in_ip,    :type => String  
+
+  ## Confirmable
+  # field :confirmation_token,   :type => String
+  # field :confirmed_at,         :type => Time
+  # field :confirmation_sent_at, :type => Time
+  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
+
+  ## Lockable
+  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
+  # field :locked_at,       :type => Time
+
+  ## Token authenticatable
+  # field :authentication_token, :type => String
+  
+  has_many :authentications, :dependent => :destroy
   
   @@validation = true
   def self.with_no_validation 
@@ -39,22 +55,6 @@ class User
   def email_required?
     @@validation && super
   end
-
-  ## Confirmable
-  # field :confirmation_token,   :type => String
-  # field :confirmed_at,         :type => Time
-  # field :confirmation_sent_at, :type => Time
-  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
-
-  ## Lockable
-  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
-  # field :locked_at,       :type => Time
-
-  ## Token authenticatable
-  # field :authentication_token, :type => String
-  
-  has_many :authentications
   
   def self.from_omniauth(omniauth)    
     authentication = Authentication.where(omniauth.slice(:provider, :uid)).first_or_create do |auth|
@@ -69,8 +69,8 @@ class User
   end
   
   private 
-    def self.create_user_from_omniauth(omniauth)
-     create(username: omniauth.info.nickname) do |user|
+    def self.create_user_from_omniauth(omniauth) 
+      create(username: omniauth.info.nickname) do |user|
         user.email = omniauth.info.email if omniauth.info.email
         user.password = Devise.friendly_token[0, 20]
         user.username = omniauth.info.nickname 
