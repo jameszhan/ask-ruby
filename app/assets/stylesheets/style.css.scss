@@ -1,0 +1,14 @@
+@import "compass";
+@import "compass/reset";
+@import "icons/*.png";
+
+
+.omniauth {
+  .icon-google { @include icons-sprite(google); }
+  .icon-github { @include icons-sprite(github); }
+  .icon-weibo  { @include icons-sprite(weibo); }
+  i{
+    width:32px;
+    height:32px;
+  }
+}

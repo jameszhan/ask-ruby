@@ -2,13 +2,72 @@
 <html>
 <head>
   <title>Ask</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<%= yield %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">AskRubyist</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><%= link_to "Home" %></li>
+          <li><%= link_to "Question List" %></li>
+          <li><%= link_to "Contact Us" %></li>
+          <li><%= link_to "Tags" %></li>
+        </ul>        
+        <% if user_signed_in? %>
+          <div class="navbar pull-right">
+            Welcome <%= current_user.name %>! 
+            <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "navbar-link" %>
+          </div>
+        <% else %>
+            <div class="omniauth navbar pull-right" style="margin:0; padding:0">
+            <% [:github, :weibo].each do |provider| -%>
+              <%= link_to user_omniauth_authorize_path(provider) do -%>
+                <i class="icon-<%= provider %>"></i>'
+              <% end -%>
+            <% end -%>
+            <i class="icon-google"></i>
+            <%= link_to new_user_session_path do -%>
+              <i class="icon-google"></i>'
+            <% end -%>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+      <a class="close" data-dismiss="alert">×</a>
+      <%= msg %>
+    </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="span9"><%= yield %></div>
+    <div class="span3">
+      <h2>About Us</h2>
+
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
