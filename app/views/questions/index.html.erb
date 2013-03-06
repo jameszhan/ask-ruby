@@ -1,0 +1,18 @@
+<h1>Questions Lists</h1>
+<div class="row">
+  <% @questions.each do |question|  %>
+  <div class="span8">
+    <p>
+      <h3><%= question.title %></h3>
+    </p>
+    <div>
+      <a>tag1</a> <a>tag2</a>
+    </div>
+    <div>
+      author: <%= question.user.username %> • 2 days ago • votes 2 • views 2 • answers 2
+    </div>
+  </div>
+  <% end %>
+  <hr style="margin: 6px 0px; border-bottom: 1px solid #f2fdd1"/>
+</div>
+

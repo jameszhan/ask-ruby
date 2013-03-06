@@ -39,7 +39,8 @@ class User
   # field :authentication_token, :type => String
   
   has_many :authentications, :dependent => :destroy
-  
+  has_many :questions
+
   @@validation = true
   def self.with_no_validation 
     @@validation = false
