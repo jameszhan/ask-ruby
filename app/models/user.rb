@@ -38,7 +38,8 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
-  has_many :authentications, :dependent => :destroy
+  #has_many :authentications, :dependent => :destroy
+  embeds_many :authentications
   
   @@validation = true
   def self.with_no_validation 
@@ -56,25 +57,26 @@ class User
     @@validation && super
   end
   
-  def self.from_omniauth(omniauth)    
-    authentication = Authentication.where(omniauth.slice(:provider, :uid)).first_or_create do |auth|
-      unless auth.user
-        with_no_validation do
-          user = create_user_from_omniauth(omniauth)
-          user.authentications << auth
-        end
+  
+  
+  def self.from_omniauth(omniauth) 
+    user = find_by_omniauth(omniauth).first
+    unless user
+      with_no_validation do
+        user = create(username: omniauth.info.nickname) do |user|
+          user.email = omniauth.info.email if omniauth.info.email
+          user.password = Devise.friendly_token[0, 20]
+          user.username = omniauth.info.nickname
+          user.authentications.build(omniauth.slice(:provider, :uid))
+        end  
       end
     end
-    authentication.user   
+    user
   end
   
-  private 
-    def self.create_user_from_omniauth(omniauth) 
-      create(username: omniauth.info.nickname) do |user|
-        user.email = omniauth.info.email if omniauth.info.email
-        user.password = Devise.friendly_token[0, 20]
-        user.username = omniauth.info.nickname 
-      end
-    end
+  def self.find_by_omniauth(omniauth)
+    where(omniauth.slice(:provider, :uid).inject({}){|h, item| h.tap{h["authentications.#{item[0]}"] = item[1]}})
+  end
+  
   
 end

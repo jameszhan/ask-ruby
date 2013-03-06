@@ -20,9 +20,9 @@ describe User do
   let(:omniauth_with_email){
     omniauth.merge(uid: "111111", info: {email: email})
   }
-  context "Save user to database." do       
+  context "Save user to database." do  
+    before(:each){ User.find_by_omniauth(omniauth).delete }     
     it "new user" do
-      auth = Authentication.where(omniauth.slice(:uid, :provider)).each { |auth| auth.user.try(:destroy) }
       expect {
         User.from_omniauth(omniauth)          
       }.to change(User, :count).by(1)   
@@ -55,6 +55,13 @@ describe User do
       user.authentications.detect{|auth| auth.uid.eql?(uid) && auth.provider.eql?(provider)}.should_not be_nil
     end
 
+  end
+  
+  context "help method find_by_omniauth" do
+    it "should return user when there is a user in database." do
+      User.from_omniauth(omniauth)
+      User.find_by_omniauth(omniauth).should_not be_empty
+    end
   end
   
 end
