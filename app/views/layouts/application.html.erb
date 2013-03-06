@@ -34,15 +34,14 @@
             <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "navbar-link" %>
           </div>
         <% else %>
-            <div class="omniauth navbar pull-right" style="margin:0; padding:0">
-            <% [:github, :weibo].each do |provider| -%>
-              <%= link_to user_omniauth_authorize_path(provider) do -%>
-                <i class="icon-<%= provider %>"></i>'
+            <div class="logins navbar pull-right" style="margin:0; padding:0">
+              <%= link_to new_user_session_path do -%>
+                <i class="icon-home"></i>
               <% end -%>
-            <% end -%>
-            <i class="icon-google"></i>
-            <%= link_to new_user_session_path do -%>
-              <i class="icon-google"></i>'
+            <% resource_class.omniauth_providers.each do |provider| -%>
+              <%= link_to user_omniauth_authorize_path(provider) do -%>
+                <i class="icon-<%= provider %>"></i>
+              <% end -%>
             <% end -%>
             </div>
             <% end %>
@@ -64,7 +63,6 @@
     <div class="span9"><%= yield %></div>
     <div class="span3">
       <h2>About Us</h2>
-
     </div>
   </div>
 </div>
