@@ -2,9 +2,11 @@
   <div class="logins">
     <h3 class="text-info">Please click any of the icons below to sign in</h3>
     <%- resource_class.omniauth_providers.each do |provider| %>
+    <div class="login-button">
       <%= link_to omniauth_authorize_path(resource_name, provider) do -%>
-        <i class="icon-<%= provider %>"></i>
+        <span class="icon-<%= provider %>"><%= provider.to_s.humanize %></span>
       <% end -%>
+    </div>
     <% end -%>
   </div>
   <div class="span10">   

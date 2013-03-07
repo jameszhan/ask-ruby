@@ -1,5 +1,5 @@
-//@import "compass";
-//@import "compass/reset";
+@import "compass";
+@import "compass/reset";
 @import "icons/*.png";
 
 
@@ -12,6 +12,26 @@
   i{
     width: 32px;
     height: 32px;
+  }
+  a {
+    display: inline-block;
+  }
+  div.login-button{
+    @include border-radius(5px);
+    border: 2px #cccfcc solid;
+    background-color: #f0f0f0;
+    float: left;
+    padding: 5px 10px;
+    margin-right: 10px;
+    span {
+      width: 32px;
+      height: 32px;
+      padding-left: 35px;
+      height: 32px;
+      line-height: 32px;
+      font-weight: bold;
+      width: 50px;
+    }
   }
 }
 
