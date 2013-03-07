@@ -38,7 +38,9 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
+
   #has_many :authentications, :dependent => :destroy
+  has_many :questions
   embeds_many :authentications
   
   @@validation = true
