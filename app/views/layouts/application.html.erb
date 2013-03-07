@@ -38,7 +38,7 @@
               <%= link_to new_user_session_path do -%>
                 <i class="icon-home"></i>
               <% end -%>
-            <% resource_class.omniauth_providers.each do |provider| -%>
+            <% User.omniauth_providers.each do |provider| -%>
               <%= link_to user_omniauth_authorize_path(provider) do -%>
                 <i class="icon-<%= provider %>"></i>
               <% end -%>
