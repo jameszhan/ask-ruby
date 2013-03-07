@@ -1,5 +1,8 @@
 Ask::Application.routes.draw do
   
+  resources :questions
+
+
   root :to => 'questions#index'
   
   resources :questions, only: [:index]
