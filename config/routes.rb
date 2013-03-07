@@ -4,8 +4,6 @@ Ask::Application.routes.draw do
 
 
   root :to => 'questions#index'
-  
-  resources :questions, only: [:index]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

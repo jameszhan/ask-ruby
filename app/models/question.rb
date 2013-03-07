@@ -4,6 +4,9 @@ class Question
   
   field :title, type: String
   field :body, type: String
+  field :answers_count, type: Integer, default: 0
+  field :views_count, type: Integer, default: 0
+  field :votes_count, type: Integer, default: 0
 
   validates_presence_of :title
   validates_length_of   :title, in: 5..100
