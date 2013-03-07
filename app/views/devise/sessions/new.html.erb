@@ -1,0 +1,43 @@
+<div class="row-fluid">  
+  <div class="logins">
+    <h3 class="text-info">Please click any of the icons below to sign in</h3>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to omniauth_authorize_path(resource_name, provider) do -%>
+        <i class="icon-<%= provider %>"></i>
+      <% end -%>
+    <% end -%>
+  </div>
+  <div class="span10">   
+    <h5>or enter your AskRubyist user name and password, then sign in</h5>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal devise-form' }) do |f| %>
+      <div class="control-group">
+        <%= f.label :email, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :email, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :password, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :password, :class => 'text_field' %>
+          <% if devise_mapping.rememberable? -%>
+            <label class="checkbox">
+              <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+            </label>
+          <% end -%>
+        </div>
+      </div>  
+      <div class="control-group no-margin">
+        <%= f.submit "Sign in", :class => "btn" %>
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to "Create a password-protected account", new_registration_path(resource_name) %><br />
+        <% end -%> 
+      </div>
+        Still have trouble signing in? - 
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+          <%= link_to "recover your account via email", new_password_path(resource_name) %><br />
+        <% end -%>
+    <% end %>
+  </div>
+</div>
+

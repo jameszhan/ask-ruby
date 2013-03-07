@@ -16,6 +16,7 @@ gem 'mongoid'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'omniauth-weibo', :git => 'git://github.com/jameszhan/omniauth-weibo.git'
 
 
 # Gems used only for assets and not required
@@ -28,6 +29,8 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass', '~> 2.3.0.1'
+  gem 'compass-rails'
 end
 
 gem 'jquery-rails'
