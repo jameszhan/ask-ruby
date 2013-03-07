@@ -23,6 +23,10 @@ class User
   field :last_sign_in_at,    :type => Time
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String  
+  
+  field :username, :type => String
+  
+  alias_method :name, :username
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -65,7 +69,8 @@ class User
     user = find_by_omniauth(omniauth).first
     unless user
       with_no_validation do
-        user = create(username: omniauth.info.nickname) do |user|
+        user = create do |user|
+          user.username = omniauth.info.nickname
           user.email = omniauth.info.email if omniauth.info.email
           user.password = Devise.friendly_token[0, 20]
           user.username = omniauth.info.nickname
