@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/jameszhan/ask-ruby.png)](https://codeclimate.com/github/jameszhan/ask-ruby)
+
 ask-ruby
 ========
 
