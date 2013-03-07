@@ -20,11 +20,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">AskRubyist</a>
+      <%= link_to "AskRubyist", root_path, class: "brand" %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Home" %></li>
-          <li><%= link_to "Question List" %></li>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Question List", questions_path %></li>
           <li><%= link_to "Contact Us" %></li>
           <li><%= link_to "Tags" %></li>
         </ul>        
