@@ -18,26 +18,26 @@ describe "Questions page" do
 
     end
     
-    it "can visit questions should display questions list" do
+    it "should display each question title ,author" do
       Question.all.each do |question|
       	page.should have_content question.title
         page.should have_content question.user.username
       end
     end
 
-    it "guest can see each question's viewed times" do
+    it "should see each question's viewed times" do
       Question.all.each do |question|
         page.should have_content question.views_count
       end
     end
 
-    it "guest can see each question's answers number" do
+    it "should see each question's answers number" do
       Question.all.each do |question|
         page.should have_content question.answers_count
       end
     end
 
-    it "guest can see each question's voted number" do
+    it "should see each question's voted number" do
       Question.all.each do |question|
         page.should have_content question.votes_count
       end
