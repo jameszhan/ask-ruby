@@ -1,7 +1,10 @@
 Ask::Application.routes.draw do
   
-  resources :questions
-
+  resources :questions do
+    collection do 
+      post :preview
+    end
+  end
 
   root :to => 'questions#index'
 

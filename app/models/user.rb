@@ -26,6 +26,9 @@ class User
   
   field :username, :type => String
   
+  field :roles, :type => Array, :default => [:member]
+  index :roles => 1
+  
   alias_method :name, :username
 
   ## Confirmable
@@ -64,7 +67,10 @@ class User
   end
   
   
-  
+  def is?(role)
+    roles.include?(role)
+  end
+    
   def self.from_omniauth(omniauth) 
     user = find_by_omniauth(omniauth).first
     unless user

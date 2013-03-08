@@ -17,6 +17,11 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-weibo', :git => 'git://github.com/jameszhan/omniauth-weibo.git'
+gem 'cancan'
+
+gem 'simple_form', "2.0.2"
+gem 'redcarpet'
+gem 'coderay'
 
 
 # Gems used only for assets and not required

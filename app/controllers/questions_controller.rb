@@ -1,4 +1,5 @@
-class QuestionsController < ApplicationController
+class QuestionsController < ApplicationController  
+  authorize_resource :only => [:new, :edit, :create, :update, :destroy]
   # GET /questions
   # GET /questions.json
   def index
@@ -80,4 +81,12 @@ class QuestionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def preview
+    @body = params[:body]
+    respond_to do |format|
+      format.json
+    end
+  end
+  
 end

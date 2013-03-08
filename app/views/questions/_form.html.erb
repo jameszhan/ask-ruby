@@ -1,25 +1,24 @@
-<%= form_for(@question) do |f| %>
-  <% if @question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+<div class="box" style="width:700px">
+<%= simple_form_for @question do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Question</legend>
+    <%= render "shared/error_messages", :target => @question %>
 
-      <ul>
-      <% @question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <%= f.input :title, input_html: { class: "xxlarge" } %>
+    
+    <div class="control-group edit_tools">
+      <label class="control-label"></label>
+      <div class="controls">
+        <%= render "editor_toolbar" %>
+      </div>
     </div>
-  <% end %>
+    <%= f.input :body, as: :text, input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" }%>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.submit t("common.save"), :class => "btn btn-primary", 'data-disable-with' => t("common.saving") %>
+      <%= link_to t("common.cancel"), questions_path, :class => "btn reset" %>
+    </div>
+  </fieldset>
 <% end %>
+</div>
+
