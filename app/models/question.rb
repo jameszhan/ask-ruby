@@ -15,7 +15,7 @@ class Question
   belongs_to :user
 
   def viewed!(user)
-    if user
+    if user && user != self.user
       view_count_id = "#{self.id}-#{user.id}"
       if ViewsCount.where({ identity: view_count_id }).first.nil?
         ViewsCount.create(identity: view_count_id)

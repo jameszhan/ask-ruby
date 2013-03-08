@@ -29,13 +29,15 @@ describe QuestionsController do
       body: "Hello World! AAAAA"
     }
   end
-
+  
+  
   describe "GET index" do
     it "assigns all questions as @questions" do
       get :index, {}
       assigns(:questions).should eq([question])
     end
   end
+    
 
   describe "GET show" do
     it "assigns the requested question as @question" do

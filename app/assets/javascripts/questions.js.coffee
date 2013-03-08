@@ -37,6 +37,10 @@ $(document).ready ->
   $("#question_add_image").on "click", () ->
     $("#question_upload_images").click()
     return false
+  $("#by_age").on "click", () ->
+    sort = $(this).data("sort")
+    href = $(this).attr('href')
+    
     
   Questions.hookPreview($(".editor_toolbar"), $(".questions_editor"))
   return

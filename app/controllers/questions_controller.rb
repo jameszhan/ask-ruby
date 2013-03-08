@@ -1,9 +1,34 @@
 class QuestionsController < ApplicationController  
   authorize_resource :only => [:new, :edit, :create, :update, :destroy]
+
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    sort = params[:sort] || 'activity-desc'
+    case sort
+      when 'date-desc'
+        order = :created_at.desc
+      when 'date-asc'
+        order = :created_at.asc
+      when 'votes-desc'
+        order = :votes_count.desc
+      when 'votes-asc'
+        order = :votes_count.asc
+      when 'views-desc'
+        order = :views_count.desc
+      when 'views-asc'
+        order = :views_count.asc
+      when 'answers-desc'
+        order = :answers_count.desc
+      when 'answers-asc'
+        order = :answers_count.asc
+      when 'activity-asc'
+        order = :updated_at.asc
+    else
+      order = :updated_at.desc
+    end
+    
+    @questions = Question.all.order_by(order)
 
     respond_to do |format|
       format.html # index.html.erb

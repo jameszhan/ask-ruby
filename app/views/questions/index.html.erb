@@ -1,15 +1,36 @@
 <h1>Questions Lists</h1>
+<div id="sort_tabs" class="pagination">
+  <ul class="breadcrumb">
+    <li><span>Sort by »</span></li>
+    <li>
+      <a id="by_age" href="/questions?sort=date-desc" data-sort="date-asc" title="click to see the newest questions"><span>by date</span></a>
+    </li>
+    <li class="active">
+      <a id="by_activity" href="/questions?sort=activity-desc" data-sort="activity-asc" title="click to see the least recently updated questions"><span>by activity ▼</span></a>
+    </li>
+    <li>
+      <a id="by_answers" href="/questions?sort=answers-desc" data-sort="answers-asc" title="click to see the most answered questions"><span>by answers</span></a>
+    </li>
+    <li>
+      <a id="by_views" href="/questions?sort=views-desc" data-sort="views-asc" title="click to see the most answered questions"><span>by views</span></a>
+    </li>
+    <li>
+      <a id="by_votes" href="/questions?sort=votes-desc" data-sort="votes-asc" title="click to see most voted questions"><span>by votes</span></a>
+    </li>
+  </ul> 
+</div>
+
 <div class="row">
   <% @questions.each do |question|  %>
-  <div class="span8">
-    <p>
-      <h3><%= link_to question.title, question_path(question) %></h3>
-    </p>
+  <div class="span8" style="padding-bottom: 3px; border-bottom: 1px solid #DDDBCE;">
+    
+    <h3><%= link_to question.title, question_path(question) %></h3>
+    
     <div>
       <a>tag1</a> <a>tag2</a>
     </div>
     <div>
-      author: <%= question.user.username %> • <%= time_ago_in_words(question.created_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
+      author: <%= question.user.username %> • <%= time_ago_in_words(question.updated_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
     </div>
   </div>
   <% end %>
