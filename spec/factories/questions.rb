@@ -2,5 +2,8 @@
 
 FactoryGirl.define do
   factory :question do
+    title 'title'
+    body 'body is too short!'
+    association :user
   end
 end

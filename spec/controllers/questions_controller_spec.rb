@@ -19,52 +19,45 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe QuestionsController do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Question. As you add validations to Question, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    { title: "Test Question"  }
-  end
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # QuestionsController. Be sure to keep this updated too.
-  def valid_session
-    { remember_token: "YXjPrFfsK8SFQOQDEa90ow" }
+  
+  let(:question) { FactoryGirl.create(:question) }
+  let(:user) { FactoryGirl.create(:user) }
+               
+  def valid_attributes 
+    {
+      title: "Question",
+      body: "Hello World! AAAAA"
+    }
   end
 
   describe "GET index" do
     it "assigns all questions as @questions" do
-      question = Question.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:questions).should eq([question])
     end
   end
 
   describe "GET show" do
     it "assigns the requested question as @question" do
-      question = Question.create! valid_attributes
-      get :show, {:id => question.to_param}, valid_session
+      get :show, {:id => question.to_param}
       assigns(:question).should eq(question)
     end
   end
   
-  context "User have already login" do
+  context "as user login" do
     
-    before(:each) { session[:user_id] = FactoryGirl.create(:user).id }
+    before(:each) { sign_in user }
     
     describe "GET new" do
       it "assigns a new question as @question" do
-        get :new, {}, valid_session
+        get :new, {}
         assigns(:question).should be_a_new(Question)
       end
     end
     
     describe "GET edit" do
       it "assigns the requested question as @question" do
-        question = Question.create! valid_attributes
-        get :edit, {:id => question.to_param}, valid_session
+        get :edit, {:id => question.to_param}
         assigns(:question).should eq(question)
       end
     end
@@ -73,18 +66,18 @@ describe QuestionsController do
       describe "with valid params" do
         it "creates a new Question" do
           expect {
-            post :create, {:question => valid_attributes}, valid_session
+            post :create, {:question => valid_attributes}
           }.to change(Question, :count).by(1)
         end
 
         it "assigns a newly created question as @question" do
-          post :create, {:question => valid_attributes}, valid_session
+          post :create, {:question => valid_attributes}
           assigns(:question).should be_a(Question)
           assigns(:question).should be_persisted
         end
 
         it "redirects to the created question" do
-          post :create, {:question => valid_attributes}, valid_session
+          post :create, {:question => valid_attributes}
           response.should redirect_to(Question.last)
         end
       end
@@ -93,14 +86,14 @@ describe QuestionsController do
         it "assigns a newly created but unsaved question as @question" do
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
-          post :create, {:question => {  }}, valid_session
+          post :create, {:question => {  }}
           assigns(:question).should be_a_new(Question)
         end
 
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
-          post :create, {:question => {  }}, valid_session
+          post :create, {:question => {  }}
           response.should render_template("new")
         end
       end
@@ -109,24 +102,21 @@ describe QuestionsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested question" do
-          question = Question.create! valid_attributes
           # Assuming there are no other questions in the database, this
           # specifies that the Question created on the previous line
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
           Question.any_instance.should_receive(:update_attributes).with({ "these" => "params" })
-          put :update, {:id => question.to_param, :question => { "these" => "params" }}, valid_session
+          put :update, {:id => question.to_param, :question => { "these" => "params" }}
         end
 
         it "assigns the requested question as @question" do
-          question = Question.create! valid_attributes
-          put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
+          put :update, {:id => question.to_param, :question => valid_attributes}
           assigns(:question).should eq(question)
         end
 
         it "redirects to the question" do
-          question = Question.create! valid_attributes
-          put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
+          put :update, {:id => question.to_param, :question => valid_attributes}
           response.should redirect_to(question)
         end
       end
@@ -136,7 +126,7 @@ describe QuestionsController do
           question = Question.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
-          put :update, {:id => question.to_param, :question => {  }}, valid_session
+          put :update, {:id => question.to_param, :question => {  }}
           assigns(:question).should eq(question)
         end
 
@@ -144,23 +134,98 @@ describe QuestionsController do
           question = Question.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
-          put :update, {:id => question.to_param, :question => {  }}, valid_session
+          put :update, {:id => question.to_param, :question => {  }}
           response.should render_template("edit")
         end
       end
     end
 
-    describe "DELETE destroy" do
+    describe "DELETE destroy" do    
       it "destroys the requested question" do
-        question = Question.create! valid_attributes
+        question = Question.create! valid_attributes 
         expect {
-          delete :destroy, {:id => question.to_param}, valid_session
+          delete :destroy, {:id => question.to_param}
         }.to change(Question, :count).by(-1)
       end
 
       it "redirects to the questions list" do
         question = Question.create! valid_attributes
-        delete :destroy, {:id => question.to_param}, valid_session
+        delete :destroy, {:id => question.to_param}
+        response.should redirect_to(questions_url)
+      end
+    end
+    
+  end
+  
+  context "as user unlogin" do
+        
+    describe "GET new" do
+      it "assigns a new question as @question" do
+        get :new, {}
+        response.should redirect_to(questions_url)
+      end
+    end
+    
+    describe "GET edit" do
+      it "assigns the requested question as @question" do
+        get :edit, {:id => question.to_param}
+        response.should redirect_to(questions_url)
+      end
+    end
+    
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested question" do
+          # Assuming there are no other questions in the database, this
+          # specifies that the Question created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Question.any_instance.should_not_receive(:update_attributes).with({ "these" => "params" })
+          put :update, {:id => question.to_param, :question => { "these" => "params" }}
+          response.should redirect_to(questions_url)
+        end
+
+        it "assigns the requested question as @question" do
+          put :update, {:id => question.to_param, :question => valid_attributes}
+          response.should redirect_to(questions_url)
+        end
+
+        it "redirects to the question" do
+          put :update, {:id => question.to_param, :question => valid_attributes}
+          response.should redirect_to(questions_url)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the question as @question" do
+          question = Question.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          put :update, {:id => question.to_param, :question => {  }}
+          response.should redirect_to(questions_url)
+        end
+
+        it "re-renders the 'edit' template" do
+          question = Question.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          put :update, {:id => question.to_param, :question => {  }}
+          response.should redirect_to(questions_url)
+        end
+      end
+    end
+
+    describe "DELETE destroy" do    
+      it "destroys the requested question" do
+        question = Question.create! valid_attributes 
+        expect {
+          delete :destroy, {:id => question.to_param}
+        }.to change(Question, :count).by(0)
+      end
+
+      it "redirects to the questions list" do
+        question = Question.create! valid_attributes
+        delete :destroy, {:id => question.to_param}
         response.should redirect_to(questions_url)
       end
     end
