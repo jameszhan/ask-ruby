@@ -12,7 +12,8 @@
         <%= render "editor_toolbar" %>
       </div>
     </div>
-    <%= f.input :body, as: :text, input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" }%>
+    <%= f.input :body, as: :text, input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" } %>
+    <%= f.input :tags, as: :select, collection: tag_list, input_html: { multiple: "multiple" } %>
 
     <div class="form-actions">
       <%= f.submit t("common.save"), :class => "btn btn-primary", 'data-disable-with' => t("common.saving") %>

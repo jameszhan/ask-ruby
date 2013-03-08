@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    @question.viewed!(current_user)
+    @question.viewed!(request.remote_ip)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -27,7 +27,6 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     #@question = Question.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @question }

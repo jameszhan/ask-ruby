@@ -11,14 +11,7 @@ class Ability
       # admin
       can :manage, :all
     elsif user.is?(:member)
-      # Question
-      can :create, Question
-      can :update, Question do |question|
-        question.user_id == user.id
-      end
-      can :destroy, Question do |question|
-        question.user_id == user.id
-      end   
+      auth_control(user, Question, Tag)  
     else
       # banned or unknown situation
       cannot :manage, :all
@@ -27,6 +20,17 @@ class Ability
   end
 
   protected
+    def auth_control(user, *resources)
+      resources.each do |resource_class|
+        can :create, resource_class
+        can :update, resource_class do |resource|
+          resource.user_id == user.id
+        end
+        can :destroy, resource_class do |resource|
+          resource.user_id == user.id
+        end
+      end
+    end
     def basic_read_only
       can :read, Question     
     end

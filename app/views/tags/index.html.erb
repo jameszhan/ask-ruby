@@ -1,0 +1,29 @@
+<h1><%= t("mongoid.models.tag") %></h1>
+<div id="tags">
+  <table class="table table-bordered table-striped table-condensed">
+    <tr class="head">
+      <td>编号</td>
+      <td><%= t("mongoid.attributes.tag.name") %></td>
+      <td><%= t("mongoid.attributes.tag.description") %></td>
+      <td><%= t("mongoid.attributes.tag.count") %></td>
+      <td>创建时间</td>
+      <td class="opts"></td>
+    </tr>
+    <% @tags.each do |item| %>
+    <tr class="<%= cycle("","even") %>">
+      <td><%= item.id %></td>
+      <td><%= link_to item.name, tag_path(item) %></td>
+      <td><%= item.description %></td>
+      <td><%= item.count %></td>
+      <td><%= l(item.created_at, :format => :long) %></td>
+      <td>
+        <%= link_to "", edit_tag_path(item.id), :class => "icon small_edit" %>
+        <%= link_to "", tag_path(item.id), :method => :delete, 'data-confirm' => '确定要删除吗?', :class => "icon small_delete" %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<div class="tools">
+  <a href="<%= new_tag_path %>" class="btn btn-small btn-success">新建</a>
+</div>
