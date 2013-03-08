@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-
+    @question.viewed!(current_user)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(params[:question])
-    @question.user = current_user
+    @question.user_id = current_user.id
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }

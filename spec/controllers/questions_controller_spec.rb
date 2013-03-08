@@ -24,14 +24,14 @@ describe QuestionsController do
   # Question. As you add validations to Question, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {  }
+    { title: "Test Question"  }
   end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # QuestionsController. Be sure to keep this updated too.
   def valid_session
-    {}
+    { remember_token: "YXjPrFfsK8SFQOQDEa90ow" }
   end
 
   describe "GET index" do
@@ -52,7 +52,7 @@ describe QuestionsController do
   
   context "User have already login" do
     
-    before(:each) { current_user = FactoryGirl.create(:user)  }
+    before(:each) { session[:user_id] = FactoryGirl.create(:user).id }
     
     describe "GET new" do
       it "assigns a new question as @question" do
@@ -168,3 +168,4 @@ describe QuestionsController do
   end
   
 end
+
