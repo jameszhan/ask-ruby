@@ -13,11 +13,6 @@ class Tag
   
   belongs_to :user
     
-  def self.safe_build(tag_params)
-    tag_params[:name] = tag_params[:name].parameterize
-    new(tag_params)
-  end
-  
   def self.list
     all.map(&:name)
   end
