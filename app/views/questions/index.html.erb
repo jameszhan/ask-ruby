@@ -9,7 +9,7 @@
       <a>tag1</a> <a>tag2</a>
     </div>
     <div>
-      author: <%= question.user.username %> • <%= time_ago_in_words(question.created_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
+      author: <%= question.user.name %> • <%= time_ago_in_words(question.created_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
     </div>
   </div>
   <% end %>

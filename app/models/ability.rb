@@ -14,10 +14,10 @@ class Ability
       # Question
       can :create, Question
       can :update, Question do |question|
-        (question.user_id == user.id)
+        question.user_id == user.id
       end
       can :destroy, Question do |question|
-         (question.user_id == user.id)
+        question.user_id == user.id
       end   
     else
       # banned or unknown situation
