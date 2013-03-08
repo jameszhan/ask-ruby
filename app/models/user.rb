@@ -24,12 +24,11 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String  
   
-  field :username, :type => String
+  field :name, :type => String
   
   field :roles, :type => Array, :default => [:member]
   index :roles => 1
   
-  alias_method :name, :username
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -76,10 +75,9 @@ class User
     unless user
       with_no_validation do
         user = create do |user|
-          user.username = omniauth.info.nickname
           user.email = omniauth.info.email if omniauth.info.email
           user.password = Devise.friendly_token[0, 20]
-          user.username = omniauth.info.nickname
+          user.name = omniauth.info.nickname
           user.authentications.build(omniauth.slice(:provider, :uid))
         end  
       end

@@ -46,8 +46,8 @@ describe User do
       user_with_email.email.should == email
     end
   
-    it "check username" do
-      user.username.should == username
+    it "check user.name" do
+      user.name.should == username
     end
     
     it "check authentications" do

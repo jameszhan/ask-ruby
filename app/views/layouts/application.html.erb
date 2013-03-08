@@ -25,7 +25,7 @@
         <ul class="nav">
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Question List", questions_path %></li>
-          <li><%= link_to "Contact Us" %></li>
+          <li><%= link_to "Ask Question", new_question_path %></li>
           <li><%= link_to "Tags" %></li>
         </ul>        
         <% if user_signed_in? %>
