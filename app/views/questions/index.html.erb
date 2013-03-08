@@ -3,16 +3,15 @@
   <% @questions.each do |question|  %>
   <div class="span8">
     <p>
-      <h3><%= question.title %></h3>
+      <h3><%= link_to question.title, question_path(question) %></h3>
     </p>
     <div>
       <a>tag1</a> <a>tag2</a>
     </div>
     <div>
-      author: <%= question.user.username %> • 2 days ago • votes 2 • views 2 • answers 2
+      author: <%= question.user.username %> • <%= time_ago_in_words(question.created_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
     </div>
   </div>
   <% end %>
-  <hr style="margin: 6px 0px; border-bottom: 1px solid #f2fdd1"/>
 </div>
 
