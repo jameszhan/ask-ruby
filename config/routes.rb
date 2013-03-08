@@ -1,11 +1,12 @@
 Ask::Application.routes.draw do
   
-  resources :questions
-
+  resources :questions do
+    collection do 
+      post :preview
+    end
+  end
 
   root :to => 'questions#index'
-  
-  resources :questions, only: [:index]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

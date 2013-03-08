@@ -1,13 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Title:</b>
-  <%= @question.title %>
+  <h2><%= @question.title %></h2>
 </p>
 
 <p>
-  <b>Body:</b>
-  <%= @question.body %>
+  <%= markdown @question.body %>
 </p>
 
 
