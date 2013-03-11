@@ -15,13 +15,11 @@ class Question
 
   belongs_to :user
 
-  def viewed!(user)
-    if user && user != self.user
-      view_count_id = "#{self.id}-#{user.id}"
-      if ViewsCount.where({ identity: view_count_id }).first.nil?
-        ViewsCount.create(identity: view_count_id)
-        self.inc(:views_count, 1)
-      end
-    end
+  def viewed!(ip)
+    view_count_id = "#{self.id}-#{ip}"
+    if ViewsCount.where({ identity: view_count_id }).first.nil?
+      ViewsCount.create(identity: view_count_id)
+      self.inc(:views_count, 1)
+    end    
   end
 end
