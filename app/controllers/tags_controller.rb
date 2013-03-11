@@ -26,7 +26,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   # GET /tags/new.json
   def new
-    #@tag = Tag.new
+    @tag = Tag.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,8 +42,7 @@ class TagsController < ApplicationController
   # POST /tags
   # POST /tags.json
   def create
-    params[:tag][:name] = params[:tag][:name].parameterize
-    @tag = Tag.new(params[:tag])
+    #@tag = Tag.new(params[:tag])
     @tag.user_id = current_user.id
     respond_to do |format|
       if @tag.save
@@ -59,8 +58,7 @@ class TagsController < ApplicationController
   # PUT /tags/1
   # PUT /tags/1.json
   def update
-    @tag = Tag.find(params[:id])
-    params[:tag][:name] = params[:tag][:name].parameterize
+    #@tag = Tag.find(params[:id])
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }

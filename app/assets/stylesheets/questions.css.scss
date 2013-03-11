@@ -43,7 +43,7 @@
 	color: #EAB243;
 }
 
-.short-summary .userinfo{
+.short-summary .userinfo {
 	text-align: right;
   line-height: 16px;
   font-family: Arial;
@@ -61,7 +61,7 @@ a {
 	cursor: pointer;
 }
 
-.tag-block{
+.tag-block {
 	margin: 15px
 }
 #box-shadow-answers {
@@ -74,11 +74,20 @@ a {
   @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
 }
 
-.inline-block{
+.inline-block {
 	@include inline-block;
 	@include box-shadow(#4A6B82 1px 1px 1px);
   padding: 1px 4px;
   background: #c4dae9;
   color: #4a6b82;
   font-size: 11px; 
+}
+
+form#new_question.form-horizontal {
+  .control-label {
+    //width: 130px;
+  }
+  .controls {
+    //margin-left: 130px;
+  }
 }

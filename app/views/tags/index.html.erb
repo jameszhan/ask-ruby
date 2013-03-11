@@ -1,4 +1,6 @@
-<h1><%= t("mongoid.models.tag") %></h1>
+<div class="page-header">
+  <h1><%=t 'mongoid.models.tag', :default => Tag.model_name.human.pluralize %></h1>
+</div>
 <div id="tags">
   <table class="table table-bordered table-striped table-condensed">
     <tr class="head">
@@ -17,13 +19,27 @@
       <td><%= item.count %></td>
       <td><%= l(item.created_at, :format => :long) %></td>
       <td>
-        <%= link_to "", edit_tag_path(item.id), :class => "icon small_edit" %>
-        <%= link_to "", tag_path(item.id), :method => :delete, 'data-confirm' => '确定要删除吗?', :class => "icon small_delete" %>
+        <% if can? :edit, item %>
+          <%= link_to edit_tag_path(item.id), :class => 'btn btn-mini' do %>
+            <i class="icon-pencil"></i><%= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+        <% end %>
+        <% if can? :destroy, item %>
+        <%= link_to tag_path(item.id),
+                    :method => :delete,
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-mini btn-danger' do %>
+          <i class="icon-trash"></i><%= t('.destroy', :default => t("helpers.links.destroy")) %>
+        <% end %>
+        <% end %>
       </td>
     </tr>
     <% end %>
   </table>
 </div>
 <div class="tools">
-  <a href="<%= new_tag_path %>" class="btn btn-small btn-success">新建</a>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_tag_path,
+              :class => 'btn btn-mini btn-primary' %>
 </div>
+

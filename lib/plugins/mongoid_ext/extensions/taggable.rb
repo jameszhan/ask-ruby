@@ -1,21 +1,17 @@
+# encoding: UTF-8
 module MongoidExt
   module Taggable
     extend ActiveSupport::Concern
-  
+    
     included do
-      class_eval do
-        field :tags, :type => Array, :default => []
-        index :tags => 1
-      end
+      field :tags, :type => Array, :default => []
+      index :tags => 1
+      scope :tagged_by, ->(*tags){ where :tags.in => tags }
     end  
-  
+
     module ClassMethods  
-      # Model.find_with_tags("budget", "big").limit(6)
-      def find_with_tags(*tags)
-        self.where({:tags.in => tags})
-      end  
-    end
-  
+      #Other class method here.      
+    end  
   end
 end
 

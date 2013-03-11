@@ -1,4 +1,4 @@
-<div class="box" style="width:700px">
+<div class="box">
 <%= simple_form_for @question do |f| %>
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Question</legend>
@@ -12,7 +12,9 @@
         <%= render "editor_toolbar" %>
       </div>
     </div>
-    <%= f.input :body, as: :text, input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" } %>
+    <%= f.input :body, as: :text, 
+      input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" },
+      :hint => "請使用 Markdown 格式編寫,可以試試用 <a href='http://mouapp.com' target='_blank'>Mou</a> 這個 App 来編寫。".html_safe %>
     <%= f.input :tags, as: :select, collection: tag_list, input_html: { multiple: "multiple" } %>
 
     <div class="form-actions">

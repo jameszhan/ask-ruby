@@ -6,6 +6,8 @@ Ask::Application.routes.draw do
   resources :questions do
     collection do 
       post :preview
+      get '/:filter' => 'questions#index', :as => :filtered, 
+        :constraints => { :filter => /all|unanswered|by_me|feed|preferred|contributed|tags\:(.*)|expertise/ }
     end
   end
 
