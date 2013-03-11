@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def current_node
+    @current_node ||= begin
+      Node.where(name: 'default', summary: 'The default node.').first_or_create!
+    end
+    @current_node
+  end
   
-  helper_method :current_tags
+  helper_method :current_node, :current_tags
 end

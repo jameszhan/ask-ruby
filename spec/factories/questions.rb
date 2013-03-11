@@ -5,12 +5,14 @@ FactoryGirl.define do
     title 'title'
     body 'body is too short!'
     association :user
+    association :node
   end
   
   factory :another_question, class: Question do
     title "Another Question with User admin"
     body "Another Question with User admin"
     association :user, factory: :admin
+    association :node
   end
   
 end

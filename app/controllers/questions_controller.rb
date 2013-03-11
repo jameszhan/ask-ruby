@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
       order = :updated_at.desc
     end
     
-    @questions = Question.all.order_by(order)
+    @questions = current_node.questions.order_by(order)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -68,6 +68,7 @@ class QuestionsController < ApplicationController
   def create
     #@question = Question.new(params[:question])
     @question.user_id = current_user.id
+    @question.node = current_node
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }

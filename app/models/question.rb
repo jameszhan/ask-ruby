@@ -14,6 +14,8 @@ class Question
   validates_length_of   :body, minimum: 5, allow_blank: true
 
   belongs_to :user
+  belongs_to :node
+  index :node_id => 1
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"

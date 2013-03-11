@@ -5,5 +5,6 @@ FactoryGirl.define do
     name "MyString"
     description "MyString"
     count 1
+    association :node
   end
 end

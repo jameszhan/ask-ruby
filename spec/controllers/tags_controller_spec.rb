@@ -20,8 +20,9 @@ require 'spec_helper'
 
 describe TagsController do
   
+  let(:node) { FactoryGirl.create(:node) }
   let(:user) { FactoryGirl.create(:user) }
-  let(:tag) { FactoryGirl.create(:tag, user: user) }
+  let(:tag) { FactoryGirl.create(:tag, user: user, node: node) }
 
   # This should return the minimal set of attributes required to create a valid
   # Tag. As you add validations to Tag, be sure to
@@ -39,7 +40,7 @@ describe TagsController do
 
   describe "GET index" do
     it "assigns all tags as @tags" do
-      tag = Tag.create! valid_attributes
+      tag.should_not be_nil
       get :index, {}
       assigns(:tags).should eq([tag])
     end
@@ -47,7 +48,7 @@ describe TagsController do
 
   describe "GET show" do
     it "assigns the requested tag as @tag" do
-      tag = Tag.create! valid_attributes
+      tag.should_not be_nil
       get :show, {:id => tag.to_param}
       assigns(:tag).should eq(tag)
     end
@@ -66,7 +67,7 @@ describe TagsController do
 
     describe "GET edit" do
       it "assigns the requested tag as @tag" do
-        tag = Tag.create! valid_attributes
+        tag.should_not be_nil
         get :edit, {:id => tag.to_param}
         assigns(:tag).should eq(tag)
       end
@@ -158,7 +159,7 @@ describe TagsController do
         tag.should_not be_nil
         expect {
           delete :destroy, {:id => tag.to_param}
-        }.to change(Tag, :count).by(-1)
+        }.to change{node.tags.count}.by(-1)
       end
 
       it "redirects to the tags list" do

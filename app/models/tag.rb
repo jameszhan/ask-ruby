@@ -11,7 +11,8 @@ class Tag
   validates_length_of :name, :minimum => 1  
   validates_uniqueness_of   :name
 
-  belongs_to :user
+  belongs_to :user  
+  embedded_in :node
     
   def self.list
     all.map(&:id)
