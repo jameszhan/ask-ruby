@@ -3,7 +3,7 @@
   <ul class="breadcrumb">
     <li><span>Sort by »</span></li>
     <li>
-      <a id="by_age" href="/questions?sort=date-desc" data-sort="date-asc" title="click to see the newest questions"><span>by date</span></a>
+      <a id="by_age" href="/questions?sort=date-desc" data-sort="/questions?sort=date-asc" title="click to see the newest questions"><span>by date</span></a>
     </li>
     <li class="active">
       <a id="by_activity" href="/questions?sort=activity-desc" data-sort="activity-asc" title="click to see the least recently updated questions"><span>by activity ▼</span></a>
@@ -22,15 +22,58 @@
 
 <div class="row">
   <% @questions.each do |question|  %>
-  <div class="span8" style="padding-bottom: 3px; border-bottom: 1px solid #DDDBCE;">
-    
-    <h3><%= link_to question.title, question_path(question) %></h3>
-    
-    <div>
-      <a>tag1</a> <a>tag2</a>
-    </div>
-    <div>
-      author: <%= question.user.name %> • <%= time_ago_in_words(question.created_at) %> ago • votes <%= question.votes_count %> • views <%= question.views_count %> • answers <%= question.answers_count %>
+  <div class="span9" style="border-bottom: 1px solid #DDDBCE;">
+    <div class="row">
+      <div class = "span7">
+        <p><%= link_to question.title, question_path(question) %></p>
+        
+        <div class="tag-block">
+          <a class="inline-block">tag1</a>
+          <a class="inline-block">tag2</a>
+        </div>
+      </div>
+      
+      <div class ="short-summary">
+        <% if question.answers_count >= 0 %>
+          <div id="box-shadow-answers" class="answers">
+            <span class="item-count"><%= question.answers_count %></span>  
+            <div>answers</div> 
+          </div>
+        <% else %>
+          <div class="answers">
+            <span class="no-count">no</span>  
+            <div>answers</div> 
+          </div>
+        <% end %>
+
+        <% if question.views_count >= 0 %>
+          <div id="box-shadow-views" class="views">
+            <span class="item-count"><%= question.views_count %></span>  
+            <div>views</div> 
+          </div>
+        <% else %>
+          <div class="views">
+            <span class="no-count">no</span>  
+            <div>views</div> 
+          </div>
+        <% end %>
+
+        <% if question.votes_count >= 0 %>
+          <div id="box-shadow-votes" class="votes">
+            <span class="item-count"><%= question.votes_count %></span>
+            <div>votes</div> 
+          </div>
+        <% else %>
+          <div class="votes">
+            <span class="no-count">no</span>
+            <div>votes</div> 
+          </div>
+        <% end %>
+        <div style="clear:both"></div>
+        <div class="userinfo">
+          <%= time_ago_in_words(question.created_at) %> ago <%= question.user.name %> 
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
