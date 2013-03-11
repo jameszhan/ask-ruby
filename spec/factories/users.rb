@@ -7,8 +7,8 @@ FactoryGirl.define do
     password "12345678"
     password_confirmation { password }
     roles [:member]
-  end
-  factory :admin do
+  end 
+  factory :admin, class: User do
     name "Admin"
     email "admin@askrubyist.com"
     password "12345678"

@@ -21,4 +21,8 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe    
   end
+  
+  def tag_list
+    Tag.list
+  end
 end

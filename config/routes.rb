@@ -1,5 +1,8 @@
 Ask::Application.routes.draw do
   
+  resources :tags
+
+
   resources :questions do
     collection do 
       post :preview

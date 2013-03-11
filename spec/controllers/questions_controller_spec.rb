@@ -20,8 +20,10 @@ require 'spec_helper'
 
 describe QuestionsController do
   
-  let(:question) { FactoryGirl.create(:question) }
+  
   let(:user) { FactoryGirl.create(:user) }
+  let(:question) { FactoryGirl.create(:question, user: user) }
+  let(:another_question) { FactoryGirl.create(:another_question) }
                
   def valid_attributes 
     {
@@ -62,9 +64,15 @@ describe QuestionsController do
         get :edit, {:id => question.to_param}
         assigns(:question).should eq(question)
       end
+      
+      it "can't edit the question not belongs_to current_user" do
+        get :edit, {:id => another_question.to_param}
+        response.should redirect_to(questions_path)
+      end
     end
-    
+        
     describe "POST create" do
+            
       describe "with valid params" do
         it "creates a new Question" do
           expect {
@@ -108,8 +116,8 @@ describe QuestionsController do
           # specifies that the Question created on the previous line
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
-          Question.any_instance.should_receive(:update_attributes).with({ "these" => "params" })
-          put :update, {:id => question.to_param, :question => { "these" => "params" }}
+          Question.any_instance.should_receive(:update_attributes).with({ "title" => "params" })
+          put :update, {:id => question.to_param, :question => { "title" => "params" }}
         end
 
         it "assigns the requested question as @question" do
@@ -122,10 +130,10 @@ describe QuestionsController do
           response.should redirect_to(question)
         end
       end
-
+      
       describe "with invalid params" do
         it "assigns the question as @question" do
-          question = Question.create! valid_attributes
+          question.should_not be_nil
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
           put :update, {:id => question.to_param, :question => {  }}
@@ -133,25 +141,53 @@ describe QuestionsController do
         end
 
         it "re-renders the 'edit' template" do
-          question = Question.create! valid_attributes
+          question.should_not be_nil
           # Trigger the behavior that occurs when invalid params are submitted
           Question.any_instance.stub(:save).and_return(false)
           put :update, {:id => question.to_param, :question => {  }}
           response.should render_template("edit")
         end
       end
+      
+      
+      describe "update question not belongs_to current user" do
+        it "updates the requested question" do
+          # Assuming there are no other questions in the database, this
+          # specifies that the Question created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Question.any_instance.should_not_receive(:update_attributes).with({ "title" => "New Title" })
+          put :update, {:id => another_question.to_param, :question => { "title" => "New Title" }}
+          flash[:alert].should_not be_empty
+        end
+        
+        it "assigns the requested question as @question" do
+          put :update, {:id => another_question.to_param, :question => valid_attributes}          
+          response.should redirect_to(questions_path)
+          flash[:alert].should_not be_empty
+        end
+
+      end
     end
 
     describe "DELETE destroy" do    
       it "destroys the requested question" do
-        question = Question.create! valid_attributes 
+        question.should_not be_nil
         expect {
-          delete :destroy, {:id => question.to_param}
+          delete :destroy, {:id => question.to_param}      
         }.to change(Question, :count).by(-1)
+      end
+      
+      it "destroys the requested question not belongs_to current_user" do
+        another_question.should_not be_nil
+        expect {
+          delete :destroy, {:id => another_question.to_param}      
+        }.to change(Question, :count).by(0)
+        flash[:alert].should_not be_empty
       end
 
       it "redirects to the questions list" do
-        question = Question.create! valid_attributes
+        question.should_not be_nil
         delete :destroy, {:id => question.to_param}
         response.should redirect_to(questions_url)
       end
@@ -217,18 +253,12 @@ describe QuestionsController do
       end
     end
 
-    describe "DELETE destroy" do    
+    describe "DELETE destroy" do 
       it "destroys the requested question" do
-        question = Question.create! valid_attributes 
+        question #load the resouce
         expect {
           delete :destroy, {:id => question.to_param}
         }.to change(Question, :count).by(0)
-      end
-
-      it "redirects to the questions list" do
-        question = Question.create! valid_attributes
-        delete :destroy, {:id => question.to_param}
-        response.should redirect_to(questions_url)
       end
     end
     

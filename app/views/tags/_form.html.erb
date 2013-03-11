@@ -1,0 +1,15 @@
+
+<div id="tag" class="form box">
+
+<%= simple_form_for(@tag) do |f| %>
+  <%= render "/shared/error_messages", :target => @tag  %>
+  <fieldset>
+    <legend><%= t("common.edit") %> Tag</legend>
+      <%= f.input :name %>
+      <%= f.input :description, as: :text, input_html:{ class: "xxlarge", style: "height: 100px"} %>
+      <div class="form-actions">
+      <%= f.submit t("common.save"), :class => "btn btn-primary" %> or <%= link_to t("common.cancel"), tags_path %>
+    </div>
+  </fieldset>
+<% end %>
+</div>
