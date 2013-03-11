@@ -20,6 +20,6 @@ class Question
     if ViewsCount.where({ identity: view_count_id }).first.nil?
       ViewsCount.create(identity: view_count_id)
       self.inc(:views_count, 1)
-    end
+    end    
   end
 end
