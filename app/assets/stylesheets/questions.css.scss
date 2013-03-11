@@ -1,3 +1,84 @@
 // Place all the styles related to the questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "compass/css3";
+
+.short-summary {
+	position: relative;
+  padding: 10px 0 3px 0;
+  margin-bottom: 1px;
+  overflow: hidden;
+  float: left;
+}
+
+.short-summary .votes,
+.short-summary .answers,
+.short-summary .views {
+  text-align: center;
+  margin: 0 3px;
+  padding: 8px 2px 0px 2px;
+  width: 51px;
+  float: right;
+  height: 44px;
+  border: #ccc 1px solid;
+}
+
+.short-summary .no-count {
+	font-size: 25px;
+	color: #b1b5b6;
+}
+
+.short-summary .votes .item-count {
+	font-size: 25px;
+	color: #4a757f;
+}
+
+.short-summary .views .item-count {
+	font-size: 25px;
+	color: #D33F00;
+}
+
+.short-summary .answers .item-count {
+	font-size: 25px;
+	color: #EAB243;
+}
+
+.short-summary .userinfo{
+	text-align: right;
+  line-height: 16px;
+  font-family: Arial;
+  padding-right: 4px;
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+p {
+	font-size: 24.5px;
+	margin-top: 10px;
+}
+
+a {
+	cursor: pointer;
+}
+
+.tag-block{
+	margin: 15px
+}
+#box-shadow-answers {
+  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
+}
+#box-shadow-views {
+  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
+}
+#box-shadow-votes {
+  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
+}
+
+.inline-block{
+	@include inline-block;
+	@include box-shadow(#4A6B82 1px 1px 1px);
+  padding: 1px 4px;
+  background: #c4dae9;
+  color: #4a6b82;
+  font-size: 11px; 
+}

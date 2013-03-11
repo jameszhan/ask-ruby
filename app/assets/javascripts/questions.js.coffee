@@ -38,8 +38,11 @@ $(document).ready ->
     $("#question_upload_images").click()
     return false
   $("#by_age").on "click", () ->
-    sort = $(this).data("sort")
-    href = $(this).attr('href')
+    link = $(this)
+    sort = link.data("sort")
+    href = link.attr('href')
+    link.attr({href: sort})
+    link.data("sort":href)
     
     
   Questions.hookPreview($(".editor_toolbar"), $(".questions_editor"))
