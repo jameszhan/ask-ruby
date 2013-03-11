@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
+//questions page
 .short-summary {
 	position: relative;
   padding: 10px 0 3px 0;
@@ -83,6 +84,65 @@ a {
   font-size: 11px; 
 }
 
+//question detail page
+.vote-buttons{
+  margin-top: 20px;
+}
+.vote-buttons .voteup{
+  background: url("question-toolbar-icons-small.png")no-repeat scroll 5px -449px transparent;
+  width: 24px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0px auto;
+  &:hover, &.checked{
+    background-position: 5px -434px;
+  }
+}
+
+.vote-buttons .votenumber{
+  padding: 5px 0;
+  text-align: center;
+  width: 24px;
+  margin: 0px auto;
+}
+
+.vote-buttons .votedown{
+  background: url("question-toolbar-icons-small.png")no-repeat scroll 5px -402px transparent;
+  width: 24px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0px auto;
+  &:hover, &.checked{
+    background-position: 5px -417px;
+  }
+}
+
+.activity-info { 
+  float: right;
+  width: 200px;
+  margin-top: 10px;
+  padding: 6px 6px 0 6px;
+  border-radius: 5px;
+  background-color: #efefef;
+  clear: right;
+}
+
+.activity-info .author {
+  clear: both;
+}
+.activity-info .author .avatar_left {
+  float: left;
+  margin: 0 3px 5px 0;
+}
+      
+.activity-info .author .user_info {
+  font-size: 10px;
+  padding-top: 5px;
+}
+
+
+
+//new_question page
 form#new_question.form-horizontal {
   .control-label {
     //width: 130px;

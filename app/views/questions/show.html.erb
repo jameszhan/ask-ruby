@@ -4,19 +4,48 @@
   <%= link_to '修改', edit_question_path(@question), :class => "btn btn-small btn-success" %>
   <%= link_to '返回', questions_path, :class => "btn btn-small" %>
 </div>
-<div id="question">
-  <p>
+
+<!--question -->
+<div class="row">
+  <div class="span1">
+    <div class="vote-buttons">
+      <div class="voteup"></div>
+      <div class="votenumber">0</div>
+      <div class="votedown"></div>
+    </div>
+  </div>
+  <div class="span8">
     <h3><%= @question.title %></h3>
-  </p>
-  <p>    
     <ul class="inline">
       tags: 
-      <% @question.tags.each do |tag| -%>
-        <li><%= tag %></li>
-      <% end -%>
+        <li>tag1</li>
+        <li>tag2</li>
     </ul>
-  </p>
-  <p>
-    <%= markdown @question.body %>
-  </p>
+    <div>
+      <div class="activity-info">   
+        <div class="author">
+          <div class="avatar_left">
+            "avatar_img(@question.user, :size => "small") unless @question.user && @question.anonymous"
+          </div>
+          <div class="user_info">
+            <span>
+              <%= time_ago_in_words(@question.created_at)%> ago ask by <a>username</a>
+            </span>
+          </div>
+        </div>
+      </div>  
+      <%= markdown @question.body %>
+    </div>    
+  </div>
 </div>
+<!--answers-->
+<div class="row">
+  <div class="span1">
+    
+  </div>
+  <div class="span8">
+    
+  </div>
+</div>
+
+<!-- -->
