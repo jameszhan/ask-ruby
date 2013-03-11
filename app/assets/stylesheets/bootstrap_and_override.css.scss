@@ -53,6 +53,16 @@ body{
   }
 }
 
+.icon {
+  display:inline-block;
+  transition-property: background-position;
+  transition-duration: 0.5s;
+  -moz-transition-property: background-position; /* Firefox 4 */
+  -moz-transition-duration: 0.5s; /* Firefox 4 */
+  -webkit-transition-property: background-position; /* Safari and Chrome */
+  -webkit-transition-duration: 0.5s; /* Safari and Chrome */
+}
+
 
 
 .input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge { width:510px;}
