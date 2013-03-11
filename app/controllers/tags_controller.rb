@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = current_node.tags
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
-    @tag = Tag.find(params[:id])
+    @tag = current_node.tags.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +26,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   # GET /tags/new.json
   def new
-    @tag = Tag.new
+    @tag = current_node.tags.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,13 +36,14 @@ class TagsController < ApplicationController
 
   # GET /tags/1/edit
   def edit
-    #@tag = Tag.find(params[:id])
+    @tag = current_node.tags.find!(params[:id])
   end
 
   # POST /tags
   # POST /tags.json
   def create
     #@tag = Tag.new(params[:tag])
+    @tag.node = current_node
     @tag.user_id = current_user.id
     respond_to do |format|
       if @tag.save

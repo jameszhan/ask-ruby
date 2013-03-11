@@ -62,7 +62,7 @@
   <div class="row">
     <div class="span9"><%= yield %></div>
     <div class="span3">
-      <h3><%= link_to "Ask Your Question", new_question_path %></h3>
+      <%= render "shared/widgets", position: :sidebar %>
     </div>
   </div>
 </div>
