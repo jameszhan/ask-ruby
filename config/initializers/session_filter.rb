@@ -1,6 +1,6 @@
 module SessionFilter
   extend ActiveSupport::Concern
-  
+
   included do
     before_filter :set_current_tags
     before_filter :set_current_order
@@ -41,7 +41,7 @@ module SessionFilter
   
   module ClassMethods
     def order_tabs(order_tabs)
-      order_tabs = order_tabs.symbolize_keys!
+      #order_tabs = order_tabs.symbolize_keys!
       define_method :hook_current_order do
         if order_tabs
           order = params[:order] || session[:order] 
@@ -65,5 +65,5 @@ module SessionFilter
       end
     end
   end
-    
+   
 end

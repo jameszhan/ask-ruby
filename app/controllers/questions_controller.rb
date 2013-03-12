@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy]  
-   
+ 
   order_tabs :index => {
     newest: {
       created_at: :desc,
@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
       answers_count: :desc
     }
   }
-  
+   
   # GET /questions
   # GET /questions.json
   def index
