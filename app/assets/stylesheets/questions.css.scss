@@ -7,6 +7,7 @@
 .short-summary {
 	position: relative;
   padding: 10px 0 3px 0;
+  margin-top: 16px;
   margin-bottom: 1px;
   overflow: hidden;
   float: left;
@@ -53,11 +54,6 @@
   font-size: 11px;
 }
 
-p {
-	font-size: 24.5px;
-	margin-top: 10px;
-}
-
 a {
 	cursor: pointer;
 }
@@ -81,12 +77,14 @@ a {
   padding: 1px 4px;
   background: #c4dae9;
   color: #4a6b82;
-  font-size: 11px; 
+  font-size: 11px;
+  border-radius: 3px; 
 }
 
 //question detail page
 .vote-buttons{
   margin-top: 20px;
+  margin-left: 50px;
 }
 .vote-buttons .voteup{
   background: url("question-toolbar-icons-small.png")no-repeat scroll 5px -449px transparent;
@@ -117,14 +115,32 @@ a {
   }
 }
 
-.activity-info { 
+.activity-info {
+  @include box-shadow(#4A6B82 2px 2px 0); 
   float: right;
   width: 200px;
   margin-top: 10px;
   padding: 6px 6px 0 6px;
   border-radius: 5px;
-  background-color: rgb(220, 226, 222);
+  background-color: #FFFFFF;
   clear: right;
+}
+
+.answers-tab {
+  margin-top: 10px;
+  padding: 6px 6px 0 6px;
+  border-radius: 5px;
+  background-color: #EFF5F6;
+  clear: right;
+}
+
+.answers-split {
+  background-color: #AAAAAA;
+}
+
+.answers-tab .title {
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .activity-info .author {
