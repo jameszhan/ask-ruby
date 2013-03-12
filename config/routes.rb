@@ -1,5 +1,8 @@
 Ask::Application.routes.draw do
   
+  resources :answers
+
+
   resources :tags
 
 
