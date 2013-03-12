@@ -48,6 +48,7 @@ class User
   #has_many :authentications, :dependent => :destroy
   has_many :questions
   embeds_many :authentications
+  has_many :answers
   
   @@validation = true
   def self.with_no_validation 

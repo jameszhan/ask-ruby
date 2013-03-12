@@ -61,7 +61,7 @@
         </ul> 
       </div>
     </div>
-
+    <% @question.answers.each do |answer| %>
     <div class="row">
       <div class="span1">
         <div class="vote-buttons">
@@ -76,7 +76,7 @@
             <div class="author">
               <div class="timeago_info">
                 <span>
-                  asked <%= time_ago_in_words(@question.created_at)%> ago
+                  updated <%= time_ago_in_words(@question.created_at)%> ago
                 </span>
               </div>
               <div class="avatar_left">
@@ -89,36 +89,17 @@
             </div>
           </div>
           <div>  
-          <%= markdown @question.body %>
+          <%= markdown answer.body %>
           </div>
         </div>    
       </div>
     </div>
     <div class="answers-split span9">
     </div>
+    <% end %>
   </div>
 </div>
 
 <!--answer box -->
-<div class="span9">
 
-<%= simple_form_for @question do |f| %>
-  <fieldset>
-    <h3>Your Answer</h3>
-    <%= render "shared/error_messages", :target => @question %>
-    <div class="control-group edit_tools">
-      <div class="controls">
-        <%= render "editor_toolbar" %>
-      </div>
-    </div>
-    <%= f.input :body, as: :text, 
-      input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" },
-      :hint => "請使用 Markdown 格式編寫,可以試試用 <a href='http://mouapp.com' target='_blank'>Mou</a> 這個 App 来編寫。".html_safe %>
-
-    <div class="form-actions">
-      <%= f.submit t("common.save"), :class => "btn btn-primary", 'data-disable-with' => t("common.saving") %>
-      <%= link_to t("common.cancel"), questions_path, :class => "btn reset" %>
-    </div>
-  </fieldset>
-<% end %>
-</div>
+<%= render "answers/form", question: @question %>
