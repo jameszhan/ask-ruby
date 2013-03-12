@@ -1,4 +1,11 @@
-<h1>Questions Lists</h1>
+<div class="row-fluid selected-tags">
+<% current_tags.each do |tag| -%>
+  <div class="input-append">
+    <span class="add-on"><%= tag %></span>
+    <span class="add-on"><%= link_to 'x', tagged_with_questions_path(tag, true) %></span>
+  </div>
+<% end -%>
+</div>
 <div id="sort_tabs" class="pagination">
   <ul class="breadcrumb">
     <li><span>Sort by »</span></li>
@@ -20,20 +27,22 @@
   </ul> 
 </div>
 
-<div class="row">
-  <% @questions.each do |question|  %>
-  <div class="span9" style="border-bottom: 1px solid #DDDBCE;">
-    <div class="row">
-      <div class = "span7">
+<div class="row box">
+  <% @questions.each do |question|  %>  
+    <div class="row-fluid">
+      <div class="span7">
         <h3><%= link_to question.title, question_path(question) %></h3>
         
-        <div class="tag-block">
-          <a class="inline-block">tag1</a>
-          <a class="inline-block">tag2</a>
+        <div class="tag-block">          
+          <% question.tags.each do|tag| -%>
+          <div class="input-append">
+            <%= link_to tag, tagged_with_questions_path(tag), class: "add-on" %>
+          </div>
+          <% end -%>
         </div>
       </div>
       
-      <div class ="short-summary">
+      <div class="short-summary span3 offset2">
         <% if question.answers_count >= 0 %>
           <div id="box-shadow-answers" class="answers">
             <span class="item-count"><%= question.answers_count %></span>  
@@ -75,7 +84,6 @@
         </div>
       </div>
     </div>
-  </div>
   <% end %>
 </div>
 

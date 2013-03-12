@@ -6,7 +6,7 @@ module MongoidExt
     included do
       field :tags, :type => Array, :default => []
       index :tags => 1
-      scope :tagged_by, ->(*tags){ where :tags.in => tags }
+      scope :tagged_with, ->(*tags){ where :tags.all => tags }
     end  
 
     module ClassMethods  

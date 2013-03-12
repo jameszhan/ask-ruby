@@ -1,10 +1,31 @@
 class QuestionsController < ApplicationController
 
   load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy]  
+   
+  order_tabs :index => {
+    newest: {
+      created_at: :desc,
+    },
+    votes: {
+      votes_average: :desc,
+      views_count: :desc
+    },
+    activity: {
+      updated_at: :desc, 
+      created_at: :desc
+    },
+    hots: {
+      views_count: :desc
+    },
+    answers: {
+      answers_count: :desc
+    }
+  }
   
   # GET /questions
   # GET /questions.json
   def index
+=begin
     sort = params[:sort] || 'activity-desc'
     case sort
       when 'date-desc'
@@ -28,13 +49,8 @@ class QuestionsController < ApplicationController
     else
       order = :updated_at.desc
     end
-    
-    @questions = current_node.questions.order_by(order)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @questions }
-    end
+=end
+    find_questions
   end
 
   # GET /questions/1

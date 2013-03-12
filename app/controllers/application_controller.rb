@@ -1,27 +1,49 @@
 class ApplicationController < ActionController::Base
+  include SessionFilter
+    
   protect_from_forgery
+  
+  before_filter :find_node
   
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to questions_path, :alert => t("common.access_denied")
   end  
-  
-  
-  def current_tags
-    @current_tags ||=  if params[:tags].kind_of?(String)
-      params[:tags].split("+")
-    elsif params[:tags].kind_of?(Array)
-      params[:tags]
-    else
-      []
+ 
+  def find_questions()    
+    @questions = current_node.questions.minimal
+    unless current_tags.empty?
+      @questions = @questions.tagged_with(*current_tags)
+    end
+    puts "*" * 100
+    puts current_order
+    if current_order
+      puts "x" * 100
+      p current_order
+      @questions = @questions.order_by(current_order)
+    end
+    respond_to do |format|
+      format.html 
+      format.json  { render json: @questions.to_json(:except => %w[node]) }
+      format.atom
     end
   end
+
   
   def current_node
-    @current_node ||= begin
-      Node.where(name: 'default', summary: 'The default node.').first_or_create!
-    end
     @current_node
   end
   
+  
+  helper :votes
   helper_method :current_node, :current_tags
+  
+  private 
+    def find_node
+      @current_node ||= begin
+        Node.where(name: 'default', summary: 'The default node.').first_or_create!
+      end
+      @current_node
+    end
+  
+  
 end

@@ -22,8 +22,18 @@ module ApplicationHelper
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe    
   end
   
+  def tagged_with_questions_path(tag, remove = false)
+    path = questions_path + "/tags:" 
+    unless remove
+      path += (current_tags | [tag]).join("+") 
+    else
+      path += (current_tags - [tag]).join("+")
+    end
+    path
+  end
+  
   def tag_list
-    current_node.tags
+    current_node.tags.map(&:id)
   end
   
   def find_widgets(position)
@@ -36,11 +46,7 @@ module ApplicationHelper
 
   def cache_key_for(name, *args)
     args.unshift(name.parameterize, current_node.id, params[:controller], params[:action], I18n.locale)
-    key = args.join("_")
-    puts "*" * 100
-    puts key
-    puts "x" * 100
-    key
+    args.join("_")
   end
   
   def render_widget(widget)

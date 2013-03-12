@@ -16,6 +16,9 @@ class Question
   belongs_to :user
   belongs_to :node
   index :node_id => 1
+  
+  
+  scope :minimal, -> { without(:body) }
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"
