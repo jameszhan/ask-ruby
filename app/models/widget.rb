@@ -24,7 +24,7 @@ class Widget
   validate :check_settings
   after_initialize :set_name
   
-  embedded_in :widgetable, polymorphic: true
+  embedded_in :widget_list, polymorphic: true
   
   def partial_name
     "widgets/#{self.name}"
@@ -37,6 +37,10 @@ class Widget
   def cache_key(params)
     ""
   end
+  
+  def accept?(params)
+    true
+  end
 
   protected
     def limit_to_int
@@ -47,7 +51,7 @@ class Widget
       if self.name
         self.name.parameterize("_")
       else
-        self.name = self.class.to_s.demodulize.sub("Widget", "").parameterize("_")
+        self.name = self.class.to_s.demodulize.sub("Widget", "").underscore.parameterize("_")
       end      
     end
 

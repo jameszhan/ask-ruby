@@ -1,7 +1,7 @@
 <%= content_tag :div, class: "#{position}-widgets" do %>
 <% find_widgets(position).each do|widget| -%>
   <% cache_for(widget.name, widget.cache_key(params), position) do %>
-    <%= render widget.partial_name, :locals => {:widget => widget} %>
+    <%= render_widget widget %>
   <% end %>
 <% end -%>
 <% end %>

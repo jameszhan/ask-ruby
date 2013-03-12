@@ -36,8 +36,17 @@ module ApplicationHelper
 
   def cache_key_for(name, *args)
     args.unshift(name.parameterize, current_node.id, params[:controller], params[:action], I18n.locale)
-    args.join("_")
+    key = args.join("_")
+    puts "*" * 100
+    puts key
+    puts "x" * 100
+    key
   end
   
-  
+  def render_widget(widget)
+    if widget.accept? params
+      render partial: widget.partial_name, locals: {widget: widget}
+    end
+  end
+
 end

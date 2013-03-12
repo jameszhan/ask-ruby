@@ -12,7 +12,7 @@ class WidgetMap
   POSITIONS = %w[header footer navbar sidebar]
   
   POSITIONS.each do |position|
-    embeds_many "#{position}_widgets".to_sym, class_name: 'Widget', as: :widgetable
+    embeds_many "#{position}_widgets".to_sym, class_name: 'Widget', as: :widget_list
   end
   
   def find_widgets(position)

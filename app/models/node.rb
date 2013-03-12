@@ -14,7 +14,7 @@ class Node
   embeds_many :widget_maps  
   embeds_many :tags
   
-  before_create :create_default_widgets
+  before_create :create_widget_maps
   
   def lookup_widgets(key, position)
     widget_maps.find(key).find_widgets(position) || widget_maps.find(:default).find_widgets(position)
@@ -22,11 +22,16 @@ class Node
   
   
   private 
+    def create_widget_maps
+      create_default_widgets
+    end
+    
     def create_default_widgets
       widget_map = widget_maps.build(name: 'default')
-      widget = Shared::MarkdownWidget.new
-      puts widget_map.sidebar_widgets
-      widget_map.sidebar_widgets << widget
+      %w[welcome markdown].each do |widget_name|
+        widget_map.sidebar_widgets << Widget.new(name: widget_name)
+      end
+      widget_map.sidebar_widgets << Shared::QuestionStatsWidget.new
     end
-      
+    
 end
