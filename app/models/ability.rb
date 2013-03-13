@@ -11,7 +11,7 @@ class Ability
       # admin
       can :manage, :all
     elsif user.is?(:member)
-      auth_control(user, Question, Tag)  
+      auth_control(user, Question, Tag, Answer)  
     else
       # banned or unknown situation
       cannot :manage, :all

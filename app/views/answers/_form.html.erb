@@ -1,5 +1,5 @@
 
-<div id="answer" class="form">
+<div class="answer-title">
 <h3>Your Answer</h3>
 <%= simple_form_for(@answer ||= Answer.new) do |f| %>
   <%= render "/shared/error_messages", :target => @answer  %>
