@@ -30,61 +30,7 @@
 
 <div class="row box">
   <% @questions.each do |question|  %>  
-    <div class="row-fluid">
-      <div class="span7">
-        <h3><%= link_to question.title, question_path(question) %></h3>
-        
-        <div class="tag-block">          
-          <% question.tags.each do|tag| -%>
-          <div class="input-append">
-            <%= link_to tag, tagged_with_questions_path(tag), class: "add-on" %>
-          </div>
-          <% end -%>
-        </div>
-      </div>
-      
-      <div class="short-summary span3 offset2">
-        <% if question.answers_count >= 0 %>
-          <div id="box-shadow-answers" class="answers">
-            <span class="item-count"><%= question.answers_count %></span>  
-            <div>answers</div> 
-          </div>
-        <% else %>
-          <div class="answers">
-            <span class="no-count">no</span>  
-            <div>answers</div> 
-          </div>
-        <% end %>
-
-        <% if question.views_count >= 0 %>
-          <div id="box-shadow-views" class="views">
-            <span class="item-count"><%= question.views_count %></span>  
-            <div>views</div> 
-          </div>
-        <% else %>
-          <div class="views">
-            <span class="no-count">no</span>  
-            <div>views</div> 
-          </div>
-        <% end %>
-
-        <% if question.votes_count >= 0 %>
-          <div id="box-shadow-votes" class="votes">
-            <span class="item-count"><%= question.votes_count %></span>
-            <div>votes</div> 
-          </div>
-        <% else %>
-          <div class="votes">
-            <span class="no-count">no</span>
-            <div>votes</div> 
-          </div>
-        <% end %>
-        <div style="clear:both"></div>
-        <div class="userinfo">
-          <%= time_ago_in_words(question.created_at) %> ago <%= question.user.name %> 
-        </div>
-      </div>
-    </div>
+    <%= render "question", question: question -%>
   <% end %>
 </div>
 

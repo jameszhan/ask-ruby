@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
 
-  #load_and_authorize_resource :only => [:create]
+  load_and_authorize_resource :only => [:create]
 
   # GET /answers
   # GET /answers.json
@@ -46,8 +46,12 @@ class AnswersController < ApplicationController
     @answer.user = current_user
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to question_path(@answer.question), notice: 'Answer was successfully created.' }
-        format.json { render json: @answer, status: :created, location: @answer }
+        question = @answer.question
+        question.answers_count +=1
+        if question.save
+          format.html { redirect_to question_path(@answer.question), notice: 'Answer was successfully created.' }
+          format.json { render json: @answer, status: :created, location: @answer }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
