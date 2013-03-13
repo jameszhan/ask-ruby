@@ -1,10 +1,11 @@
 <div class="row-fluid selected-tags">
 <% current_tags.each do |tag| -%>
-  <div class="input-append">
-    <span class="add-on"><%= tag %></span>
-    <span class="add-on"><%= link_to 'x', tagged_with_questions_path(tag, true) %></span>
+  <div class="input-prepend input-append tag">
+    <span class="add-on tag-name"><%= tag %></span>
+    <span class="add-on remove-tag"><%= link_to 'x', tagged_with_questions_path(tag, true) %></span>
   </div>
 <% end -%>
+
 </div>
 <div id="sort_tabs" class="pagination">
   <ul class="breadcrumb">

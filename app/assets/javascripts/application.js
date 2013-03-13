@@ -15,3 +15,7 @@
 //= require bootstrap
 //= require_tree .
 
+
+$(function(){
+  $(".new_question input[name='question[tags][]']").remove()
+});

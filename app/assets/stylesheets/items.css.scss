@@ -1,0 +1,19 @@
+.selected-tags {
+  font-family: 'Open Sans Condensed';
+  line-height: 25px;
+  .tag {
+    margin: 0 10px 0 0;
+    .tag-name{
+      padding: 3px 5px 3px 8px;
+      background-color: #f3f6f6;
+      color: #717179;
+    }
+    .remove-tag {
+      padding: 3px 0;
+      font-family: 'Open Sans Condensed';
+      font-size: 10px;
+      background-color: #bbcdcd;
+      text-shadow: 0px 1px 0px #7ea0a0;
+    }
+  }
+}

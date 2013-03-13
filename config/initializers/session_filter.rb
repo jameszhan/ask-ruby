@@ -43,26 +43,20 @@ module SessionFilter
     def order_tabs(order_tabs)
       #order_tabs = order_tabs.symbolize_keys!
       define_method :hook_current_order do
-        if order_tabs
-          order = params[:order] || session[:order] 
-          if order
-            order_tab = order_tabs[params[:action].to_sym]
-            if order_tab
-              session[:order] = params[:order] if params[:order]          
-              @current_order = order_tab[order.to_sym]
-            else
-              @current_order = order_tabs.first.first
-            end      
+        order = params[:order] || session[:order] 
+        if order
+          order_tab = order_tabs[params[:action].to_sym]
+          if order_tab
+            session[:order] = params[:order] if params[:order]          
+            @current_order = order_tab[order.to_sym]
           else
-            order_tab = order_tabs[params[:action].to_sym]
-            if order_tab
-              @current_order = order_tab.first.last
-            else
-              @current_order = order_tabs.first.first.last
-            end
-          end     
-        end
-      end
+            @current_order = order_tabs.first.first
+          end      
+        else
+          order_tab = order_tabs[params[:action].to_sym]
+          @current_order = order_tab.first.last if order_tab          
+        end     
+      end      
     end
   end
    

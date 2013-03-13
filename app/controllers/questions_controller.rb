@@ -83,6 +83,8 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     #@question = Question.new(params[:question])
+    puts "&" * 100
+    puts params[:question]
     @question.user_id = current_user.id
     @question.node = current_node
     respond_to do |format|
