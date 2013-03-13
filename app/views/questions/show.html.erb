@@ -1,20 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<div class="tools">
+<!-- <div class="tools">
   <%= link_to '修改', edit_question_path(@question), :class => "btn btn-small btn-success" %>
   <%= link_to '返回', questions_path, :class => "btn btn-small" %>
 </div>
-
+ -->
 <!--question -->
-<div class="row">
-  <div class="span1">
+<div class="row box">
+  <div class="span1" style="margin-left: 0px;">
     <div class="vote-buttons">
       <div class="voteup"></div>
       <div class="votenumber">0</div>
       <div class="votedown"></div>
     </div>
   </div>
-  <div class="span8">
+  <div class="span8" style="margin-left: 0px;">
     <h3><%= @question.title %></h3>
     <ul class="inline">
       tags: 
@@ -22,34 +20,16 @@
         <li>tag2</li>
     </ul>
     <div>
-      <div class="activity-info">   
-        <div class="author">
-          <div class="timeago_info">
-            <span>
-              asked <%= time_ago_in_words(@question.created_at)%> ago
-            </span>
-          </div>
-          <div class="avatar_left">
-            <img width="32" height="32" src="https://secure.gravatar.com/avatar/5067f92a9ada7ea2567c28bac9d6b118?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png">
-          </div>
-          <div class="user_info">
-            <a href="#">username</a><br>
-            <span>wojiao jinsanpangwojiao</span>
-          </div>
-          
-        </div>
-      </div>  
+      <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
       <%= markdown @question.body %>
-    </div>    
+    </div>  
   </div>
 </div>
 
 <!--answers-->
-<div class="row">
-  <div class="span9">
-    <div class="answers-tab span9">
-      <span class="title" >2 answers</span>
-      <div id="sort_tabs" class="pagination" style="margin: 0px; float: right;">
+<div class="answers-tab span9">
+      <span class="title" ><%= @question.answers.count %> answers</span>
+      <div id="sort_tabs" class="pagination">
         <ul>
           <li><span>Sort by »</span></li>  
           <li>
@@ -61,42 +41,9 @@
         </ul> 
       </div>
     </div>
-    <% @question.answers.each do |answer| %>
-    <div class="row">
-      <div class="span1">
-        <div class="vote-buttons">
-          <div class="voteup"></div>
-          <div class="votenumber">0</div>
-          <div class="votedown"></div>
-        </div>
-      </div>
-      <div class="span8">
-        <div>
-          <div class="activity-info">   
-            <div class="author">
-              <div class="timeago_info">
-                <span>
-                  updated <%= time_ago_in_words(@question.created_at)%> ago
-                </span>
-              </div>
-              <div class="avatar_left">
-                <img width="32" height="32" src="https://secure.gravatar.com/avatar/5067f92a9ada7ea2567c28bac9d6b118?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png">
-              </div>
-              <div class="user_info">
-                <a href="#">username</a><br>
-                <span>wojiao jinsanpangwojiao</span>
-              </div>  
-            </div>
-          </div>
-          <div>  
-          <%= markdown answer.body %>
-          </div>
-        </div>    
-      </div>
-    </div>
-    <div class="answers-split span9">
-    </div>
-    <% end %>
+<div class="row">
+  <div class="span9">  
+    <%= render "answers/answer", answers: @question.answers %>
   </div>
 </div>
 

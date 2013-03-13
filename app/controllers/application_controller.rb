@@ -14,11 +14,7 @@ class ApplicationController < ActionController::Base
     unless current_tags.empty?
       @questions = @questions.tagged_with(*current_tags)
     end
-    puts "*" * 100
-    puts current_order
     if current_order
-      puts "x" * 100
-      p current_order
       @questions = @questions.order_by(current_order)
     end
     respond_to do |format|
