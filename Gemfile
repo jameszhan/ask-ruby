@@ -87,7 +87,7 @@ group :test do
       gem 'libnotify'
     when /darwin/i
       # Mac OS X relative gem
-      gem 'rb-fsevent', '0.9.1', :require => false
+      gem 'rb-fsevent', :require => false
       gem 'growl', '1.0.3'
   end
 end
