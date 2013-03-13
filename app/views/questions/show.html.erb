@@ -20,7 +20,7 @@
         <li>tag2</li>
     </ul>
     <div>
-      <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
+      <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
       <%= markdown @question.body %>
     </div>  
   </div>
