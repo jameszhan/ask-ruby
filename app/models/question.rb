@@ -16,6 +16,7 @@ class Question
   belongs_to :user
   belongs_to :node
   has_many :answers
+  has_many :comments
   index :node_id => 1
   
   

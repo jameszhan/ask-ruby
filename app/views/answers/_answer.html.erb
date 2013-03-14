@@ -12,6 +12,16 @@
       <p>
         <%= markdown answer.body %>
       </p>
+      <!--Comments-->
+      <div class="comment">
+        <% if answer.comments -%>
+        <%= render "shared/comment", comments: answer.comments -%>
+        <% end -%>
+        <label>post a comment</label>
+        <div id="comment-form" style="display: none;">
+          <%= render "shared/comment_form", target: answer %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="answers-split span9">

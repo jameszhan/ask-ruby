@@ -1,11 +1,11 @@
-class Answer
+class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
   
   field :body, type: String
   belongs_to :user
   belongs_to :question
-  has_many :comments
+  belongs_to :answer
 
   validates_presence_of :body
   validates_length_of :body, minimum: 5
