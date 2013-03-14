@@ -1,8 +1,6 @@
-<%= form_for(Comment.new, remote: true) do |f| %>
+<%= form_for(Comment.new, url: form_url, remote: true) do |f| %>
   <div>
     <%= f.text_area :body, size: "2x3", class: "input-xxlarge" %>
-    <%= f.hidden_field :commentable_id, value: commentable.id %>
-    <%= f.hidden_field :commentable_type, value: commentable.class %>
   </div>
   <div>
     <%= f.submit "comment", class: "btn btn-primary" %>

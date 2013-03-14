@@ -20,7 +20,7 @@
       <div class="comment">
         <label>post a comment</label>
         <div class="comment-form" style="display: none;">
-          <%= render "comments/form", commentable: answer %>
+          <%= render "comments/form", form_url: question_answer_comments_path(@question, answer) %>
         </div>
       </div>
     </div>

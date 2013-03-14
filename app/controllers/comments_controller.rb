@@ -14,7 +14,15 @@ class CommentsController < ApplicationController
   
   protected
     def find_commentable()
-      commentable_type, commentable_id = params[:comment][:commentable_type], params[:comment][:commentable_id]
-      @commentable = commentable_type.constantize.find(commentable_id)      
+      #TODO Here is a hole of this method, since we depend on a order hash.
+      params.each do |name, value|
+        if name =~ /(.+)_id$/
+          if @commentable 
+            @commentable = @commentable.send($1.pluralize.to_sym).find(value)
+          else
+            @commentable = $1.classify.constantize.find(value)
+          end          
+        end
+      end  
     end
 end

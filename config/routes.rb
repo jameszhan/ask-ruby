@@ -1,9 +1,9 @@
 Ask::Application.routes.draw do
   
   resources :tags
-  resources :comments, :only => [:create]
-  
+    
   resources :questions do
+    resources :comments, :only => [:create]
     resources :votes
     collection do 
       post :preview
@@ -13,6 +13,7 @@ Ask::Application.routes.draw do
     end
     
     resources :answers do
+      resources :comments, :only => [:create]
       resources :votes
       member do
         get :favorite
