@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
       format.atom
     end
   end
-
   
   def current_node
     @current_node

@@ -4,7 +4,7 @@ module SessionFilter
   included do
     before_filter :set_current_tags
     before_filter :set_current_order
-    helper_method :current_tags, :current_order
+    helper_method :current_tags, :current_order_name
   end
   
   def current_tags
@@ -14,6 +14,11 @@ module SessionFilter
   def current_order
     @current_order
   end
+  
+  def current_order_name
+    @current_order_name
+  end
+
 
   def set_current_tags
     tag_param = params[:tags] || session[:tags]
@@ -47,14 +52,19 @@ module SessionFilter
         if order
           order_tab = order_tabs[params[:action].to_sym]
           if order_tab
-            session[:order] = params[:order] if params[:order]          
+            session[:order] = order if params[:order]  
+            @current_order_name = order.to_sym        
             @current_order = order_tab[order.to_sym]
           else
-            @current_order = order_tabs.first.first
+            @current_order_name = order_tabs.first.last.first.first
+            @current_order = order_tabs.first.last.first.last
           end      
         else
           order_tab = order_tabs[params[:action].to_sym]
-          @current_order = order_tab.first.last if order_tab          
+          if order_tab
+            @current_order_name = order_tab.first.first
+            @current_order =  order_tab.first.last 
+          end                
         end     
       end      
     end
