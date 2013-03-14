@@ -22,9 +22,21 @@
       <% end -%>
     </ul>
     <div>
-      <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
+      <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
       <%= markdown @question.body %>
-    </div>  
+    </div>
+
+    <!--Comments-->
+    <div class="comment">
+      <% if @question.comments -%>
+      <%= render "shared/comment", comments: @question.comments -%>
+      <% end -%>
+      <label>post a comment</label>
+      <div id="comment-form" style="display: none;">
+        <%= render "shared/comment_form", target: @question %>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -44,7 +56,7 @@
     </ul> 
     </div>
   </div>
-  <%= render @question.answers %>
+  <%= render "answers/answer", answers: @question.answers %>
 </div>
 
 <!--answer box -->
