@@ -10,21 +10,13 @@
 <div id="sort_tabs" class="pagination">
   <ul class="breadcrumb">
     <li><span>Sort by »</span></li>
-    <li>
-      <a id="by_age" href="/questions?sort=date-desc" data-sort="/questions?sort=date-asc" title="click to see the newest questions"><span>by date</span></a>
-    </li>
-    <li class="active">
-      <a id="by_activity" href="/questions?sort=activity-desc" data-sort="activity-asc" title="click to see the least recently updated questions"><span>by activity ▼</span></a>
-    </li>
-    <li>
-      <a id="by_answers" href="/questions?sort=answers-desc" data-sort="answers-asc" title="click to see the most answered questions"><span>by answers</span></a>
-    </li>
-    <li>
-      <a id="by_views" href="/questions?sort=views-desc" data-sort="views-asc" title="click to see the most answered questions"><span>by views</span></a>
-    </li>
-    <li>
-      <a id="by_votes" href="/questions?sort=votes-desc" data-sort="votes-asc" title="click to see most voted questions"><span>by votes</span></a>
-    </li>
+    <% [:newest, :activity, :answers, :hot, :votes].each do |order| -%>
+      <% if order == current_order_name -%>
+        <li class="active"><%= link_to "#{order.to_s.humanize}▼", questions_path(order: order) %></li>
+      <% else -%>
+        <li><%= link_to "#{order.to_s.humanize}", questions_path(order: order) %></li>
+      <% end -%>
+    <% end -%>
   </ul> 
 </div>
 

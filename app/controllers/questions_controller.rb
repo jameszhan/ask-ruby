@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
       updated_at: :desc, 
       created_at: :desc
     },
-    hots: {
+    hot: {
       views_count: :desc
     },
     answers: {

@@ -1,3 +1,153 @@
+@import "compass";
+@import "compass/reset";
+@import "icons/*.png";
+
+.logins {
+  .icon-google { @include icons-sprite(google); }
+  .icon-github { @include icons-sprite(github); }
+  .icon-weibo  { @include icons-sprite(weibo); }
+  .icon-qq  { @include icons-sprite(qq); }
+  .icon-home  { @include icons-sprite(home); }
+  i{
+    width: 32px;
+    height: 32px;
+  }
+  a {
+    display: inline-block;
+  }
+  div.login-button{
+    @include border-radius(5px);
+    border: 2px #cccfcc solid;
+    background-color: #f0f0f0;
+    float: left;
+    padding: 5px 10px;
+    margin-right: 10px;
+    span {
+      width: 32px;
+      height: 32px;
+      padding-left: 35px;
+      height: 32px;
+      line-height: 32px;
+      font-weight: bold;
+      width: 50px;
+    }
+  }
+}
+
+
+.spite-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  background: image-url("question-toolbar-icons-small.png") 5px 7px  no-repeat;
+  &.answer{
+    background-position: 5px 7px;
+    &:hover{
+      background-position: 5px -23px;
+    }
+  }
+  &.activity{
+    background-position: 5px -73px;
+    &:hover {
+      background-position: 5px -49px;
+    }
+  }
+  &.share-on{
+    background-position: 5px -121px;
+    &:hover {
+      background-position: 5px -97px;
+    };
+  }
+  &.ban-q{
+    background-position: 5px -170px;
+    &:hover{
+      background-position: 5px -146px;
+    }
+  }
+  &.unfollow-q{
+    background-position: 5px -218px;
+    &:hover{
+      background-position: 5px -194px;
+    }
+  }
+  &.follow-q{
+    background-position: 5px -261px;
+    &:hover{
+      background-position: 5px -241px
+    }
+  }
+  &.edit-q{
+    background-position: 5px -305px;
+    &:hover{
+      background-position: 5px -282px;
+    }
+  }  
+  &.close-q {
+    background-position: 5px -357px !important;
+    &:hover{
+      background-position: 5px -329px !important;
+    }
+  }
+  &.more{
+    background-position: 5px -380px;
+  }
+  &.vote-down {
+    background-position: 5px -402px;
+    &:hover{
+      background-position: 5px -417px;
+    }
+  }
+  &.vote-up {
+    background-position: 5px -449px;
+    &:hover, &.disabled{
+      background-position: 5px -434px;
+    }
+  }
+  &.mail{
+    background-position: 5px -493px;
+    &:hover, &.disabled{
+      background-position: 5px -471px;
+    }
+  }
+  &.delete-q {
+    background-position: 5px -546px;
+    &:hover{
+      background-position: 5px -518px;
+    }
+  }
+  &.follow-up{
+    background-position: 6px -606px;
+    &:hover{
+      background-position: 6px -580px;
+    }
+  }
+  &.close-link {
+     background-position: 5px -657px;
+    &:hover{
+      background-position: 5px -634px;
+    }
+  }
+  &.flag-q{
+    background-position: 5px -725px;
+    &:hover{
+      background-position: 5px -745px;
+    }
+  }
+  &.reward{
+    background-position: 5px -767px !important;
+    &:hover{
+      background-position: 5px -787px !important;
+    }
+  }
+  &.accepted{
+    background-position: 5px -818px !important;
+    &:hover{
+      background-position: 5px -852px !important;
+    }
+  }
+}
+
+
 .selected-tags {
   font-family: 'Open Sans Condensed';
   line-height: 25px;
@@ -17,3 +167,62 @@
     }
   }
 }
+
+
+.editor_toolbar {
+  width: 520px;
+  position:relative;
+  margin-bottom:5px;
+  .icons { position:absolute; top:3px; right:0; }
+  .pills {
+    margin: 0;
+    list-style: none;
+    li { display:inline;}
+    a {
+      @include border-radius(8px);
+      padding:0 5px;
+      line-height:18px;
+      font-size:12px;
+      margin-right:6px;
+      text-shadow:0;
+      color:#444;
+      border:1px solid #fff;
+      &:hover {
+        background:#fff;
+        color:#00438A;
+        text-decoration: underline;
+        text-shadow:0;
+      }
+    }
+    .active {
+      a {
+        background:#fff;
+        border:1px solid #ddd;
+        color:#666;
+        text-shadow:0;
+        &:hover { text-decoration: none;}
+      }
+    }
+  }
+}
+
+#question_upload_images {
+  bottom: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: 0;
+}
+
+#preview {
+  margin-top:0px;
+  border: 1px solid #ccc;
+  padding:4px;
+  min-height:300px;
+  @include border-radius(3px);
+  width: 510px;
+  margin-bottom:10px;
+  min-height:72px;
+}
+

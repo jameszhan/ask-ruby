@@ -2,5 +2,10 @@
   <%= render partial: "widgets/header", locals: {widget: widget} %>
   <div>
     Thank you for come in our site.
+    <div style="background-color:#f0f0f0">
+    <% %w[answer activity share-on  ban-q unfollow-q follow-q  edit-q close-q more vote-down vote-up mail delete-q follow-up  close-link   flag-q reward accepted].each do|icon| -%>
+      <a href="#" class="spite-icon <%= icon %>" title="<%= icon %>"></a>
+    <% end -%>
+    </div>
   </div>
 </div>

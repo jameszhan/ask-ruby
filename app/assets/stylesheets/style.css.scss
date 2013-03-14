@@ -1,6 +1,4 @@
-@import "compass";
-@import "compass/reset";
-@import "icons/*.png";
+
 
 .simple_form {
   label.required {
@@ -8,104 +6,7 @@
   }
 }
 
-#preview {
-  /* copied from twitter bootstrap */
-  margin-top:0px;
-  border: 1px solid #ccc;
-  padding:4px;
-  min-height:300px;
-  @include border-radius(3px);
-  #reply & {
-    width:578px;
-    margin-bottom:10px;
-    min-height:72px;
-  }
-}
-
-
 abbr[title] { border:0; cursor:default; }
-
-.editor_toolbar {
-  width: 520px;
-  position:relative;
-  margin-bottom:5px;
-  .icons { position:absolute; top:3px; right:0; }
-  .pills {
-    margin: 0;
-    list-style: none;
-    li { display:inline;}
-    a {
-      -moz-border-radius: 8px;
-      -webkit-border-radius: 8px;
-      border-radius: 8px;
-      padding:0 5px;
-      line-height:18px;
-      font-size:12px;
-      margin-right:6px;
-      text-shadow:0;
-      color:#444;
-      border:1px solid #fff;
-    }
-    a:hover {
-      background:#fff;
-      color:#00438A;
-      text-decoration: underline;
-      text-shadow:0;
-    }
-    .active {
-      a {
-        background:#fff;
-        border:1px solid #ddd;
-        color:#666;
-        text-shadow:0;
-      }
-      a:hover { text-decoration: none;}
-    }
-  }
-}
-
-#question_upload_images {
-    bottom: 0;
-    height: 0;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    width: 0;
-}
-
-
-.logins {
-  .icon-google { @include icons-sprite(google); }
-  .icon-github { @include icons-sprite(github); }
-  .icon-weibo  { @include icons-sprite(weibo); }
-  .icon-qq  { @include icons-sprite(qq); }
-  .icon-home  { @include icons-sprite(home); }
-  i{
-    width: 32px;
-    height: 32px;
-  }
-  a {
-    display: inline-block;
-  }
-  div.login-button{
-    @include border-radius(5px);
-    border: 2px #cccfcc solid;
-    background-color: #f0f0f0;
-    float: left;
-    padding: 5px 10px;
-    margin-right: 10px;
-    span {
-      width: 32px;
-      height: 32px;
-      padding-left: 35px;
-      height: 32px;
-      line-height: 32px;
-      font-weight: bold;
-      width: 50px;
-    }
-  }
-}
-
 
 .devise-form{
   .control-group {
