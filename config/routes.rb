@@ -1,6 +1,7 @@
 Ask::Application.routes.draw do
   
   resources :tags
+  resources :comments, :only => [:create]
   
   resources :questions do
     resources :votes
@@ -10,9 +11,8 @@ Ask::Application.routes.draw do
       get '/:filter' => 'questions#index', :as => :filtered, 
         :constraints => { :filter => /all|unanswered|by_me|feed|preferred|contributed|expertise/ }
     end
-    resources :comments, :only => [:create]
+    
     resources :answers do
-      resources :comments, :only => [:create]
       resources :votes
       member do
         get :favorite
