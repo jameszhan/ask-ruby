@@ -174,7 +174,32 @@ a {
   line-height: 16px;
 }
 
+//comment
+.comment {
+  margin: 20px 30px 0 30px;
+}
 
+.comment label {
+  background: url("comment.png") no-repeat scroll left center transparent;
+  color: #988E4C;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 0 3px 2px 22px;
+  text-decoration: none;
+  width: 120px;
+  margin-bottom: 30px;
+  &:hover {
+    color: #F5F0C9;
+  }
+}
+.comment #comment-form {
+  margin-left: 30px;
+}
+
+.comment .comment-content {
+  border-top: 1px dotted #DDDDDD;
+  margin-bottom: 10px; 
+}
 
 //new_question page
 form#new_question.form-horizontal {
