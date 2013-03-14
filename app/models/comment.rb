@@ -4,13 +4,10 @@ class Comment
   
   field :body, type: String
   belongs_to :user
-  belongs_to :question
-  belongs_to :answer
+  belongs_to :commentable, polymorphic: true
 
   validates_presence_of :body
   validates_length_of :body, minimum: 5
   
-  validates_presence_of :user_id
-  validates_presence_of :question_id
 
 end

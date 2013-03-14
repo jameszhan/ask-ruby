@@ -27,13 +27,15 @@
     </div>
 
     <!--Comments-->
-    <div class="comment">
-      <% if @question.comments -%>
-      <%= render "shared/comment", comments: @question.comments -%>
-      <% end -%>
-      <label>post a comment</label>
-      <div id="comment-form" style="display: none;">
-        <%= render "shared/comment_form", target: @question %>
+    <div class="comments">
+      <div class="comment-items" id="<%= @question.id %>-comments">
+        <%= render @question.comments -%>  
+      </div>    
+      <div class="comment">
+        <label>post a comment</label>
+        <div class="comment-form" style="display: none;">
+          <%= render "comments/form", form_url: question_comments_path(@question), commentable: @question %>
+        </div>
       </div>
     </div>
 
@@ -56,7 +58,7 @@
     </ul> 
     </div>
   </div>
-  <%= render "answers/answer", answers: @question.answers %>
+  <%= render @question.answers %>
 </div>
 
 <!--answer box -->

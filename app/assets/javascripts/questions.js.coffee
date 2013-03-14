@@ -46,12 +46,9 @@ $(document).ready ->
     $("#question_upload_images").click()
     return false
   $(".comment label").on "click", () ->
-    $(this).hide()
-    $("#comment-form").show()
-  $("#comment-form a").on "click", () ->
-    $("#comment-form").hide()
-    $(".comment label").show()
-    
+    $(this).hide().next(".comment-form").show()
+  $(".comment-form a").on "click", () ->
+    $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
     
   Questions.hookPreview($(".editor_toolbar"), $(".questions_editor"))
   return

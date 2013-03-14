@@ -16,7 +16,7 @@ class Question
   belongs_to :user
   belongs_to :node
 
-  has_many :comments
+  has_many :comments, as: :commentable
   index :node_id => 1
   has_many :answers, :dependent => :destroy
   

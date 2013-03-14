@@ -1,15 +1,20 @@
 class CommentsController < ApplicationController
+  
+  before_filter :find_commentable
+  
 	def create
-    @comment = Comment.new(params[:comment])
-    @comment.user = current_user
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to question_path(@comment.question), notice: '@Comment was successfully created.' }
-        format.json { render json: @comment, status: :created, location: @comment }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
+	  @comment = @commentable.comments.build(params[:comment])
+    @comment.user = current_user    
+    if @comment.save
+      @msg = t("questions.comment_success", default: 'Thanks you for your comment.')
+    else
+      @msg = @comment.errors.full_messages.join("<br />")
+    end  
   end
+  
+  protected
+    def find_commentable()
+      commentable_type, commentable_id = params[:comment][:commentable_type], params[:comment][:commentable_id]
+      @commentable = commentable_type.constantize.find(commentable_id)      
+    end
 end

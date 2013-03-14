@@ -4,7 +4,7 @@ class Answer
   
   field :body, type: String
 
-  has_many :comments
+  has_many :comments, as: :commentable
   belongs_to :user, :inverse_of => :answers, :counter_cache => true
   belongs_to :question, :inverse_of => :answers, :counter_cache => true
 

@@ -1,4 +1,3 @@
-<% answers.each do |answer| %>
 <div class="row-fluid box answer">
   <div class="span1">
     <div class="vote-buttons">
@@ -14,15 +13,16 @@
       <%= markdown answer.body %>
     </p>
     <!--Comments-->
-    <div class="comment">
-      <% if answer.comments -%>
-      <%= render "shared/comment", comments: answer.comments -%>
-      <% end -%>
-      <label>post a comment</label>
-      <div id="comment-form" style="display: none;">
-        <%= render "shared/comment_form", target: answer %>
+    <div class="comments">
+      <div class="comment-items" id="<%= answer.id %>-comments">
+        <%= render answer.comments -%>
+      </div>
+      <div class="comment">
+        <label>post a comment</label>
+        <div class="comment-form" style="display: none;">
+          <%= render "comments/form", form_url: question_answer_comments_path(@question, answer), commentable: answer %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<% end -%>
