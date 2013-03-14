@@ -1,6 +1,20 @@
 class AnswersController < ApplicationController
-
-  load_and_authorize_resource :only => [:create]
+  
+  before_filter :find_question
+  
+  # POST /answers
+  # POST /answers.json
+  def create
+    authorize! :create, Answer
+    @answer = @question.answers.build(params[:answer])
+    @answer.user = current_user
+    if @answer.save
+      @msg = t("questions.answer_success", default: 'Answer was successfully created.')
+    else
+      @msg = @answer.errors.full_messages.join("<br />")
+    end
+  end
+  
 
   # GET /answers
   # GET /answers.json
@@ -39,25 +53,6 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
   end
 
-  # POST /answers
-  # POST /answers.json
-  def create
-    @answer = Answer.new(params[:answer])
-    @answer.user = current_user
-    respond_to do |format|
-      if @answer.save
-        question = @answer.question
-        question.answers_count +=1
-        if question.save
-          format.html { redirect_to question_path(@answer.question), notice: 'Answer was successfully created.' }
-          format.json { render json: @answer, status: :created, location: @answer }
-        end
-      else
-        format.html { render action: "new" }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PUT /answers/1
   # PUT /answers/1.json
@@ -86,4 +81,10 @@ class AnswersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  protected
+
+    def find_question
+      @question = Question.find(params[:question_id])
+    end
 end

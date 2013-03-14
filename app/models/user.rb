@@ -29,6 +29,10 @@ class User
   field :roles, :type => Array, :default => [:member]
   index :roles => 1
   
+  has_many :questions, :dependent => :destroy
+  has_many :answers, :dependent => :destroy 
+  
+  
 
   ## Confirmable
   # field :confirmation_token,   :type => String

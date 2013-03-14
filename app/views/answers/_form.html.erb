@@ -1,8 +1,8 @@
 
-<div class="answer-title">
+<div class="answer-form">
 <h3>Your Answer</h3>
-<%= simple_form_for(@answer ||= Answer.new) do |f| %>
-  <%= render "/shared/error_messages", :target => @answer  %>
+<%= simple_form_for(@answer ||= Answer.new, url: question_answers_path(@question), remote: true) do |f| %>
+  <%= render "shared/error_messages", :target => @answer  %>
   <fieldset>
     <div class="control-group edit_tools">
       <label class="control-label"></label>

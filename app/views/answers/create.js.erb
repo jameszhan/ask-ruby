@@ -1,0 +1,7 @@
+<% if @answer.errors.blank? -%>
+  $("#question-answers").append('<%= escape_javascript(render(@answer, display_edit: true)) %>')
+    .find("#answers-count b").text('<%= @question.answers_count + 1%>');
+  Questions.answerCallback(true, '<%= escape_javascript(@msg) %>');
+<% else -%>
+  Questions.answerCallback(false, '<%= escape_javascript(@msg) %>');
+<% end -%>
