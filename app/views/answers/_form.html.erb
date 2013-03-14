@@ -1,8 +1,8 @@
 
-<div class="answer-title">
+<div class="answer-form">
 <h3>Your Answer</h3>
-<%= simple_form_for(@answer ||= Answer.new) do |f| %>
-  <%= render "/shared/error_messages", :target => @answer  %>
+<%= simple_form_for(@answer ||= Answer.new, url: question_answers_path(@question), remote: true) do |f| %>
+  <%= render "shared/error_messages", :target => @answer  %>
   <fieldset>
     <div class="control-group edit_tools">
       <label class="control-label"></label>
@@ -13,7 +13,7 @@
     <%= f.input :body, as: :text, label: false,input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" } %>
     <%= f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } %>
     <div class="form-actions">
-      <%= f.submit t("common.save"), :class => "btn btn-primary" %> or <%= link_to t("common.cancel"), answers_path %>
+      <%= f.submit t("common.save"), :class => "btn btn-primary" %> or <%= link_to t("common.cancel"), question_path(@question) %>
     </div>
   </fieldset>
 <% end %>

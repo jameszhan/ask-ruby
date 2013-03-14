@@ -33,6 +33,14 @@ window.Questions =
       Questions.preview($(textarea).val())
       false
 
+  answerCallback: (success, msg) ->
+    if success
+      Util.notice(msg, '#new_answer')
+    else
+      Util.alert(msg, '#new_answer')
+      
+          
+
 $(document).ready ->
   $("#question_add_image").on "click", () ->
     $("#question_upload_images").click()

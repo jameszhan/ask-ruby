@@ -1,10 +1,6 @@
 Ask::Application.routes.draw do
   
-  resources :answers
-
-
   resources :tags
-
 
   resources :questions do
     collection do 
@@ -12,6 +8,21 @@ Ask::Application.routes.draw do
       get '/:tags' => 'questions#index', as: :tagged_with, constraints: { tags: /tags\:(.*)/ }
       get '/:filter' => 'questions#index', :as => :filtered, 
         :constraints => { :filter => /all|unanswered|by_me|feed|preferred|contributed|expertise/ }
+    end
+    resources :answers do
+      resources :votes
+      member do
+        get :favorite
+        get :unfavorite
+        get :flag
+        get :history
+        get :diff
+        get :revert
+      end
+
+      resources :comments do
+        resources :votes
+      end
     end
   end
 

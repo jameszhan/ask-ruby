@@ -15,11 +15,11 @@ class Question
 
   belongs_to :user
   belongs_to :node
-  has_many :answers
-  index :node_id => 1
+  has_many :answers, :dependent => :destroy
   
+  index :node_id => 1  
   
-  scope :minimal, -> { without(:body) }
+  scope :minimal, -> { without(:body, :answers) }
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"

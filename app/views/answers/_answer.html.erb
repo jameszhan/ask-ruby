@@ -1,19 +1,15 @@
-<% answers.each do |answer| %>
-  <div class="row">
-    <div class="span1">
-      <div class="vote-buttons">
-        <div class="voteup"></div>
-        <div class="votenumber">0</div>
-        <div class="votedown"></div>
-      </div>
-    </div>
-    <div class="span8" style="margin-left: 10px;">
-      <%= render "shared/user_info", created_at: answer.created_at, user: answer.user -%>
-      <p>
-        <%= markdown answer.body %>
-      </p>
+<div class="row-fluid box answer">
+  <div class="span1">
+    <div class="vote-buttons">
+      <div class="voteup"></div>
+      <div class="votenumber">0</div>
+      <div class="votedown"></div>
     </div>
   </div>
-  <div class="answers-split span9">
+  <div class="span11" style="margin-left: 6px;">
+    <%= render "shared/user_info", created_at: answer.created_at, user: answer.user -%>
+    <p>
+      <%= markdown answer.body %>
+    </p>
   </div>
-<% end %>
+</div>
