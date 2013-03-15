@@ -29,7 +29,8 @@
           <li><%= link_to "Tags", tags_path %></li>
         </ul>               
         <% if user_signed_in? %>  
-        <ul class="nav pull-right">          
+        <ul class="nav pull-right">
+          <li><a>0</a></li>          
           <li><a href="#">Welcome <%= current_user.name %>!</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b>
