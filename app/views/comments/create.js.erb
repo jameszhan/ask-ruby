@@ -1,6 +1,6 @@
 <% if @comment.errors.blank? -%>
   $("#<%= @commentable.id %>-comments").html('<%= escape_javascript(render(@commentable.comments)) %>');
-  $("#<%= @commentable.id %>-comments").next(".comment").find("textarea").val("")
+  $("#<%= @commentable.id %>-comments").closest(".comments").find("textarea").val("");
   Util.notice("<%= @msg %>", "#<%= @commentable.id %>-comments + .comment");
 <% else -%>
   Util.alert("<%= raw @msg %>", "#<%= @commentable.id %>-comments + .comment")
