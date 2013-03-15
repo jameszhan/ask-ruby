@@ -4,13 +4,9 @@
 </div>
  -->
 <!--question -->
-<div class="row-fluid box">
+<div class="row-fluid box" id="question-<%= @question.id %>">
   <div class="span1">
-    <div class="vote-buttons">
-      <div class="voteup"></div>
-      <div class="votenumber">0</div>
-      <div class="votedown"></div>
-    </div>
+    <%= render "shared/vote_box", votable: @question, url: question_votes_path(@question) %>
   </div>
   <div class="span11" style="margin-left: 0px;">
     <h3><%= @question.title %></h3>

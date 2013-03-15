@@ -34,6 +34,36 @@
   }
 }
 
+.vote-box{
+  width: 25px;
+  button {
+    height: 25px;
+    width: 24px;
+    border: 0px;
+    @include border-radius(3px);    
+    background-repeat: no-repeat;
+    background-image: image-url("question-toolbar-icons-small.png");
+    &.vote-down {
+      background-position: 5px -402px;
+      &:hover, &.checked{
+        background-position: 5px -417px;
+      }
+    }
+    &.vote-up {
+      background-position: 5px -449px;
+      &:hover, &.checked{
+        background-position: 5px -434px;
+      }
+    }
+  }
+  .votes_average {
+    padding: 5px 0;
+    text-align: center;
+    width: 10px;
+    margin: 0px auto;
+  }
+}
+
 
 .spite-icon {
   width: 22px;
@@ -93,13 +123,13 @@
   }
   &.vote-down {
     background-position: 5px -402px;
-    &:hover{
+    &:hover, &.checked{
       background-position: 5px -417px;
     }
   }
   &.vote-up {
     background-position: 5px -449px;
-    &:hover, &.disabled{
+    &:hover, &.checked{
       background-position: 5px -434px;
     }
   }
