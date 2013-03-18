@@ -13,10 +13,11 @@ gem 'rails', '3.2.12'
 
 #gem 'sqlite3'
 gem 'mongoid'
+gem 'mongoid-votable'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
-gem 'omniauth-weibo', :git => 'git://github.com/jameszhan/omniauth-weibo.git'
+gem 'omniauth-weibo', git: 'git://github.com/jameszhan/omniauth-weibo.git'
 gem 'cancan'
 
 gem 'simple_form', "2.0.2"
