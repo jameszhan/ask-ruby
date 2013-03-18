@@ -95,5 +95,8 @@ class User
     where(omniauth.slice(:provider, :uid).inject({}){|h, item| h.tap{h["authentications.#{item[0]}"] = item[1]}})
   end
   
+  def vote_on(votable)
+    votable.votes.where(voter: self).first.try(:value)
+  end
   
 end
