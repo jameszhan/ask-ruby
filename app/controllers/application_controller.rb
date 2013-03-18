@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   private 
     def find_node
       @current_node ||= begin
-        Node.where(name: 'default', summary: 'The default node.').first_or_create!
+        Node.where(name: 'default').first_or_create!
       end
       @current_node
     end

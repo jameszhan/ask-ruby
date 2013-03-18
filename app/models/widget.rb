@@ -1,5 +1,6 @@
 class Widget
   include Mongoid::Document
+  include Mongoid::DebugCallbacks
   
   class << self
     def subclasses
@@ -22,12 +23,14 @@ class Widget
   validates_length_of :name, :minimum => 1  
   validates_uniqueness_of   :name  
   validate :check_settings
-  after_initialize :set_name
   
-  embedded_in :widget_list, polymorphic: true
+  #TODO There is open bugs in mongoid
+  after_initialize :set_name
+
+  embedded_in :widgetable, polymorphic: true
   
   def partial_name
-    "widgets/#{self.name}"
+    "widgets/#{name.underscore.parameterize("_")}"
   end
 
   def description
@@ -48,11 +51,7 @@ class Widget
     end
 
     def set_name
-      if self.name
-        self.name.parameterize("_")
-      else
-        self.name = self.class.to_s.demodulize.sub("Widget", "").underscore.parameterize("_")
-      end      
+      self.name ||= self.class.to_s.demodulize.sub("Widget", "").underscore.parameterize("_")   
     end
 
     def check_settings

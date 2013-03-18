@@ -4,23 +4,47 @@ class VotesController < ApplicationController
   def create
     if current_user 
       value = (params[:vote_up] && 1) || (params[:vote_down] && -1) || 0
-      if value != 0
-        @votable.vote!(value, current_user) do |type|
+      if value != 0        
+        value = vote_value(value)
+        @votable.vote!(value, current_user) do |val, type|
           case type
           when :created
+            if val > 0
+              @msg = "Thanks for voting up the question"
+            else
+              @msg = "Thanks for voting down the question"
+            end
           when :updated
+            if val > 0
+              @msg = "You have already update to vote up the question"
+            else
+              @msg = "You have already update to vote down the question"
+            end
           when :destroyed
+            @msg = "You have already vote up the question"
           end
         end
       end
       @average = @votable.votes_average
-      @msg = "Thanks for your votes."
     else
       @msg = @error = "You must login first."
     end
   end
 
   protected
+    def vote_value(value)
+      current_value = current_user.vote_on(@votable) || 0
+      puts "current => #{current_value}"
+      if current_value > 0 && value > 0
+        -1
+      elsif current_value < 0 && value < 0
+        1
+      elsif current_value > 0 && value < 0 || current_value < 0 && value > 0 
+        value * 2
+      else
+        value
+      end
+    end
     def find_voteable
       #TODO Here is a hole of this method, since we depend on a order hash.
       request.path_parameters.each do |name, value|

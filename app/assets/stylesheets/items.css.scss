@@ -256,3 +256,32 @@
   min-height:72px;
 }
 
+.badge_item {
+  a {
+    height: 25px;
+    line-height: 25px;
+    padding: 1px 10px 2px 25px;
+    display: inline-block;
+    font-size: 16px;
+    @include border-radius(10px);
+  }
+  .badge {
+    background-repeat: no-repeat;
+    background-image: image-url("ribbons.png");
+    &.silver {
+      background-position: 0px 0px;
+    }
+    &.gold {
+      background-position: 0px -32px;
+    }
+    &.bronze {
+      background-position: 0px -64px;
+    }
+  }
+  .counter {
+    height: 30px;
+    line-height: 30px;
+  }
+}
+
+

@@ -4,10 +4,11 @@ Ask::Application.routes.draw do
 
 
   resources :tags
+  resources :badges, only: [:index, :show]
     
   resources :questions do
     resources :comments, :only => [:create]
-    resources :votes
+    resources :votes, :only => [:create]
     collection do 
       post :preview
       get '/:tags' => 'questions#index', as: :tagged_with, constraints: { tags: /tags\:(.*)/ }
@@ -17,7 +18,7 @@ Ask::Application.routes.draw do
     
     resources :answers do
       resources :comments, :only => [:create]
-      resources :votes
+      resources :votes, :only => [:create]
       member do
         get :favorite
         get :unfavorite

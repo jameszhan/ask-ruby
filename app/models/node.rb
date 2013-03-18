@@ -1,37 +1,41 @@
 class Node
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::DebugCallbacks
   
   field :name
-  field :summary
-  field :questions_count, :type => Integer, :default => 0  
-  
-  has_many :questions
-  
+  field :summary, default: "Default Node"
+  field :questions_count, :type => Integer, :default => 0 
+   
   validates_presence_of :name, :summary
   validates_uniqueness_of :name
   
-  embeds_many :widget_maps  
+  has_many :questions
+  has_many :badges, :dependent => :destroy
+  
+  embeds_many :widget_groups, cascade_callbacks: true 
   embeds_many :tags
   
-  before_create :create_widget_maps
-  
+  before_create :create_widget_groups    
+
   def lookup_widgets(key, position)
-    widget_maps.find(key).find_widgets(position) || widget_maps.find(:default).find_widgets(position)
+    widget_groups.find(key).find_widgets(position) || widget_maps.find(:default).find_widgets(position)
   end
   
   
   private 
-    def create_widget_maps
+    def create_widget_groups
       create_default_widgets
     end
     
     def create_default_widgets
-      widget_map = widget_maps.build(name: 'default')
-      %w[welcome markdown].each do |widget_name|
-        widget_map.sidebar_widgets << Widget.new(name: widget_name)
+      unless widget_groups.where(name: 'default').first    
+        widget_group = widget_groups.build(name: 'default')
+        %w[welcome markdown].each do |widget_name|
+          widget_group.sidebar_widgets << Widget.new(name: widget_name)
+        end
+        widget_group.sidebar_widgets << Shared::QuestionStatsWidget.new
       end
-      widget_map.sidebar_widgets << Shared::QuestionStatsWidget.new
     end
     
 end

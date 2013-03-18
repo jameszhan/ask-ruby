@@ -1,0 +1,25 @@
+<div class="row-fluid box">
+  <h2><%= t("badges.index.title", default: "Badges") %></h2>
+  <p class="description">
+     Community gives you awards for your questions, answers and votes.<br/>
+      Below is the list of available badges and number of times each type of badge has been awarded. Have ideas about fun badges? Please, give us your <%= link_to "feedback", "/feedback", style: "color:#1B79BD" %> 
+  </p>
+</div>
+
+<div class="row-fluid box badges">
+  <table class="table table-striped">
+  <% @badges.sort_by{|b| b.name}.each do |badge| -%>
+    <tr>
+      <td class="badge_item">
+        <div class="pull-left">
+          <%= link_to badge.name, badge_path(badge), class: "badge #{badge.type}", title: badge.description %>
+        </div>
+        <div class="counter pull-left">
+          × <%= Badge.count(badge["token"], current_node) %>
+        </div>
+      </td>
+      <td><%= badge.description %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>

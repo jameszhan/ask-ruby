@@ -2,6 +2,8 @@ var _id = '#<%= @votable.class.to_s.underscore %>-<%= @votable.id %>';
 <% if @error -%>
   Util.alert('<%= @msg %>', _id + " > div:first")
 <% else -%>
-  $(_id).find(".vote-box .votes_average").text('<%= @votable.votes_average %>');
+  var form = $(_id).find("form.vote_form");
+  form.find(".votes_average").text('<%= @votable.votes_average %>');
+  form.find("button").removeAttr("disabled");
   Util.notice('<%= @msg %>', _id + " > div:first");
 <% end -%>

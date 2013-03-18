@@ -1,0 +1,13 @@
+<div class="row-fluid box">
+  <%= render 'badge', badge: @badge %>
+  
+  <ul>
+  <% @users.each do |user| -%>
+    <li class="item">
+      User Stats: <%= user.questions.count %> Questions / <%= user.answers.count %> Answers      
+    </li>
+  <% end -%>
+  </ul>
+</div>
+
+

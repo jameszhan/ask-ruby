@@ -2,7 +2,7 @@ class Question
   include Mongoid::Document
   include Mongoid::Timestamps
   include MongoidExt::Taggable
-  include MongoidExt::Votable
+  include Mongoid::Votable
   
   field :title, type: String
   field :body, type: String
@@ -17,12 +17,13 @@ class Question
   belongs_to :user
   belongs_to :node
 
-  has_many :comments, as: :commentable, :dependent => :destroy
+  embeds_many :comments, as: :commentable
   has_many :answers, :dependent => :destroy
+  has_many :badges, :as => :badgable
   
   index :node_id => 1  
   
-  scope :minimal, -> { without(:body, :answers) }
+  scope :minimal, -> { without(:body, :answers, :comments) }
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"
