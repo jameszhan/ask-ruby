@@ -5,12 +5,13 @@ class Node
   
   field :name
   field :summary, default: "Default Node"
-  field :questions_count, :type => Integer, :default => 0  
-  
-  has_many :questions
-  
+  field :questions_count, :type => Integer, :default => 0 
+   
   validates_presence_of :name, :summary
   validates_uniqueness_of :name
+  
+  has_many :questions
+  has_many :badges, :dependent => :destroy
   
   embeds_many :widget_groups, cascade_callbacks: true 
   embeds_many :tags

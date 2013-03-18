@@ -19,6 +19,7 @@ class Question
 
   embeds_many :comments, as: :commentable
   has_many :answers, :dependent => :destroy
+  has_many :badges, :as => :badgable
   
   index :node_id => 1  
   

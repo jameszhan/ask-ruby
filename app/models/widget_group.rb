@@ -13,7 +13,7 @@ class WidgetGroup
   POSITIONS = %w[header footer navbar sidebar]
   
   POSITIONS.each do |position|
-    embeds_many "#{position}_widgets".to_sym, class_name: 'Widget', as: :widget_list, cascade_callbacks: true
+    embeds_many "#{position}_widgets".to_sym, class_name: 'Widget', as: :widgetable, cascade_callbacks: true
   end
   
   def find_widgets(position)

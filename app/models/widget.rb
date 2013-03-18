@@ -27,7 +27,7 @@ class Widget
   #TODO There is open bugs in mongoid
   after_initialize :set_name
 
-  embedded_in :widget_list, polymorphic: true
+  embedded_in :widgetable, polymorphic: true
   
   def partial_name
     "widgets/#{name.underscore.parameterize("_")}"
