@@ -8,7 +8,8 @@ class Answer
   belongs_to :question, :inverse_of => :answers, :counter_cache => true
 
   has_many :comments, as: :commentable, :dependent => :destroy
-
+  
+  
   validates_presence_of :body
   validates_length_of :body, minimum: 5
   

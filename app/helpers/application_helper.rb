@@ -56,4 +56,14 @@ module ApplicationHelper
     end
   end
 
+  def unread_count(notifications)
+    unread_notifications = []
+    notifications.each do |notification|
+      unless notification.read
+        unread_notifications << notification
+      end
+    end
+    unread_notifications.count
+  end
+
 end

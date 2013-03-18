@@ -32,7 +32,7 @@ class User
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy 
   
-  
+  has_many :notifications, :dependent => :destroy
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -97,6 +97,13 @@ class User
   
   def vote_on(votable)
     votable.votes.where(voter: self).first.try(:value)
+  end
+
+  def read_notifications(notifications)
+    notifications.each do |notification|
+      notification.read = true
+      notification.save
+    end
   end
   
 end
