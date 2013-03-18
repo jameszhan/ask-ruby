@@ -22,7 +22,7 @@ class Question
   
   index :node_id => 1  
   
-  scope :minimal, -> { without(:body, :answers) }
+  scope :minimal, -> { without(:body, :answers, :comments) }
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"

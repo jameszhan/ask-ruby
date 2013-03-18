@@ -79,7 +79,7 @@ group :test do
   gem "database_cleaner"  
   gem 'capybara', '1.1.2'
   
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 1.4.2'
 
   case HOST_OS
     when /linux/i
