@@ -1,5 +1,8 @@
 Ask::Application.routes.draw do
   
+  resources :notifications, :only => [:index, :destroy]
+
+
   resources :tags
   resources :badges, only: [:index, :show]
     

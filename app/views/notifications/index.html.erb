@@ -1,0 +1,57 @@
+<div class="page-header">
+  <h1><%=t 'mongoid.models.notification', :default => Notification.model_name.human.pluralize %></h1>
+</div>
+
+<div id="notifications">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="head">
+        <td>Title</td>
+        <td>Notify</td>
+        <td>创建时间</td>
+        <td class="opts"></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @notifications.each do |item| %>
+        <% notify = get_instance(item) %>
+        <tr class="<%= cycle("","even") %>">
+        <% if item.source == "Answer" -%>
+          <td><%= link_to notify.question.title, question_path(notify.question) %></td>
+          <td>
+            <%= notify.body %>
+          </td>
+          <td><%= l(item.created_at, :format => :long) %></td>
+          <td>
+            <%= link_to notification_path(item.id),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-mini btn-danger' do %>
+              <i class="icon-trash"></i><%= t('.destroy', :default => t("helpers.links.destroy")) %>
+            <% end %>
+          </td>
+        <% elsif item.source == "Comment" -%>
+          <% if notify.commentable.instance_of?(Question) %>
+            <td><%= link_to notify.commentable.title, question_path(notify.commentable) %></td>
+          <% else %>
+            <td><%= link_to notify.commentable.question.title, question_path(notify.commentable.question) %></td>
+          <% end %>
+          <td>
+            <%= notify.body %>
+          </td>
+          <td><%= l(item.created_at, :format => :long) %></td>
+          <td>
+            <%= link_to notification_path(item.id),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-mini btn-danger' do %>
+              <i class="icon-trash"></i><%= t('.destroy', :default => t("helpers.links.destroy")) %>
+            <% end %>
+          </td>
+        <% end -%>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
