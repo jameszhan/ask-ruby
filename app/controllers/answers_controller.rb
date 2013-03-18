@@ -9,6 +9,8 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build(params[:answer])
     @answer.user = current_user
     if @answer.save
+      Notification.create(source: "Answer", source_id: @answer.id, user: @question.user) if @question.user != current_user
+      NotificationMailer.answer_notify_email(@answer).deliver
       @msg = t("questions.answer_success", default: 'Answer was successfully created.')
     else
       @msg = @answer.errors.full_messages.join("<br />")

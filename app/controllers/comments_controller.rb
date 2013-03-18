@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
   	if can? :create, Comment
       @comment.user = current_user    
       if @comment.save
+        Notification.create(source: "Comment", source_id: @comment.id, user: @commentable.user) if @commentable.user != current_user 
         @msg = t("questions.comment_success", default: 'Thanks you for your comment.')
       else
         @msg = @comment.errors.full_messages.join("<br />")

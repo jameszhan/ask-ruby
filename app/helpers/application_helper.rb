@@ -19,7 +19,8 @@ module ApplicationHelper
       strikethrough: true,
       superscript: true
     }
-    Redcarpet::Markdown.new(renderer, options).render(text).html_safe    
+    result = Redcarpet::Markdown.new(renderer, options).render(text)
+    MdEmoji::Render.new.replace_emoji(result).html_safe    
   end
   
   def tagged_with_questions_path(tag, remove = false)
@@ -53,6 +54,16 @@ module ApplicationHelper
     if widget.accept? params
       render partial: widget.partial_name, locals: {widget: widget}
     end
+  end
+
+  def unread_count(notifications)
+    unread_notifications = []
+    notifications.each do |notification|
+      unless notification.read
+        unread_notifications << notification
+      end
+    end
+    unread_notifications.count
   end
 
 end
