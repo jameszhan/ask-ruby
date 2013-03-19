@@ -4,10 +4,13 @@ class NotificationsController < ApplicationController
     if current_user
       @notifications = current_user.notifications
       current_user.read_notifications(@notifications)
-    end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @notifications }
+    
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @notifications }
+      end
+    else
+      redirect_to root_path
     end
   end
 
