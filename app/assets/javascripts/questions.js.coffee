@@ -3,43 +3,49 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 window.Questions =
-  preview: (body) ->
-    $("#preview").text "Loading..."
+  preview: (body, preview_box) ->
+    preview_box.text "Loading..."
 
     $.post "/questions/preview",
       "body": body,
       (data) ->
-        $("#preview").html data.body
+        preview_box.html data.body
       "json"
       
   hookPreview: (switcher, textarea) ->
-    # put div#preview after textarea
-    preview_box = $(document.createElement("div")).attr "id", "preview"
-    preview_box.addClass("body")
+    preview_box = $(document.createElement("div")).addClass "preview_box"
     $(textarea).after preview_box
-    preview_box.hide()
 
-    $(".edit a",switcher).click ->
-      $(".preview",switcher).removeClass("active")
+    $(".edit a", $(switcher)).click ->
+      form = $(this).closest("form")
+      $(".preview", form.find(switcher)).removeClass("active")
       $(this).parent().addClass("active")
-      $(preview_box).hide()
-      $(textarea).show()
+      $(".preview_box", form).hide()
+      $(textarea, form).show()
       false
-    $(".preview a",switcher).click ->
-      $(".edit",switcher).removeClass("active")
+    $(".preview a", $(switcher)).click ->
+      form = $(this).closest("form")
+      $(".edit", form.find(switcher)).removeClass("active")
       $(this).parent().addClass("active")
-      $(preview_box).show()
-      $(textarea).hide()
-      Questions.preview($(textarea).val())
+      preview_box = $(".preview_box", form)
+      preview_box.show()
+      $(textarea, form).hide()
+      Questions.preview($(textarea, form).val(), preview_box)
       false
+    preview_box.hide()
 
   answerCallback: (success, msg) ->
     if success
+      Questions.bindAnswersCallback() 
       Util.notice(msg, '#new_answer')
     else
       Util.alert(msg, '#new_answer')
       
-          
+  bindAnswersCallback: () ->
+    $(".answer a.btn-danger").on "ajax:complete", (e, xhr, status)->
+      if status == 'nocontent'
+        $(this).closest('.answer').remove()
+        
 
 $(document).ready ->
   $("#question_add_image").on "click", () ->
@@ -50,5 +56,15 @@ $(document).ready ->
   $(".comment-form a").on "click", () ->
     $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
     
-  Questions.hookPreview($(".editor_toolbar"), $(".questions_editor"))
+  $(".edit-answer-form .cancel-link").on "click", () ->
+    $(this).closest(".edit-answer-form").hide()
+    return false
+  $(".edit-answer-button").on "click", () ->
+    $(this).parent("div").find(".edit-answer-form").show()
+    
+  $(".edit-answer-form form").on "ajax:success", () ->
+    $(this).closest(".edit-answer-form").hide()
+    
+  Questions.bindAnswersCallback()  
+  Questions.hookPreview(".editor_toolbar", ".questions_editor,.answers_editor")
   return

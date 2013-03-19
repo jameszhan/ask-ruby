@@ -1,1 +1,2 @@
+<% puts "*" * 100, markdown(@body) %>
 <%= {:body => markdown(@body)}.to_json.html_safe %>

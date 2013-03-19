@@ -3,8 +3,8 @@ class User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
+         :trackable, :validatable, :omniauthable
 
   ## Database authenticatable       
   field :email,              :type => String, :default => ""
@@ -26,14 +26,6 @@ class User
   
   field :name, :type => String
   
-  field :roles, :type => Array, :default => [:member]
-  index :roles => 1
-  
-  has_many :questions, :dependent => :destroy
-  has_many :answers, :dependent => :destroy 
-  
-  has_many :notifications, :dependent => :destroy
-
   ## Confirmable
   # field :confirmation_token,   :type => String
   # field :confirmed_at,         :type => Time
@@ -50,9 +42,14 @@ class User
   
 
   #has_many :authentications, :dependent => :destroy
-  has_many :questions
   embeds_many :authentications
-  has_many :answers
+  has_many :memberships, :dependent => :destroy
+  
+  has_many :questions, :dependent => :destroy
+  has_many :answers, :dependent => :destroy 
+  
+  has_many :notifications, :dependent => :destroy
+
   
   @@validation = true
   def self.with_no_validation 
@@ -70,9 +67,12 @@ class User
     @@validation && super
   end
   
-  
   def is?(role)
-    roles.include?(role)
+    if membership = config_for(current_node)
+      membership.roles.include?(role)
+    else
+      [:member].include?(role)
+    end
   end
     
   def self.from_omniauth(omniauth) 
@@ -105,5 +105,15 @@ class User
       notification.save
     end
   end
+  
+  private 
+    #TODO
+    def current_node
+      Node.first
+    end
+    
+    def config_for(node)
+      memberships.active.where(user_id: self.id, node_id: node.id).first
+    end
   
 end
