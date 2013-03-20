@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe "Answers" do
   describe "GET /answers" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get answers_path
-      response.status.should be(200)
+    xit "works! (now write some real specs)" do
+      
     end
   end
 end

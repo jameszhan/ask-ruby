@@ -1,6 +1,6 @@
 class WidgetGroup
   include Mongoid::Document
-  include Mongoid::DebugCallbacks
+  #include Mongoid::DebugCallbacks
   
   field :name
   field :_id, type: String, default: ->{ name.try(:parameterize) }

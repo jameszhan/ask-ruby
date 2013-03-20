@@ -7,14 +7,14 @@ describe "Notifications" do
   	end
   	
   	before do
-	    visit "/users/sign_in"
+	    visit new_user_session_path
 
 	    fill_in 'Email', with: @user.email 
 	    fill_in 'Password', with: @user.password
 	    click_button "Sign in"
 	  end
 
-    it "works! (now write some real specs)" do
+    it "should visit /notifications" do
       visit notifications_path
       page.should have_content "Notifications"
     end

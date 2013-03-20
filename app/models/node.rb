@@ -1,7 +1,7 @@
 class Node
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::DebugCallbacks
+  #include Mongoid::DebugCallbacks
   
   field :name
   field :summary, default: "Default Node"
