@@ -1,6 +1,7 @@
 class Answer
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Votable
   
   field :body, type: String  
   

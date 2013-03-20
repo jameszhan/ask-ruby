@@ -3,6 +3,8 @@ var _id = '#<%= @votable.class.to_s.underscore %>-<%= @votable.id %>';
   Util.alert('<%= @msg %>', _id + " > div:first")
 <% else -%>
   var form = $(_id).find("form.vote_form");
+  form.find(".vote-up, .vote-down").removeClass("checked");
+  form.find('.<%= @vote_type %>').addClass("checked");
   form.find(".votes_average").text('<%= @votable.votes_average %>');
   form.find("button").removeAttr("disabled");
   Util.notice('<%= @msg %>', _id + " > div:first");

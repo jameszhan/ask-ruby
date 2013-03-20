@@ -245,7 +245,7 @@
   width: 0;
 }
 
-#preview {
+.preview_box {
   margin-top:0px;
   border: 1px solid #ccc;
   padding:4px;
@@ -254,6 +254,7 @@
   width: 510px;
   margin-bottom:10px;
   min-height:72px;
+  display: none;
 }
 
 .badge_item {

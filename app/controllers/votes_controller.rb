@@ -4,9 +4,15 @@ class VotesController < ApplicationController
   def create
     if current_user 
       value = (params[:vote_up] && 1) || (params[:vote_down] && -1) || 0
+      current_value = 0
       if value != 0        
+        puts "@" * 100
+        puts value
         value = vote_value(value)
+        puts value
+        puts "@" * 100
         @votable.vote!(value, current_user) do |val, type|
+          current_value = val
           case type
           when :created
             if val > 0
@@ -26,6 +32,7 @@ class VotesController < ApplicationController
         end
       end
       @average = @votable.votes_average
+      @vote_type = current_value > 0 ? "vote-up" : (current_value < 0 ? "vote-down" : "vote-nothing")
     else
       @msg = @error = "You must login first."
     end
@@ -34,7 +41,6 @@ class VotesController < ApplicationController
   protected
     def vote_value(value)
       current_value = current_user.vote_on(@votable) || 0
-      puts "current => #{current_value}"
       if current_value > 0 && value > 0
         -1
       elsif current_value < 0 && value < 0
@@ -57,10 +63,5 @@ class VotesController < ApplicationController
         end
       end
     end
-
-    def validate_vote(value, voter)
-      true
-    end
-
 
 end

@@ -1,5 +1,5 @@
 module ApplicationHelper
-  class HTMLwithCodeRay < Redcarpet::Render::HTML
+  class HTMLwithCodeRay < MdEmoji::Render #Redcarpet::Render::HTML
     def block_code(code, language)
       sha = Digest::SHA1.hexdigest(code)
       Rails.cache.fetch ["code", language, sha].join("-") do
@@ -19,8 +19,7 @@ module ApplicationHelper
       strikethrough: true,
       superscript: true
     }
-    result = Redcarpet::Markdown.new(renderer, options).render(text)
-    MdEmoji::Render.new.replace_emoji(result).html_safe    
+    Redcarpet::Markdown.new(renderer, options).render(text).html_safe  
   end
   
   def tagged_with_questions_path(tag, remove = false)

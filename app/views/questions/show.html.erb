@@ -1,66 +1,69 @@
-<!-- <div class="tools">
-  <%= link_to '修改', edit_question_path(@question), :class => "btn btn-small btn-success" %>
-  <%= link_to '返回', questions_path, :class => "btn btn-small" %>
-</div>
- -->
 <!--question -->
-<div class="row-fluid box main-question" id="question-<%= @question.id %>">
-  <div class="span1 vote-box-parent">
-    <%= render "shared/vote_box", votable: @question, url: question_votes_path(@question) %>
-  </div>
-  <div class="span11" style="margin-left: 0px;">
-    <h3><%= @question.title %></h3>
-    <ul class="inline">          
-      <% @question.tags.each do|tag| -%>
-      <li class="tag">
-        <%= link_to tag, tagged_with_questions_path(tag), class: "btn-small btn" %>
-      </li>
-      <% end -%>
-    </ul>
-    <div>
-      <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
-      <%= markdown @question.body %>
+<div class="box main-question" id="question-<%= @question.id %>">
+  <div class="row-fluid">
+    <div class="span1 vote-box-parent">
+      <%= render "shared/vote_box", votable: @question, url: question_votes_path(@question) %>
     </div>
+    <div class="span11" style="margin-left: 0px;">
+      <h3><%= @question.title %></h3>
+      <ul class="inline">          
+        <% @question.tags.each do|tag| -%>
+        <li class="tag">
+          <%= link_to tag, tagged_with_questions_path(tag), class: "btn-small btn" %>
+        </li>
+        <% end -%>
+      </ul>
+      <div>
+        <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
+        <%= markdown @question.body %>
+      </div>
 
-    <!--Comments-->
-    <div class="comments">
-      <div class="comment-items" id="<%= @question.id %>-comments">
-        <%= render @question.comments -%>  
-      </div>    
-      <% if can? :create, Comment -%>
-        <div class="comment">
-          <label>post a comment</label>
-          <div class="comment-form" style="display: none;">
-            <%= render "comments/form", form_url: question_comments_path(@question) %>
+      <!--Comments-->
+      <div class="comments">
+        <div class="comment-items" id="<%= @question.id %>-comments">
+          <%= render @question.comments -%>  
+        </div>    
+        <% if can? :create, Comment -%>
+          <div class="comment">
+            <label>post a comment</label>
+            <div class="comment-form" style="display: none;">
+              <%= render "comments/form", form_url: question_comments_path(@question) %>
+            </div>
           </div>
-        </div>
-      <% end -%>
+        <% end -%>
+      </div>
     </div>
   </div>
 </div>
 
 <!--answers-->    
-<div id="question-answers" class="row-fluid">
-  <div class="answers-tab box row-fluid">
+<div id="question-answers">
+  <div class="answers-tab row-fluid">
     <span id="answers-count" class="title"><b><%= @question.answers_count %></b> answers</span>
     <div id="sort_tabs" class="pagination">
     <ul>
       <li><span>Sort by »</span></li>  
       <li>
-        <a id="by_answers" href="/questions?sort=answers-desc" data-sort="answers-asc" title="click to see the most answered questions"><span>by answers</span></a>
+        <a id="by_answers" href="/questions?sort=answers-desc" 
+          data-sort="answers-asc" title="click to see the most answered questions"><span>by answers</span></a>
       </li>
       <li>
-        <a id="by_votes" href="/questions?sort=votes-desc" data-sort="votes-asc" title="click to see most voted questions"><span>by votes</span></a>
+        <a id="by_votes" href="/questions?sort=votes-desc" 
+          data-sort="votes-asc" title="click to see most voted questions"><span>by votes</span></a>
       </li>
     </ul> 
     </div>
   </div>
+  
   <%= render @question.answers %>
 </div>
 
 <!--answer box -->
 <% if can? :create, Answer -%>
-  <%= render "answers/form", question: @question %>
+<div>
+  <h3>Your Answer</h3>
+  <%= render "answers/form" %>
+</div>
 <% else -%>
   <%= render :partial => "shared/need_login", locals: {prompt_message: "回答"} %>
 <% end -%>
