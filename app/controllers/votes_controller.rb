@@ -6,11 +6,7 @@ class VotesController < ApplicationController
       value = (params[:vote_up] && 1) || (params[:vote_down] && -1) || 0
       current_value = 0
       if value != 0        
-        puts "@" * 100
-        puts value
         value = vote_value(value)
-        puts value
-        puts "@" * 100
         @votable.vote!(value, current_user) do |val, type|
           current_value = val
           case type

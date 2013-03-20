@@ -7,7 +7,7 @@ Ask::Application.routes.draw do
   resources :badges, only: [:index, :show]
     
   resources :questions do
-    resources :comments, :only => [:create]
+    resources :comments, :only => [:create, :destroy]
     resources :votes, :only => [:create]
     collection do 
       post :preview
@@ -16,16 +16,16 @@ Ask::Application.routes.draw do
         :constraints => { :filter => /all|unanswered|by_me|feed|preferred|contributed|expertise/ }
     end
     
-    resources :answers do
-      resources :comments, :only => [:create]
+    resources :answers, :only => [:create, :update, :destroy] do
+      resources :comments, :only => [:create, :destroy]
       resources :votes, :only => [:create]
       member do
-        get :favorite
-        get :unfavorite
-        get :flag
-        get :history
-        get :diff
-        get :revert
+#        get :favorite
+#        get :unfavorite
+#        get :flag
+#        get :history
+#        get :diff
+#        get :revert
       end
     end
   end

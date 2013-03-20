@@ -1,0 +1,4 @@
+var _id = "#<%= @commentable.id %>-comments";
+<% if @comment.errors.any? || @error -%>
+  Util.alert("<%= raw @msg %>", _id + " + .comment");
+<% end -%>

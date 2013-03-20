@@ -1,7 +1,9 @@
-<% if @comment.errors.blank? -%>
-  $("#<%= @commentable.id %>-comments").html('<%= escape_javascript(render(@commentable.comments)) %>');
-  $("#<%= @commentable.id %>-comments").closest(".comments").find("textarea").val("");
-  Util.notice("<%= @msg %>", "#<%= @commentable.id %>-comments + .comment");
+var _id = "#<%= @commentable.id %>-comments";
+<% if @comment.errors.any? || @error  -%>
+  Util.alert("<%= raw @msg %>",  _id + " + .comment");
 <% else -%>
-  Util.alert("<%= raw @msg %>", "#<%= @commentable.id %>-comments + .comment")
+  alert($(_id).html());
+  $(_id).html('<%= escape_javascript(render(@commentable.comments)) %>');
+  $(_id).closest(".comments").find("textarea").val("");
+  Util.notice("<%= @msg %>", _id + " + .comment");
 <% end -%>

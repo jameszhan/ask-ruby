@@ -42,7 +42,7 @@ window.Questions =
       Util.alert(msg, '#new_answer')
       
   hookDeleteAnswerCallback: () ->
-    $(".answer a.btn-danger").on "ajax:complete", (e, xhr, status)->
+    $(".answer a.btn-danger").on "ajax:complete", (e, xhr, status) ->
       if status == 'nocontent'
         $(this).closest('.answer').remove()
         
@@ -62,6 +62,10 @@ $(document).ready ->
     
   $(".edit-answer-form form").on "ajax:success", () ->
     $(this).closest(".edit-answer-form").hide()
+  
+  $('a.delete-comment').on "ajax:complete", (e, xhr, status) ->
+    if status == "nocontent"
+      $(this).closest('.comment-content').remove()
     
   Questions.hookDeleteAnswerCallback()  
   Questions.hookPreview(".editor_toolbar", ".questions_editor", 'body')

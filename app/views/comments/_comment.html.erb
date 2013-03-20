@@ -1,4 +1,12 @@
-
-	<div class="comment-content">
-	  <%= comment.body %>
-	</div>
+<% if comment.commentable.is_a? Answer -%>
+  <% url = question_answer_comment_path(@question, comment.commentable, comment) -%>
+<% else -%>
+  <% url = question_comment_path(@question, comment) -%>
+<% end -%>
+<div class="comment-content">
+  <% if can? :destroy, comment -%>
+  <%= link_to url, :method => :delete, :remote => true, :class => "delete-comment",
+    :data => { :confirm => t("helpers.links.confirm", :default => 'Are you sure?') } do %>&times;<% end %>
+  <% end -%>
+  <%= comment.body %>
+</div>
