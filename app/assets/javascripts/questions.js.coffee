@@ -12,18 +12,19 @@ window.Questions =
         preview_box.html data.body
       "json"
       
-  hookPreview: (switcher, textarea) ->
+  hookPreview: (switcher, textarea, context_selector) ->
+    ctx = $(context_selector)
     preview_box = $(document.createElement("div")).addClass "preview_box"
-    $(textarea).after preview_box
-
-    $(".edit a", $(switcher)).click ->
+    $(textarea, ctx).after preview_box
+    
+    $(".edit a").click ->
       form = $(this).closest("form")
       $(".preview", form.find(switcher)).removeClass("active")
       $(this).parent().addClass("active")
       $(".preview_box", form).hide()
       $(textarea, form).show()
       false
-    $(".preview a", $(switcher)).click ->
+    $(".preview a").click ->
       form = $(this).closest("form")
       $(".edit", form.find(switcher)).removeClass("active")
       $(this).parent().addClass("active")
@@ -32,7 +33,6 @@ window.Questions =
       $(textarea, form).hide()
       Questions.preview($(textarea, form).val(), preview_box)
       false
-    preview_box.hide()
 
   answerCallback: (success, msg) ->
     if success
@@ -41,7 +41,7 @@ window.Questions =
     else
       Util.alert(msg, '#new_answer')
       
-  bindAnswersCallback: () ->
+  hookDeleteAnswerCallback: () ->
     $(".answer a.btn-danger").on "ajax:complete", (e, xhr, status)->
       if status == 'nocontent'
         $(this).closest('.answer').remove()
@@ -56,15 +56,14 @@ $(document).ready ->
   $(".comment-form a").on "click", () ->
     $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
     
-  $(".edit-answer-form .cancel-link").on "click", () ->
-    $(this).closest(".edit-answer-form").hide()
-    return false
   $(".edit-answer-button").on "click", () ->
-    $(this).parent("div").find(".edit-answer-form").show()
+    $('#edit_answer_form_modal').find(".modal-body").html($(this).next("div.edit-answer-form").html())
+    Questions.hookPreview(".editor_toolbar", ".answers_editor", "#edit_answer_form_modal")
     
   $(".edit-answer-form form").on "ajax:success", () ->
     $(this).closest(".edit-answer-form").hide()
     
-  Questions.bindAnswersCallback()  
-  Questions.hookPreview(".editor_toolbar", ".questions_editor,.answers_editor")
+  Questions.hookDeleteAnswerCallback()  
+  Questions.hookPreview(".editor_toolbar", ".questions_editor", 'body')
+  Questions.hookPreview(".editor_toolbar", ".answers_editor", '#new_answer')
   return

@@ -3,7 +3,7 @@ var _id = '#<%= @answer.class.to_s.underscore %>-<%= @answer.id %>';
 <% if @error -%>
   Util.alert('<%= @msg %>', _id + " > div:first")
 <% else -%>
-  $(_id).find(".edit-answer-form").hide();
+  $("#edit_answer_form_modal").hide();
   $(_id).find(".answer-content").html('<%= escape_javascript(markdown(@answer.body)) %>')
   Util.notice('<%= @msg %>', _id + " > div:first");
 <% end -%>
