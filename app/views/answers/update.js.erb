@@ -3,7 +3,8 @@ var _id = '#<%= @answer.class.to_s.underscore %>-<%= @answer.id %>';
 <% if @error -%>
   Util.alert('<%= @msg %>', _id + " > div:first")
 <% else -%>
-  $("#edit_answer_form_modal").hide();
-  $(_id).find(".answer-content").html('<%= escape_javascript(markdown(@answer.body)) %>')
+  $("#edit_answer_form_modal").modal('hide');
+  $(_id).find(".answer-content").html('<%= escape_javascript(markdown(@answer.body)) %>');
+  $(_id).find(".edit-answer-form").find('textarea.answers_editor').text('<%=raw escape_javascript(@answer.body) %>');
   Util.notice('<%= @msg %>', _id + " > div:first");
 <% end -%>
