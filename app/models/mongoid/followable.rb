@@ -15,7 +15,11 @@ module Mongoid
     end
     
     def followed_by?(user)
-      followers.include? user
+      if user
+        followers.include? user 
+      else
+        false
+      end
     end
     
   end

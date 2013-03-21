@@ -5,6 +5,8 @@ class User
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
          :trackable, :validatable, :omniauthable
+         
+  attr_accessor :login_type
 
   ## Database authenticatable       
   field :email,              :type => String, :default => ""
@@ -84,6 +86,7 @@ class User
       end
       NotificationMailer.user_welcome_email(user).deliver!
     end
+    user.login_type = :omniauth
     user
   end
   
