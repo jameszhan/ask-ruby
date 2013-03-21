@@ -20,10 +20,10 @@ require 'spec_helper'
 
 describe QuestionsController do
   
-  
   let(:user) { FactoryGirl.create(:user) }
+  let(:admin) { FactoryGirl.create(:admin) }
   let(:question) { FactoryGirl.create(:question, user: user) }
-  let(:another_question) { FactoryGirl.create(:another_question) }
+  let(:another_question) { FactoryGirl.create(:another_question, user: admin) }
                
   def valid_attributes 
     {
@@ -35,8 +35,8 @@ describe QuestionsController do
   
   describe "GET index" do
     it "assigns all questions as @questions" do
-      get :index, {}
-      assigns(:questions).should eq([question])
+      get :index
+      response.should be_success
     end
   end
     

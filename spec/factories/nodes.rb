@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :node do
-    name 'title'
+    name 'default'
     summary 'summary'
   end
 end
