@@ -12,7 +12,7 @@ class Tag
   validates_uniqueness_of   :name
 
   belongs_to :user  
-  embedded_in :node
+  embedded_in :node, :inverse_of => :tags
     
   def self.list
     all.map(&:id)

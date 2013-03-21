@@ -13,8 +13,6 @@ class Priviledge
 
   embedded_in :user, :inverse_of => :priviledges
   belongs_to :node
-  
-=begin
 
   validates_presence_of :node
   validates_uniqueness_of :node_id
@@ -26,6 +24,6 @@ class Priviledge
   index :state => 1
   index({ node_id: 1 }, { unique: true })
   index({ state: 1, node_id: 1 })
-=end
+
 
 end

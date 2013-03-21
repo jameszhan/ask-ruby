@@ -121,7 +121,8 @@ class User
   
   protected
     def config_for(node)
-      priviledges.where(node_id: node.id).first_or_create
+      #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
+      priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
     end
   
 end

@@ -53,8 +53,6 @@ class Badge
   
   before_save :set_type
   
-
-
   def to_param
     self.token
   end
