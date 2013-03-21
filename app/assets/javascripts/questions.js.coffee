@@ -36,38 +36,38 @@ window.Questions =
 
   answerCallback: (success, msg) ->
     if success
-      Questions.bindAnswersCallback() 
       Util.notice(msg, '#new_answer')
     else
       Util.alert(msg, '#new_answer')
-      
-  hookDeleteAnswerCallback: () ->
-    $(".answer a.btn-danger").on "ajax:complete", (e, xhr, status) ->
+        
+  hookAnswersCallback: (context) -> 
+    parent = $(context)
+    $(".answer-actions > a.btn-danger", parent).on "ajax:complete", (e, xhr, status) ->
       if status == 'nocontent'
         $(this).closest('.answer').remove()
+    $(".edit-answer-button", parent).on "click", () ->
+      $('#edit_answer_form_modal').find(".modal-body").html($(this).next("div.edit-answer-form").html())
+      Questions.hookPreview(".editor_toolbar", ".answers_editor", "#edit_answer_form_modal")
+  
+  hookCommentsCallback: (context) ->
+    parent = $(context)
+    $('a.delete-comment', parent).on "ajax:complete", (e, xhr, status) ->
+      if status == "nocontent"
+        $(this).closest('.comment-content').remove()
+    $(".comment label", parent).on "click", () ->
+      $(this).hide().next(".comment-form").show()
+    $(".comment-form a", parent).on "click", () ->
+      $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
+        
         
 
 $(document).ready ->
   $("#question_add_image").on "click", () ->
     $("#question_upload_images").click()
     return false
-  $(".comment label").on "click", () ->
-    $(this).hide().next(".comment-form").show()
-  $(".comment-form a").on "click", () ->
-    $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
     
-  $(".edit-answer-button").on "click", () ->
-    $('#edit_answer_form_modal').find(".modal-body").html($(this).next("div.edit-answer-form").html())
-    Questions.hookPreview(".editor_toolbar", ".answers_editor", "#edit_answer_form_modal")
-    
-  $(".edit-answer-form form").on "ajax:success", () ->
-    $(this).closest(".edit-answer-form").hide()
-  
-  $('a.delete-comment').on "ajax:complete", (e, xhr, status) ->
-    if status == "nocontent"
-      $(this).closest('.comment-content').remove()
-    
-  Questions.hookDeleteAnswerCallback()  
+  Questions.hookAnswersCallback('body') 
+  Questions.hookCommentsCallback('body')  
   Questions.hookPreview(".editor_toolbar", ".questions_editor", 'body')
   Questions.hookPreview(".editor_toolbar", ".answers_editor", '#new_answer')
   return

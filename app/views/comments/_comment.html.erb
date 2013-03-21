@@ -1,7 +1,7 @@
 <% if comment.commentable.is_a? Answer -%>
-  <% url = question_answer_comment_path(@question, comment.commentable, comment) -%>
+  <% url = question_answer_comment_path(comment.commentable.question, comment.commentable, comment) -%>
 <% else -%>
-  <% url = question_comment_path(@question, comment) -%>
+  <% url = question_comment_path(comment.commentable, comment) -%>
 <% end -%>
 <div class="comment-content">
   <% if can? :destroy, comment -%>

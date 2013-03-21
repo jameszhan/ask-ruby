@@ -3,13 +3,12 @@
     <div class="span1 vote-box-parent">
       <%= render "shared/vote_box", votable: answer, url: question_answer_votes_path(@question, answer) %>
     </div>
-
     <div class="span11" style="margin-left: 6px;">
       <%= render "shared/user_info",updated_text: "answered", created_at: answer.created_at, user: answer.user -%>
       <div class="answer-content">
         <%= markdown answer.body %>
       </div>
-      <div class="row-fluid">
+      <div class="row-fluid answer-actions">
       <% if can? :update, answer -%>
         <%= link_to "Edit", "#edit_answer_form_modal", data: { toggle: "modal", keyboard: true, backdrop: true }, 
           class: "btn btn-small btn-primary edit-answer-button" %>

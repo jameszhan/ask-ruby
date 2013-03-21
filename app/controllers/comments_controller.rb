@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   
   protected
     def find_commentable()
-      #TODO Here is a hole of this method, since we depend on a order hash.
+      #TODO Here is a hole of this method, since we depend on a ordered hash.
       request.path_parameters.each do |name, value|
         if name =~ /(.+)_id$/
           if @commentable 

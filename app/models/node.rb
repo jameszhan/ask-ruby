@@ -6,13 +6,17 @@ class Node
   field :name
   field :summary, default: "Default Node"
   field :questions_count, :type => Integer, :default => 0 
+  
+  field :has_reputation_constrains, :type => Boolean, :default => true
+  field :reputation_rewards, :type => Hash, :default => ::AppConfig::REPUTATION_REWARDS
+  field :reputation_constrains, :type => Hash, :default => ::AppConfig::REPUTATION_CONSTRAINS
    
   validates_presence_of :name, :summary
   validates_uniqueness_of :name
   
   has_many :questions
-  has_many :badges, :dependent => :destroy
-  
+  has_many :badges, :dependent => :destroy  
+
   embeds_many :widget_groups, cascade_callbacks: true 
   embeds_many :tags
   
@@ -20,8 +24,7 @@ class Node
 
   def lookup_widgets(key, position)
     widget_groups.find(key).find_widgets(position) || widget_maps.find(:default).find_widgets(position)
-  end
-  
+  end  
   
   private 
     def create_widget_groups

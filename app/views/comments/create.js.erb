@@ -1,9 +1,9 @@
 var _id = "#<%= @commentable.id %>-comments";
 <% if @comment.errors.any? || @error  -%>
   Util.alert("<%= raw @msg %>",  _id + " + .comment");
-<% else -%>
-  alert($(_id).html());
+<% else -%>    
   $(_id).html('<%= escape_javascript(render(@commentable.comments)) %>');
+  Questions.hookCommentsCallback(_id)  
   $(_id).closest(".comments").find("textarea").val("");
   Util.notice("<%= @msg %>", _id + " + .comment");
 <% end -%>
