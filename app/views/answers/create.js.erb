@@ -1,6 +1,8 @@
 <% if @answer.errors.blank? -%>
-  $("#question-answers").append('<%= escape_javascript(render(@answer, display_edit: true)) %>')
+  $("#question-answers").append('<%= escape_javascript(render(@answer)) %>')
     .find("#answers-count b").text('<%= @question.answers_count + 1%>');
+  Questions.hookAnswersCallback('#question-answers .answer:last');
+  Questions.hookCommentsCallback('#question-answers .answer:last');
   Questions.answerCallback(true, '<%= escape_javascript(@msg) %>');
 <% else -%>
   Questions.answerCallback(false, '<%= escape_javascript(@msg) %>');

@@ -59,6 +59,21 @@ form {
   -webkit-transition-duration: 0.5s; /* Safari and Chrome */
 }
 
-
-
-.input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge { width:510px;}
+#edit_answer_form_modal {
+  .control-group {
+    &.no-margin{
+      margin: 0;
+      margin-top: 0px;
+    }
+    .control-label {
+      width: 0px;
+    }
+    .controls {
+      margin-left: 0px;
+    }
+  }
+  .icons.pull-right{
+    display: none;
+  }
+}
+.input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge { width: 510px;}

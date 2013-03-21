@@ -43,13 +43,12 @@ class User
 
   #has_many :authentications, :dependent => :destroy
   embeds_many :authentications
-  has_many :memberships, :dependent => :destroy
+  embeds_many :priviledges
   
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy 
   
   has_many :notifications, :dependent => :destroy
-
   
   @@validation = true
   def self.with_no_validation 
@@ -57,22 +56,6 @@ class User
     yield
   ensure 
     @@validation = true
-  end
-  
-  def password_required?
-    @@validation && super
-  end
-
-  def email_required?
-    @@validation && super
-  end
-  
-  def is?(role)
-    if membership = config_for(current_node)
-      membership.roles.include?(role)
-    else
-      [:member].include?(role)
-    end
   end
     
   def self.from_omniauth(omniauth) 
@@ -95,6 +78,20 @@ class User
     where(omniauth.slice(:provider, :uid).inject({}){|h, item| h.tap{h["authentications.#{item[0]}"] = item[1]}})
   end
   
+  def password_required?
+    @@validation && super
+  end
+
+  def email_required?
+    @@validation && super
+  end
+  
+  def roles_on(node)
+    config = config_for(node)
+    config.roles
+  end
+
+  
   def vote_on(votable)
     votable.votes.where(voter: self).first.try(:value)
   end
@@ -106,14 +103,25 @@ class User
     end
   end
   
-  private 
-    #TODO
-    def current_node
-      Node.first
+  def method_missing(method, *args, &block)
+    if !args.empty? && method.to_s =~ /can_(\w*)\_on\?/
+      #TODO we should dynamic define the methods.
+      key, node = $1, args.first
+      if node.reputation_constrains.include?(key)
+        if node.has_reputation_constrains
+          config = config_for(node)
+          return config.roles.include?(:admin) || config.roles.include?(:moderator) || config.reputation >= node.reputation_constrains[key].to_i
+        else
+          return true
+        end
+      end
     end
-    
+    super(method, *args, &block)
+  end
+  
+  protected
     def config_for(node)
-      memberships.active.where(user_id: self.id, node_id: node.id).first
+      priviledges.where(node_id: node.id).first_or_create
     end
   
 end

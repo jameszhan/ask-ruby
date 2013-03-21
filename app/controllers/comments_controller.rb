@@ -18,9 +18,20 @@ class CommentsController < ApplicationController
     end
   end
   
+  def destroy
+    @comment = @commentable.comments.find(params[:id])
+    if can? :destroy, @comment
+      @comment.destroy    
+      head :no_content
+    else
+      @msg = @error = "You can't delete this comment which is not belongs to you."
+    end
+  end
+  
+  
   protected
     def find_commentable()
-      #TODO Here is a hole of this method, since we depend on a order hash.
+      #TODO Here is a hole of this method, since we depend on a ordered hash.
       request.path_parameters.each do |name, value|
         if name =~ /(.+)_id$/
           if @commentable 

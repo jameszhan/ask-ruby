@@ -4,55 +4,62 @@ class VotesController < ApplicationController
   def create
     if current_user 
       value = (params[:vote_up] && 1) || (params[:vote_down] && -1) || 0
-      current_value = 0
-      if value != 0        
-        puts "@" * 100
-        puts value
-        value = vote_value(value)
-        puts value
-        puts "@" * 100
+      value = should_vote(value)
+      if value != 0               
         @votable.vote!(value, current_user) do |val, type|
-          current_value = val
+          @vote_type = val > 0 ? "vote-up" : (val < 0 ? "vote-down" : "vote-nothing")
           case type
           when :created
             if val > 0
-              @msg = "Thanks for voting up the question"
+              @msg = "Thanks for voting up"
             else
-              @msg = "Thanks for voting down the question"
+              @msg = "Thanks for voting down"
             end
           when :updated
             if val > 0
-              @msg = "You have already update to vote up the question"
+              @msg ||= "You have already update to vote up"
             else
-              @msg = "You have already update to vote down the question"
+              @msg ||= "You have already update to vote down"
             end
           when :destroyed
-            @msg = "You have already vote up the question"
+            @msg ||= "You have already revoke your vote"
           end
         end
       end
       @average = @votable.votes_average
-      @vote_type = current_value > 0 ? "vote-up" : (current_value < 0 ? "vote-down" : "vote-nothing")
     else
-      @msg = @error = "You must login first."
+      @msg = "You must login first."
+      @error ||= @msg
     end
   end
 
   protected
-    def vote_value(value)
+    def should_vote(value)
       current_value = current_user.vote_on(@votable) || 0
       if current_value > 0 && value > 0
+        @msg = "You have revoke your vote up"
         -1
       elsif current_value < 0 && value < 0
+        @msg = "You have revoke your vote down"
         1
       elsif current_value > 0 && value < 0 || current_value < 0 && value > 0 
-        value * 2
+        2 * check(value)           
       else
-        value
+        check(value)
       end
     end
+    
+    def check(value)
+      if value > 0 && current_user.can_vote_up_on?(current_node) || value < 0 && current_user.can_vote_down_on?(current_node)
+        value
+      else  
+        @error = "You don't have permission to vote."
+        0
+      end
+    end
+    
     def find_voteable
-      #TODO Here is a hole of this method, since we depend on a order hash.
+      #TODO Here is a hole of this method, since we depend on a ordered hash.
       request.path_parameters.each do |name, value|
         if name =~ /(.+)_id$/
           if @votable 

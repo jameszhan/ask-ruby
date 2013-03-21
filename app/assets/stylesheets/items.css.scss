@@ -2,6 +2,12 @@
 @import "compass/reset";
 @import "icons/*.png";
 
+.CodeRay {
+  .code {
+    min-width: 399px;
+  }
+}
+
 .logins {
   .icon-google { @include icons-sprite(google); }
   .icon-github { @include icons-sprite(github); }
