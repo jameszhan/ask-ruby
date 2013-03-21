@@ -42,7 +42,7 @@ class TagsController < ApplicationController
 
   # POST /tags
   # POST /tags.json
-  def create    
+  def create  
     authorize! :create, Tag
     @tag = current_node.tags.build(params[:tag])
     @tag.user_id = current_user.id    

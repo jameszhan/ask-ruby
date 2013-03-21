@@ -6,13 +6,13 @@ FactoryGirl.define do
     sequence(:email){ |n| "email#{n}@askrubyist.com" }
     password "12345678"
     password_confirmation { password }
-    roles [:member]
+    #roles [:member]
   end 
   factory :admin, class: User do
     name "Admin"
     email "admin@askrubyist.com"
     password "12345678"
     password_confirmation { password }
-    roles [:member, :admin]
+    #roles [:member, :admin]
   end
 end
