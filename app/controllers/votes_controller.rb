@@ -4,28 +4,25 @@ class VotesController < ApplicationController
   def create
     if current_user 
       value = (params[:vote_up] && 1) || (params[:vote_down] && -1) || 0
-      puts "xxx" * 100
-      puts "vote before => #{value}"
       value = should_vote(value)
-      puts "vote after => #{value}"
       if value != 0               
         @votable.vote!(value, current_user) do |val, type|
           @vote_type = val > 0 ? "vote-up" : (val < 0 ? "vote-down" : "vote-nothing")
           case type
           when :created
             if val > 0
-              @msg = "Thanks for voting up the question"
+              @msg = "Thanks for voting up"
             else
-              @msg = "Thanks for voting down the question"
+              @msg = "Thanks for voting down"
             end
           when :updated
             if val > 0
-              @msg = "You have already update to vote up the question"
+              @msg ||= "You have already update to vote up"
             else
-              @msg = "You have already update to vote down the question"
+              @msg ||= "You have already update to vote down"
             end
           when :destroyed
-            @msg = "You have already vote up the question"
+            @msg ||= "You have already revoke your vote"
           end
         end
       end
@@ -40,19 +37,21 @@ class VotesController < ApplicationController
     def should_vote(value)
       current_value = current_user.vote_on(@votable) || 0
       if current_value > 0 && value > 0
+        @msg = "You have revoke your vote up"
         -1
       elsif current_value < 0 && value < 0
+        @msg = "You have revoke your vote down"
         1
       elsif current_value > 0 && value < 0 || current_value < 0 && value > 0 
-        check(value){ |val| val * 2 }            
+        2 * check(value)           
       else
-        check(value){ |val| val }  
+        check(value)
       end
     end
     
     def check(value)
-      if value > 0 && current_user.can_vote_up_on?(@votable) || value < 0 && current_user.can_vote_down_on?(@votable)
-        yield value
+      if value > 0 && current_user.can_vote_up_on?(current_node) || value < 0 && current_user.can_vote_down_on?(current_node)
+        value
       else  
         @error = "You don't have permission to vote."
         0

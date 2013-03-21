@@ -106,8 +106,8 @@ class User
   def method_missing(method, *args, &block)
     if !args.empty? && method.to_s =~ /can_(\w*)\_on\?/
       #TODO we should dynamic define the methods.
-      node = args.first
-      if node.reputation_constrains.include?($1)
+      key, node = $1, args.first
+      if node.reputation_constrains.include?(key)
         if node.has_reputation_constrains
           config = config_for(node)
           return config.roles.include?(:admin) || config.roles.include?(:moderator) || config.reputation >= node.reputation_constrains[key].to_i
