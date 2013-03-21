@@ -16,6 +16,11 @@ Ask::Application.routes.draw do
         :constraints => { :filter => /all|unanswered|by_me|feed|preferred|contributed|expertise/ }
     end
     
+    member do      
+      post :follow
+      post :unfollow
+    end
+    
     resources :answers, :only => [:create, :update, :destroy] do
       resources :comments, :only => [:create, :destroy]
       resources :votes, :only => [:create]

@@ -39,6 +39,19 @@ window.Questions =
       Util.notice(msg, '#new_answer')
     else
       Util.alert(msg, '#new_answer')
+      
+  hookQuestionsCallback: (context) ->
+    parent = $(context)
+    $('.follow-question', parent).on "click", () ->
+      if $(this).data('status')
+        $.post $(this).data('unfollow-url')
+        $(this).text('Follow')
+        $(this).data("status", false)
+      else
+        $.post $(this).data('follow-url')
+        $(this).text('Unfollow')
+        $(this).data("status", true)
+        
         
   hookAnswersCallback: (context) -> 
     parent = $(context)
@@ -66,6 +79,7 @@ $(document).ready ->
     $("#question_upload_images").click()
     return false
     
+  Questions.hookQuestionsCallback('body')  
   Questions.hookAnswersCallback('body') 
   Questions.hookCommentsCallback('body')  
   Questions.hookPreview(".editor_toolbar", ".questions_editor", 'body')

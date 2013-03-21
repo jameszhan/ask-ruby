@@ -3,6 +3,7 @@ class Question
   include Mongoid::Timestamps
   include MongoidExt::Taggable
   include Mongoid::Votable
+  include Mongoid::Followable
   
   field :title, type: String
   field :body, type: String

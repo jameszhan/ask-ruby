@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
 
-  load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy]  
+  load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy, :follow, :unfollow]  
  
   order_tabs :index => {
     newest: {
@@ -93,6 +93,22 @@ class QuestionsController < ApplicationController
     #@question = Question.find(params[:id])
     @question.destroy
 
+    respond_to do |format|
+      format.html { redirect_to questions_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def follow
+    @question.followed_by!(current_user)
+    respond_to do |format|
+      format.html { redirect_to questions_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def unfollow
+    @question.unfollowed_by!(current_user)
     respond_to do |format|
       format.html { redirect_to questions_url }
       format.json { head :no_content }

@@ -1,7 +1,10 @@
 <div class="box">
+<% modal_view ||= true -%>
 <%= simple_form_for @question do |f| %>
   <fieldset>
-    <legend><%= controller.action_name.capitalize %> Question</legend>
+    <% unless modal_view -%>
+      <legend><%= controller.action_name.capitalize %> Question</legend>
+    <% end -%>
     <%= render "shared/error_messages", :target => @question %>
 
     <%= f.input :title, input_html: { class: "xxlarge" } %>

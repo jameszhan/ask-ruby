@@ -1,6 +1,5 @@
 class Widget
   include Mongoid::Document
-  #include Mongoid::DebugCallbacks
   
   class << self
     def subclasses

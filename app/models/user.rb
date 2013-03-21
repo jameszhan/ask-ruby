@@ -26,6 +26,28 @@ class User
   
   field :name, :type => String
   
+  field :friend_ids, :type => Array, :default => []  
+  
+  field :following_count, default: 0  
+  field :followers_count, default: 0
+  
+  has_and_belongs_to_many :following, class_name: 'User', inverse_of: :followers, :counter_cache => true, autosave: true
+  has_and_belongs_to_many :followers, class_name: 'User', inverse_of: :following, :counter_cache => true
+    
+  #has_many :authentications, :dependent => :destroy
+  embeds_many :authentications
+  embeds_many :priviledges
+  
+  has_many :questions, :dependent => :destroy
+  has_many :answers, :dependent => :destroy 
+  
+  has_many :notifications, :dependent => :destroy  
+  
+  set_callback(:update, :after) do |user|
+    user.set(:following_count, user.following.count)
+    user.set(:followers_count, user.followers.count)
+  end
+  
   ## Confirmable
   # field :confirmation_token,   :type => String
   # field :confirmed_at,         :type => Time
@@ -40,15 +62,6 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
-
-  #has_many :authentications, :dependent => :destroy
-  embeds_many :authentications
-  embeds_many :priviledges
-  
-  has_many :questions, :dependent => :destroy
-  has_many :answers, :dependent => :destroy 
-  
-  has_many :notifications, :dependent => :destroy
   
   @@validation = true
   def self.with_no_validation 
@@ -76,6 +89,44 @@ class User
   
   def self.find_by_omniauth(omniauth)
     where(omniauth.slice(:provider, :uid).inject({}){|h, item| h.tap{h["authentications.#{item[0]}"] = item[1]}})
+  end
+  
+  def friend_with(friend)
+    if self.id != friend.id && !friend_ids.include?(friend.id)
+      friend_ids << friend.id
+      self.save
+    end
+  end
+  
+  def unfriend_with(friend)
+    friend_ids.delete friend.id
+    self.save
+  end
+  
+  def friend_with?(friend)
+    friend_ids.include?(friend.id)
+  end
+  
+  def friends
+    self.class.find(friend_ids)
+  end
+    
+  def follow?(user)
+    following.include?(user)
+  end  
+  
+  def followed_by?(user)
+    followers.include?(user)
+  end
+    
+  def follow!(user)
+    if self.id != user.id && !following.include?(user)
+      following << user
+    end
+  end
+  
+  def unfollow!(user)
+    following.delete(user)
   end
   
   def password_required?

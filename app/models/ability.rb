@@ -10,6 +10,8 @@ class Ability
       can :manage, :all
     elsif user.roles_on(current_node).include?(:member) || user.roles_on(current_node).include?(:user)
       auth_control(user, Question, Tag, Answer, Comment, Mongoid::Vote)  
+      can :follow, Question
+      can :unfollow, Question
     else
       # banned or unknown situation
       cannot :manage, :all
