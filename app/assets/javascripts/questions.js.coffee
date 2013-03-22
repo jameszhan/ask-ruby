@@ -49,8 +49,7 @@ window.Questions =
         $(this).data("status", false)
       else
         $(this).text('Unfollow')
-        $(this).data("status", true)
-        
+        $(this).data("status", true)      
         
   hookAnswersCallback: (context) -> 
     parent = $(context)

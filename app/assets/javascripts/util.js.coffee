@@ -9,6 +9,6 @@ window.Util =
   
 
 $(document).ready ->
-  $(".vote-box-parent").delegate "form.vote_form", "ajax:before", (event) -> 
-    $(this).find('button').attr("disabled", "disabled")
+  $(".vote-box-parent").delegate "form.vote-form", "ajax:before", (event) -> 
+    $(this).closest(".vote-box").find('button').attr("disabled", "disabled")
     return

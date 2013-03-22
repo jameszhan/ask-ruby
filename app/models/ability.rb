@@ -9,9 +9,11 @@ class Ability
     elsif user.config_for(current_node).roles_in?(:admin, :moderator)
       can :manage, :all
     elsif user.config_for(current_node).roles_in?(:member, :user)
-      auth_control(user, Question, Tag, Answer, Comment, Mongoid::Vote)  
+      auth_control(user, Question, Tag, Answer, Comment)  
       can :follow, Question
       can :unfollow, Question
+      can :up, Mongoid::Vote
+      can :down, Mongoid::Vote
     else
       # banned or unknown situation
       cannot :manage, :all

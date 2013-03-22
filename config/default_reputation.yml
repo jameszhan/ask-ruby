@@ -21,6 +21,29 @@ constrains:
   moderate:                         10000
   ask:                              -100
   answer:                           -300
+rules:
+  vote_up:                          ['up', 'Mongoid::Vote']
+  flag:                             []
+  post_images:                      []
+  comment:                          ['create', 'Comment']
+  delete_own_comments:              ['delete', 'Comment', true]
+  vote_down:                        ['down', 'Mongoid::Vote']
+  create_new_tags:                  ['create', 'Tag']
+  post_whithout_limits:             []
+  edit_wiki_post:                   []
+  remove_advertising:               []
+  vote_to_open_own_question:        []
+  vote_to_close_own_question:       []
+  retag_others_questions:           []
+  delete_comments_on_own_questions: []
+  edit_others_posts:                []
+  view_offensive_counts:            []
+  vote_to_close_any_question:       []
+  vote_to_open_any_question:        []
+  delete_closed_questions:          []
+  moderate:                         []
+  ask:                              ['create', 'Question']
+  answer:                           ['create', 'Answer']
 rewards: 
   ask_question:                     2
   delete_question:                  0

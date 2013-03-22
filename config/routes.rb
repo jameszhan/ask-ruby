@@ -1,14 +1,18 @@
 Ask::Application.routes.draw do
   
   resources :notifications, :only => [:index, :destroy]
-
-
+  
   resources :tags
   resources :badges, only: [:index, :show]
-    
+      
   resources :questions do
     resources :comments, :only => [:create, :destroy]
-    resources :votes, :only => [:create]
+    resources :votes, :only => [] do
+      collection do
+        post :up
+        post :down
+      end
+    end
     collection do 
       post :preview
       get '/:tags' => 'questions#index', as: :tagged_with, constraints: { tags: /tags\:(.*)/ }
@@ -22,7 +26,12 @@ Ask::Application.routes.draw do
     
     resources :answers, :only => [:create, :update, :destroy] do
       resources :comments, :only => [:create, :destroy]
-      resources :votes, :only => [:create]
+      resources :votes, :only => [] do
+        collection do
+          post :up
+          post :down
+        end
+      end
       member do
 #        get :favorite
 #        get :unfavorite
