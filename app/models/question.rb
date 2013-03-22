@@ -1,7 +1,7 @@
 class Question
   include Mongoid::Document
   include Mongoid::Timestamps
-  include MongoidExt::Taggable
+  include Mongoid::Taggable
   include Mongoid::Votable
   include Mongoid::Followable
   

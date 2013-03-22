@@ -1,5 +1,5 @@
 # encoding: UTF-8
-module MongoidExt
+module Mongoid
   module Likeable
     extend ActiveSupport::Concern
 

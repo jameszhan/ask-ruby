@@ -1,1 +1,0 @@
-require 'plugins/mongoid_ext/init'
