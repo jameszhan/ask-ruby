@@ -16,7 +16,7 @@
       <% @notifications.each do |item| %>
         <% notify = get_instance(item) %>
         <tr class="<%= cycle("","even") %>">
-        <% if item.source == "Answer" -%>
+        <% if  notify != nil && item.source_type == "Answer" -%>
           <td><%= link_to notify.question.title, question_path(notify.question) %></td>
           <td>
             <%= notify.body %>
@@ -30,7 +30,7 @@
               <i class="icon-trash"></i><%= t('.destroy', :default => t("helpers.links.destroy")) %>
             <% end %>
           </td>
-        <% elsif item.source == "Comment" -%>
+        <% elsif notify != nil && item.source_type == "Comment" -%>
           <% if notify.commentable.instance_of?(Question) %>
             <td><%= link_to notify.commentable.title, question_path(notify.commentable) %></td>
           <% else %>

@@ -53,6 +53,11 @@ class Badge
   
   before_save :set_type
   
+  def users(current_node)
+    badges = self.class.where(:token => token, :node_id => current_node.id).order_by(:created_at.desc).only([:user_id])
+    User.find(badges.map(&:user_id))
+  end
+  
   def to_param
     self.token
   end
@@ -64,6 +69,7 @@ class Badge
   def description
     @description ||= I18n.t("badges.shared.#{self.token}.description", default: "") if self.token
   end
+  
 
   def type
     self[:type] ||= Badge.type_of(self.token)

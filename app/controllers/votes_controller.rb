@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :find_voteable
+  before_filter :find_votable
 
   def create
     if current_user 
@@ -10,17 +10,9 @@ class VotesController < ApplicationController
           @vote_type = val > 0 ? "vote-up" : (val < 0 ? "vote-down" : "vote-nothing")
           case type
           when :created
-            if val > 0
-              @msg = "Thanks for voting up"
-            else
-              @msg = "Thanks for voting down"
-            end
+            @msg = "Thanks for voting #{val > 0 ? 'up' : 'down' }"
           when :updated
-            if val > 0
-              @msg ||= "You have already update to vote up"
-            else
-              @msg ||= "You have already update to vote down"
-            end
+            @msg ||= "You have already update to vote #{val > 0 ? 'up' : 'down'}"
           when :destroyed
             @msg ||= "You have already revoke your vote"
           end
@@ -58,17 +50,8 @@ class VotesController < ApplicationController
       end
     end
     
-    def find_voteable
-      #TODO Here is a hole of this method, since we depend on a ordered hash.
-      request.path_parameters.each do |name, value|
-        if name =~ /(.+)_id$/
-          if @votable 
-            @votable = @votable.send($1.pluralize.to_sym).find(value)
-          else
-            @votable = $1.classify.constantize.find(value)
-          end          
-        end
-      end
+    def find_votable
+      @votable = find_resource_by_nested_path
     end
 
 end

@@ -46,7 +46,7 @@
   <% if can? :follow, @question -%>
     <% followed = @question.followed_by?(current_user) -%>
     <%= link_to (followed ? "Unfollow" : "Follow"), "#", 
-      data: { "follow-url" => follow_question_path(@question), "unfollow-url" => unfollow_question_path(@question), status: followed }, 
+      data: { url: follow_question_path(@question), status: followed }, 
       class: "btn btn-small btn-primary follow-question" %>  
   <% end -%>
   </div>

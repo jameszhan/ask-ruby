@@ -75,7 +75,6 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     #@question = Question.find(params[:id])
-
     respond_to do |format|
       if @question.update_attributes(params[:question])
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
@@ -100,26 +99,24 @@ class QuestionsController < ApplicationController
   end
   
   def follow
-    @question.followed_by!(current_user)
+    if @question.followed_by?(current_user)
+      @question.unfollowed_by!(current_user)
+    else
+      @question.followed_by!(current_user)
+    end
     respond_to do |format|
       format.html { redirect_to questions_url }
       format.json { head :no_content }
     end
   end
   
-  def unfollow
-    @question.unfollowed_by!(current_user)
-    respond_to do |format|
-      format.html { redirect_to questions_url }
-      format.json { head :no_content }
-    end
-  end
-  
+
   def preview
     @body = params[:body]
     respond_to do |format|
       format.json
     end
   end
+  
   
 end

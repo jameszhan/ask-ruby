@@ -39,6 +39,27 @@ class ApplicationController < ActionController::Base
       end
       @current_node
     end
+    
+    def find_resource_by_nested_path
+      #TODO Here is a hole of this method, since we depend on a ordered hash.
+      target = nil
+      request.path_parameters.each do |name, value|
+        if name =~ /(.+)_id$/
+          if target 
+            target = target.send($1.pluralize.to_sym).find(value)
+          else
+            target = $1.classify.constantize.find(value)
+          end          
+        end
+      end
+      target
+    end
+    
+    def send_notication(source, receiver)
+      if receiver != current_user 
+        Notification.create(source_type: source.class, source_id: source.id, user: receiver) 
+      end
+    end
   
   
 end

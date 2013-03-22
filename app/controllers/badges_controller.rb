@@ -18,11 +18,8 @@ class BadgesController < ApplicationController
   # GET /badges/1
   # GET /badges/1.xml
   def show
-    @badge = Badge.new(:token => params[:id])
-    @badges = Badge.where(:token => @badge.token, :node_id => current_node.id)
-      .order_by(:created_at.desc).only([:user_id])
-      
-    @users = User.find(@badges.map(&:user_id))
+    @badge = Badge.new(:token => params[:id])     
+    @users = @badge.users(current_node)
 
     respond_to do |format|
       format.html # show.html.erb

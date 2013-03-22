@@ -1,5 +1,7 @@
 module NotificationsHelper
-	def get_instance(item)
-		item.source.classify.constantize.find(item.source_id)
-	end
+  def get_instance(item)
+    item.source_type.classify.constantize.find(item.source_id)
+  rescue
+    nil
+  end
 end

@@ -24,6 +24,10 @@ class Priviledge
   index :state => 1
   index({ node_id: 1 }, { unique: true })
   index({ state: 1, node_id: 1 })
+  
+  def roles_in?(*user_roles)
+    (roles || user_roles).any?
+  end
 
 
 end

@@ -6,9 +6,9 @@ class Ability
       # not logged in
       cannot :manage, :all
       basic_read_only
-    elsif user.roles_on(current_node).include?(:admin) || user.roles_on(current_node).include?(:moderator)
+    elsif user.config_for(current_node).roles_in?(:admin, :moderator)
       can :manage, :all
-    elsif user.roles_on(current_node).include?(:member) || user.roles_on(current_node).include?(:user)
+    elsif user.config_for(current_node).roles_in?(:member, :user)
       auth_control(user, Question, Tag, Answer, Comment, Mongoid::Vote)  
       can :follow, Question
       can :unfollow, Question

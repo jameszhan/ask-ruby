@@ -140,12 +140,6 @@ class User
     @@validation && super
   end
   
-  def roles_on(node)
-    config = config_for(node)
-    config.roles
-  end
-
-  
   def vote_on(votable)
     votable.votes.where(voter: self).first.try(:value)
   end
@@ -164,7 +158,7 @@ class User
       if node.reputation_constrains.include?(key)
         if node.has_reputation_constrains
           config = config_for(node)
-          return config.roles.include?(:admin) || config.roles.include?(:moderator) || config.reputation >= node.reputation_constrains[key].to_i
+          return config.roles_in?(:admin, :moderator) || config.reputation >= node.reputation_constrains[key].to_i
         else
           return true
         end
@@ -173,10 +167,9 @@ class User
     super(method, *args, &block)
   end
   
-  protected
-    def config_for(node)
-      #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
-      priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
-    end
+  def config_for(node)
+    #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
+    priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
+  end
   
 end

@@ -2,12 +2,12 @@ class CommentsController < ApplicationController
   
   before_filter :find_commentable
   
-	def create    
+  def create    
     @comment = @commentable.comments.build(params[:comment])
   	if can? :create, Comment
       @comment.user = current_user    
       if @comment.save
-        Notification.create(source: "Comment", source_id: @comment.id, user: @commentable.user) if @commentable.user != current_user 
+        send_notication(@comment, @commentable.user)        
         @msg = t("questions.comment_success", default: 'Thanks you for your comment.')
       else
         @msg = @comment.errors.full_messages.join("<br />")
@@ -31,16 +31,6 @@ class CommentsController < ApplicationController
   
   protected
     def find_commentable()
-      #TODO Here is a hole of this method, since we depend on a ordered hash.
-      request.path_parameters.each do |name, value|
-        if name =~ /(.+)_id$/
-          if @commentable 
-            #It is will work for embeded resources.
-            @commentable = @commentable.send($1.pluralize.to_sym).find(value)
-          else
-            @commentable = $1.classify.constantize.find(value)
-          end          
-        end
-      end  
+      @commentable = find_resource_by_nested_path
     end
 end

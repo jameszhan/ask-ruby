@@ -3,27 +3,47 @@ module Mongoid
     extend ActiveSupport::Concern
     
     included do
-      after_initialize lambda{|record| puts "#{record} => after_initialize!"; true }
-      after_build lambda{|record| puts "#{record} => after_build!"; true }
-      before_validation lambda{|record| puts "#{record} => before_validateion!"; true }
-      after_validation lambda{|record| puts "#{record} => after_validation!"; true }
-      before_create lambda{|record| puts "#{record} => before_create!"; true }
-      around_create lambda{|record, block| puts "#{record} => around_create:before"; block.call; puts "#{record} => around_create:after" }
-      after_create lambda{|record| puts "#{record} => after_create!"; true }
-      after_find lambda{|record| puts "#{record} => after_find!"; true }
-      before_update lambda{|record| puts "#{record} => before_update!"; true }
-      around_update lambda{|record, block| puts "#{record} => around_update:before"; block.call; puts "#{record} => around_update:after" }
-      after_update lambda{|record| puts "#{record} => after_update!"; true }
-      before_upsert lambda{|record| puts "#{record} => before_upsert!"; true }
-      around_upsert lambda{|record, block| puts "#{record} => around_upsert:before"; block.call; puts "#{record} => around_upsert:after" }
-      after_upsert lambda{|record| puts "#{record} => after_upsert!"; true }
-      before_save lambda{|record| puts "#{record} => before_save!"; true }
-      around_save lambda{|record, block| puts "#{record} => around_save:before"; block.call; puts "#{record} => around_save:after" }
-      after_save lambda{|record| puts "#{record} => after_save!"; true }
-      before_destroy lambda{|record| puts "#{record} => before_destroy!"; true }
-      around_destroy lambda{|record, block| puts "#{record} => around_destroy:before"; block.call; puts "#{record} => around_destroy:after" }
-      after_destroy lambda{|record| puts "#{record} => after_destroy!"; true }
+      after_initialize filter_debug(:after_initialize)
+      after_build filter_debug(:after_build)
+      before_validation filter_debug(:before_validation)
+      after_validation filter_debug(:after_validation)
+      before_create filter_debug(:before_create)
+      around_create around_debug(:around_create)
+      after_create filter_debug(:after_create)
+      after_find filter_debug(:after_find)
+      before_update filter_debug(:before_update)
+      around_update around_debug(:around_update)
+      after_update filter_debug(:after_update)
+      before_upsert filter_debug(:before_upsert)
+      around_upsert around_debug(:around_upsert)
+      after_upsert filter_debug(:after_upsert)
+      before_save filter_debug(:before_save)
+      around_save around_debug(:around_save)
+      after_save filter_debug(:after_save)
+      before_destroy filter_debug(:before_destroy)
+      around_destroy around_debug(:around_destroy)
+      after_destroy filter_debug(:after_destroy)
+    end
+    
+    module ClassMethods  
+      def filter_debug(filter_name)
+        -> (record) {
+          puts "#{record} => #{filter_name}!"
+          true
+        }      
+      end 
+      
+      def around_debug(filter_name)
+        -> (record, block) {
+          puts "#{record} => #{filter_name}:before"
+          block.call 
+          puts "#{record} => #{filter_name}:after"
+          true
+        }      
+      end    
     end
     
   end  
 end
+
+

@@ -42,13 +42,12 @@ window.Questions =
       
   hookQuestionsCallback: (context) ->
     parent = $(context)
-    $('.follow-question', parent).on "click", () ->
-      if $(this).data('status')
-        $.post $(this).data('unfollow-url')
+    $('.follow-question', parent).on "click", () -> 
+      $.post $(this).data('url')
+      if $(this).data('status')        
         $(this).text('Follow')
         $(this).data("status", false)
       else
-        $.post $(this).data('follow-url')
         $(this).text('Unfollow')
         $(this).data("status", true)
         
