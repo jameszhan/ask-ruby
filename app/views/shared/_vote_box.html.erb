@@ -1,9 +1,7 @@
 <div class="vote-box">
-  <%= form_tag vote_up_url, method: 'post', remote: true, class: 'vote-form' do -%>
+  <%= form_tag url, method: 'post', remote: true, class: 'vote-form' do -%>
     <%= vote_button :up, votable %>
-  <% end -%>
-  <div class="votes_average"><%= votable.votes_average %></div>
-  <%= form_tag vote_down_url, method: 'post', remote: true, class: 'vote-form' do -%>
+    <div class="votes_average"><%= votable.votes_average %></div>
     <%= vote_button :down, votable %>
   <% end -%>
 </div>

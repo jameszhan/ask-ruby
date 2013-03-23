@@ -7,10 +7,9 @@ var _id = '#<%= @votable.class.to_s.underscore %>-<%= @votable.id %>';
   var form = $(_id).find("form.vote-form");
   form.find(".vote-up, .vote-down").removeClass("checked");  
   form.find("button").removeAttr("disabled");
-  var parent = form.closest(".vote-box");
 <% if current_user && current_user.vote_on(@votable) -%>
-  parent.find('.vote-<%= @vote_type %>').addClass("checked");
+  form.find('.vote-<%= @vote_type %>').addClass("checked");
 <% end -%>
-  parent.find(".votes_average").text('<%= @votable.votes_average %>');
+  form.find(".votes_average").text('<%= @votable.votes_average %>');
   Util.notice('<%= @msg %>', _id + " > div:first");
 <% end -%>

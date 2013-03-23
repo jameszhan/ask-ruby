@@ -1,16 +1,14 @@
 class VotesController < ApplicationController
   before_filter :find_votable
 
-  def up
-    @vote_type = :up
-    do_vote!(1)
-    render partial: "vote"
-  end
-  
-  def down
-    @vote_type = :down
-    do_vote!(-1)
-    render partial: "vote"
+  def create
+    if params[:vote_up]
+      @vote_type = :up
+      do_vote!(1)
+    else
+      @vote_type = :down
+      do_vote!(-1)
+    end
   end
   
   protected

@@ -2,7 +2,7 @@
 <div class="box main-question" id="question-<%= @question.id %>">
   <div class="row-fluid">
     <div class="span1 vote-box-parent">
-      <%= render "shared/vote_box", votable: @question, vote_up_url: up_question_votes_path(@question), vote_down_url: down_question_votes_path(@question) %>
+      <%= render "shared/vote_box", votable: @question, url: question_votes_path(@question) %>
     </div>
     <div class="span11" style="margin-left: 0px;">
       <h3><%= @question.title %></h3>

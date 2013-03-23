@@ -1,9 +1,7 @@
 <div class="box answer" id="answer-<%= answer.id %>">
   <div class="row-fluid">
     <div class="span1 vote-box-parent">
-      <%= render "shared/vote_box", votable: answer, 
-        vote_up_url: up_question_answer_votes_path(@question, answer),
-        vote_down_url: down_question_answer_votes_path(@question, answer) %>
+      <%= render "shared/vote_box", votable: answer, url: question_answer_votes_path(@question, answer) %>
     </div>
     <div class="span11" style="margin-left: 6px;">
       <%= render "shared/user_info",updated_text: "answered", created_at: answer.created_at, user: answer.user -%>
