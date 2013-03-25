@@ -84,7 +84,6 @@ class User
           user.authentications.build(omniauth.slice(:provider, :uid))
         end  
       end
-      NotificationMailer.user_welcome_email(user).deliver!
     end
     user.login_type = :omniauth
     user
