@@ -2,13 +2,11 @@ class NotificationObserver < Mongoid::Observer
   observe :user, :node
   
   def after_create(record)
-    send("after_#{record.class.underscore}_create".to_sym, record)
+    callback_name = "after_#{record.class.to_s.underscore}_create".to_sym
+    if respond_to?(callback_name, true)
+      send(callback_name, record)
+    end    
   end
-  
-  def method_missing(method, *args, &block)
-    super unless method.to_s =~ /^before|after|around/
-  end
-  
   
   protected 
     def after_user_create(user)      
