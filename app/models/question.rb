@@ -18,7 +18,7 @@ class Question
   belongs_to :user
   belongs_to :node
 
-  embeds_many :comments, as: :commentable
+  embeds_many :comments, as: :commentable, cascade_callbacks: true 
   has_many :answers, :dependent => :destroy
   has_many :badges, :as => :badgable
   

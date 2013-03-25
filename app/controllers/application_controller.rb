@@ -1,7 +1,10 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base    
   include SessionFilter
-    
   protect_from_forgery
+  
+  define_callbacks :lookup_current_node
+  
+  set_callback :lookup_current_node, :after, ->(controller) { puts "world..." * 100; p controller.current_node; }
   
   before_filter :find_node
   
@@ -35,7 +38,9 @@ class ApplicationController < ActionController::Base
   private 
     def find_node
       @current_node ||= begin
-        Node.where(name: 'default').first_or_create!
+        run_callbacks :lookup_current_node do
+          Node.where(name: 'default').first_or_create!
+        end
       end
       @current_node
     end
