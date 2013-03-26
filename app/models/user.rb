@@ -152,23 +152,30 @@ class User
   
   def method_missing(method, *args, &block)
     if !args.empty? && method.to_s =~ /can_(\w*)\_on\?/
-      #TODO we should dynamic define the methods.
-      key, node = $1, args.first
-      if node.reputation_constrains.include?(key)
-        if node.has_reputation_constrains
-          config = config_for(node)
-          return config.roles_in?(:admin, :moderator) || config.reputation >= node.reputation_constrains[key].to_i
-        else
-          return true
-        end
-      end
+      define_can_method(method, $1)
+      send(method, args.first)
+    else      
+      super(method, *args, &block)
     end
-    super(method, *args, &block)
   end
   
   def config_for(node)
     #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
     priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
   end
+  
+  private 
+    def define_can_method(method, key)
+      self.class.send :define_method, method do |node|
+        if node.reputation_constrains.include?(key)
+          if node.has_reputation_constrains
+            config = config_for(node)
+            return config.roles_in?(:admin, :moderator) || config.reputation >= node.reputation_constrains[key].to_i
+          else
+            return true
+          end
+        end
+      end
+    end
   
 end
