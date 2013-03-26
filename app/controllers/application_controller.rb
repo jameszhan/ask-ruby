@@ -1,11 +1,7 @@
 class ApplicationController < ActionController::Base    
   include SessionFilter
   protect_from_forgery
-  
-  define_callbacks :lookup_current_node
-  
-  set_callback :lookup_current_node, :after, ->(controller) { puts "world..." * 100; p controller.current_node; }
-  
+
   before_filter :find_node
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -30,17 +26,14 @@ class ApplicationController < ActionController::Base
   def current_node
     @current_node
   end
-  
-  
+    
   helper :votes
   helper_method :current_node, :current_tags
   
   private 
     def find_node
       @current_node ||= begin
-        run_callbacks :lookup_current_node do
-          Node.where(name: 'default').first_or_create!
-        end
+        NodeSelector.lookup params
       end
       @current_node
     end
@@ -64,7 +57,6 @@ class ApplicationController < ActionController::Base
       if receiver != current_user 
         Notification.create(source_type: source.class, source_id: source.id, user: receiver) 
       end
-    end
-  
+    end 
   
 end

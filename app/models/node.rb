@@ -1,7 +1,7 @@
 class Node
   include Mongoid::Document
-  include Mongoid::Timestamps
-  
+  include Mongoid::Timestamps  
+
   field :name
   field :summary, default: "Default Node"
   field :questions_count, :type => Integer, :default => 0 
@@ -19,8 +19,8 @@ class Node
   embeds_many :widget_groups, cascade_callbacks: true 
   embeds_many :tags
   
-  before_create :create_widget_groups    
-
+  before_create :create_widget_groups   
+  
   def lookup_widgets(key, position)
     widget_groups.find(key).find_widgets(position) || widget_maps.find(:default).find_widgets(position)
   end  

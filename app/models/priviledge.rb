@@ -26,7 +26,7 @@ class Priviledge
   index({ state: 1, node_id: 1 })
   
   def roles_in?(*user_roles)
-    (roles || user_roles).any?
+    (roles & user_roles).any?
   end
 
 
