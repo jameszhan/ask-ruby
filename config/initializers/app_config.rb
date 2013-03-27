@@ -12,54 +12,35 @@ class AppConfig
     end
   end  
   
-  REPUTATION_RULES_CONFIG.each do |key, model_name, actions|
-    if actions.any?
-      model = model_name.constantize      
-      rule key.to_sym, ->(ability){
-        actions.each do |action, member|
-          if member
-            can action.to_sym, model do |resource|
-              resource.user_id == user.id
-            end
-          else
-            can action.to_sym, model
-          end
+  def self.build_block_code(key, model, actions)
+    code = %Q[
+      rule :#{key}, ->(ability){
+    ]
+    actions.each do |action, member|
+      if member
+        code<< %Q{
+        can :#{action}, #{model} do |resource|
+          resource.user_id == user.id
         end
+        }
+      else
+        code<< %Q{ 
+        can :#{action}, #{model}
+        }
+      end
+    end
+    code<< %Q[
       }
+    ]
+  end
+  
+  REPUTATION_RULES_CONFIG.each do |key, model, actions|
+    if actions.any?      
+      class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
+        #{build_block_code(key, model, actions)}
+      RUBY_EVAL
     end
   end
   
-=begin  
-  rule :vote_up,              ->(ability){ can :up, Mongoid::Vote }
-  rule :vote_down,            ->(ability){ can :down, Mongoid::Vote }
-  rule :comment,              ->(ability){ can :create, Comment }
-  rule :delete_own_comments,  ->(ability){ 
-    can :destroy, Comment do |comment|
-      comment.user_id == user.id
-    end
-  }
-  rule :create_new_tags,      ->(ability){ can :create, Tag }
-
-  {ask: Question, answer: Answer}.each do |rule_name, model|  
-     rule rule_name,     ->(ability){
-        can :create, model
-        can :update, model do |resource|
-          resource.user_id == user.id
-        end
-      }
-  end
-
-
-  {ask: Question, answer: Answer}.each do |rule_name, model|
-    class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
-      rule :#{rule_name},     ->(ability){
-        can :create, #{model}
-        can :update, #{model} do |resource|
-          resource.user_id == user.id
-        end
-      }
-    RUBY_EVAL
-  end
-=end
   
 end

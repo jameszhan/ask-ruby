@@ -71,6 +71,7 @@ group :development do
   gem 'capistrano'
   gem 'pry'
   gem 'pry-doc'
+  gem 'sourcify'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
