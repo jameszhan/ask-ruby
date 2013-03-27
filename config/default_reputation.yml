@@ -53,3 +53,12 @@ rewards:
   day_with_activity:                0
   day_without_activity:             0
   post_banned:                   -150
+  
+rules_config:
+  - ["vote_up", "Mongoid::Vote", {up: false}]
+  - ["vote_down", "Mongoid::Vote", {down: false}]
+  - ["comment", "Comment", {create: false}]
+  - ["delete_own_comments", "Comment", {destroy: true}]
+  - ["create_new_tags", "Tag", {create: false}]
+  - ["ask", "Question", {create: false, update: true}]
+  - ["answer", "Answer", {create: false, update: true}]

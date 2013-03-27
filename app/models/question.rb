@@ -15,8 +15,8 @@ class Question
   validates_length_of   :title, in: 5..100
   validates_length_of   :body, minimum: 5, allow_blank: true
 
-  belongs_to :user
-  belongs_to :node
+  belongs_to :user, :counter_cache => true
+  belongs_to :node, :counter_cache => true
 
   embeds_many :comments, as: :commentable, cascade_callbacks: true 
   has_many :answers, :dependent => :destroy

@@ -5,7 +5,12 @@ class ApplicationController < ActionController::Base
   before_filter :find_node
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to questions_path, :alert => t("common.access_denied")
+    if request.xhr?
+      flash[:error] = exception.message
+      render :status => 403
+    else
+      redirect_to questions_path, :alert => t("common.access_denied")
+    end
   end  
  
   def find_questions()    

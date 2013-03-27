@@ -8,6 +8,7 @@ class Priviledge
 
   field :state, :type => String, :default => 'active'
   field :reputation, :type => Float, :default => 0.0
+  field :reputation_today, :type => Hash, :default => Hash.new(0)
   field :roles, :type => Array, :default => [:member]
   field :profile, :type => Hash, :default => {} 
 

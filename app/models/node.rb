@@ -9,6 +9,7 @@ class Node
   field :has_reputation_constrains, :type => Boolean, :default => true
   field :reputation_rewards, :type => Hash, :default => ::AppConfig::REPUTATION_REWARDS
   field :reputation_constrains, :type => Hash, :default => ::AppConfig::REPUTATION_CONSTRAINS
+  field :daily_cap, :type => Integer, :default => 0
    
   validates_presence_of :name, :summary
   validates_uniqueness_of :name

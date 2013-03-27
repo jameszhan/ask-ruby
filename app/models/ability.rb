@@ -27,8 +27,12 @@ class Ability
     end
     
     def reputation_rules(user)
+      puts AppConfig::REPUTATION_RULES
       AppConfig::REPUTATION_RULES.each do |name, blk|
+        puts "> can_#{name}_on?"
         if user.send("can_#{name}_on?", current_node)
+          puts "^" * 100
+          puts "< can_#{name}_on?"
           instance_eval &blk
         end
       end

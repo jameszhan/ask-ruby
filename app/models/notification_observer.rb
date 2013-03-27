@@ -1,5 +1,5 @@
 class NotificationObserver < Mongoid::Observer
-  observe :user, :node, :answer
+  observe :user, :node, :answer, :question
   
   %w[before after].each do |type|
     %w[initialize build validation create find update save destroy].each do |action|
@@ -15,15 +15,24 @@ class NotificationObserver < Mongoid::Observer
     def execute_callback(type, model, action)
       callback_name = "#{type}_#{model.class.to_s.underscore}_#{action}".to_sym
       if respond_to?(callback_name, true)
-        logger.debug "* Execute callback => #{type}, #{model}, #{action}"
+#        logger.debug "* Execute callback => #{type}, #{model}, #{action}"
         send(callback_name, model)
       else
-        logger.debug "* Ignore callback => #{type}, #{model}, #{action}"
+#        logger.debug "* Ignore callback => #{type}, #{model}, #{action}"
       end
     end
-  
+    
+    def after_question_create(question)
+      question.user.update_reputation("ask_question", question.node)
+    end
+    
+    def after_answer_create(answer)
+      answer.user.update_reputation("answer_question", answer.question.node)
+    end
+    
     def after_user_create(user)      
       Notifier.user_welcome_email(user).deliver! unless user.email.blank?
+      user.update_reputation(:user_sign_up, NodeSelector.current_node, 20)
     end 
     
     def after_answer_create(answer)

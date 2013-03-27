@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Friendship
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -27,8 +28,6 @@ class User
   field :last_sign_in_ip,    :type => String  
   
   field :name, :type => String
-  
-  field :friend_ids, :type => Array, :default => []  
   
   field :following_count, default: 0  
   field :followers_count, default: 0
@@ -92,26 +91,6 @@ class User
   def self.find_by_omniauth(omniauth)
     where(omniauth.slice(:provider, :uid).inject({}){|h, item| h.tap{h["authentications.#{item[0]}"] = item[1]}})
   end
-  
-  def friend_with(friend)
-    if self.id != friend.id && !friend_ids.include?(friend.id)
-      friend_ids << friend.id
-      self.save
-    end
-  end
-  
-  def unfriend_with(friend)
-    friend_ids.delete friend.id
-    self.save
-  end
-  
-  def friend_with?(friend)
-    friend_ids.include?(friend.id)
-  end
-  
-  def friends
-    self.class.find(friend_ids)
-  end
     
   def follow?(user)
     following.include?(user)
@@ -150,6 +129,33 @@ class User
     end
   end
   
+  def update_reputation(key, node, v = nil)
+    value = v || node.reputation_rewards[key.to_s].to_i   
+    return if !value
+    
+    logger.info "#{self.name} received #{value} points of karma by #{key} on #{node.name}"      
+    config = config_for(node)
+    
+    today = Time.now.strftime("%Y%m%d")
+    if config.reputation_today.include?(today)
+      total_today = config.reputation_today[today] + value
+      puts "&" * 100
+      puts "#{total_today}"
+      if node.daily_cap != 0 && total_today > node.daily_cap
+        logger.info "#{id}@#{config.id} hitted daily cap"
+      end
+      config.set("reputation_today.#{today}", total_today)
+    else
+      config.set("reputation_today.#{today}", value)
+    end
+    config.inc(:reputation, value)
+  end
+  
+  def config_for(node)
+    #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
+    priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
+  end
+  
   def method_missing(method, *args, &block)
     if !args.empty? && method.to_s =~ /can_(\w*)\_on\?/
       define_can_method(method, $1)
@@ -157,11 +163,6 @@ class User
     else      
       super(method, *args, &block)
     end
-  end
-  
-  def config_for(node)
-    #priviledges.where(node_id: node.id).first_or_create  #This not working for embeds_many 
-    priviledges.where(node_id: node.id).first || priviledges.create(node_id: node.id)
   end
   
   private 
@@ -176,6 +177,10 @@ class User
           end
         end
       end
+    end
+    
+    def logger 
+      @logger ||= Rails.logger
     end
   
 end
