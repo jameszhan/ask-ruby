@@ -1,0 +1,2 @@
+$('#question-answers').find('.answer').remove();
+$('#question-answers').append('<%= escape_javascript(render @question.answers) %>');

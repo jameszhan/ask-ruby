@@ -4,7 +4,6 @@ class Node
 
   field :name
   field :summary, default: "Default Node"
-  field :questions_count, :type => Integer, :default => 0 
   
   field :has_reputation_constrains, :type => Boolean, :default => true
   field :reputation_rewards, :type => Hash, :default => ::AppConfig::REPUTATION_REWARDS

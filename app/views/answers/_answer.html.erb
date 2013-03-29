@@ -21,6 +21,12 @@
           data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) }, 
           class: "btn btn-small btn-danger" %>
       <% end -%>
+      <% show_solve = !@question.answered_with && (can? :solve, @question) -%>
+      <% show_unsolve = @question.answered_with == answer && (can? :unsolve, @question)-%>
+      <%= link_to "As Solution", solve_question_path(@question, answer_id: answer), remote: true, 
+        method: 'post', class: "btn btn-small btn-primary solve-link#{show_solve ? '' : ' hide'}" %>  
+      <%= link_to "Cancel this Solution", unsolve_question_path(@question, answer_id: answer), remote: true, 
+        method: 'post', class: "btn btn-small btn-primary unsolve-link#{show_unsolve ? '' : ' hide'}" %>     
       </div>
       <!--Comments-->
       <div class="comments">

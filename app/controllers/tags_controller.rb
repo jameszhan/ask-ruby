@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  #load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy]  
+  load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy], :through => :current_node
   respond_to :html, :json
   
   # GET /tags
@@ -19,22 +19,22 @@ class TagsController < ApplicationController
   # GET /tags/new
   # GET /tags/new.json
   def new    
-    authorize! :create, Tag
-    @tag = current_node.tags.build    
+#    authorize! :create, Tag
+#    @tag = current_node.tags.build    
     respond_with @tag
   end
 
   # GET /tags/1/edit
   def edit
-    @tag = current_node.tags.find(params[:id])    
+#    @tag = current_node.tags.find(params[:id])    
     authorize! :update, @tag
   end
 
   # POST /tags
   # POST /tags.json
   def create  
-    authorize! :create, Tag
-    @tag = current_node.tags.build(params[:tag])
+#    authorize! :create, Tag
+#    @tag = current_node.tags.build(params[:tag])
     @tag.user_id = current_user.id  
     
     flash[:notice] = "Tag was successfully created." if @tag.save
@@ -44,8 +44,8 @@ class TagsController < ApplicationController
   # PUT /tags/1
   # PUT /tags/1.json
   def update
-    @tag = current_node.tags.find(params[:id])
-    authorize! :update, @tag
+#    @tag = current_node.tags.find(params[:id])
+#    authorize! :update, @tag
     
     flash[:notice] = "Tag was successfully updated." if @tag.update_attributes(params[:tag])
     respond_with @tag 
@@ -54,8 +54,8 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.json
   def destroy
-    @tag = current_node.tags.find(params[:id])
-    authorize! :destroy, @tag
+#    @tag = current_node.tags.find(params[:id])
+#    authorize! :destroy, @tag
     @tag.destroy
     
     respond_with(@user) do |format|
