@@ -129,6 +129,31 @@ class User
     end
   end
   
+  def on_activity(activity, node)
+    update_reputation(activity, node) if activity != :login
+    activity_on(node, Time.zone.now)
+  end
+  
+  def activity_on(node, date)
+    day = date.utc.at_beginning_of_day
+    last_day = nil
+    config = config_for(node)
+    if last_activity_at = config.last_activity_at
+      last_day = last_activity_at.at_beginning_of_day
+    end
+    config.set(:last_activity_at, date.utc)
+
+    if last_day && last_day != day
+      if last_day.utc.between?(day.yesterday - 12.hours, day.tomorrow)
+        config.inc(:activity_days, 1)
+      elsif !last_day.utc.today? && (last_day.utc != Time.now.utc.yesterday)
+        logger.info ">> Resetting act days!! last known day: #{last_day}"
+        config.set(:activity_days, 0)
+      end
+    end
+  end
+  
+  
   def update_reputation(key, node, v = nil)
     value = v || node.reputation_rewards[key.to_s].to_i   
     return if !value
@@ -139,8 +164,6 @@ class User
     today = Time.now.strftime("%Y%m%d")
     if config.reputation_today.include?(today)
       total_today = config.reputation_today[today] + value
-      puts "&" * 100
-      puts "#{total_today}"
       if node.daily_cap != 0 && total_today > node.daily_cap
         logger.info "#{id}@#{config.id} hitted daily cap"
       end

@@ -17,6 +17,8 @@ Ask::Application.routes.draw do
     
     member do      
       post :follow
+      post :solve
+      post :unsolve
     end
     
     resources :answers, :only => [:create, :update, :destroy] do

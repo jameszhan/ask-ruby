@@ -14,6 +14,12 @@ class Ability
       reputation_rules(user)  
       can :follow, Question
       can :unfollow, Question
+      can :solve, Question do |question|
+        question.user_id == user.id
+      end
+      can :unsolve, Question do |question|
+        question.user_id == user.id
+      end
     else
       # banned or unknown situation
       cannot :manage, :all

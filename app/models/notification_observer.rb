@@ -32,7 +32,9 @@ class NotificationObserver < Mongoid::Observer
     
     def after_user_create(user)      
       Notifier.user_welcome_email(user).deliver! unless user.email.blank?
-      user.update_reputation(:user_sign_up, NodeSelector.current_node, 20)
+      Node.all.each do |node|        
+        user.update_reputation(:user_sign_up, node, 20)
+      end
     end 
     
     def after_answer_create(answer)

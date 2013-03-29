@@ -5,8 +5,8 @@ class Answer
   
   field :body, type: String  
   
-  belongs_to :user, :inverse_of => :answers, :counter_cache => true
-  belongs_to :question, :inverse_of => :answers, :counter_cache => true
+  belongs_to :user,     inverse_of: :answers, counter_cache: true
+  belongs_to :question, inverse_of: :answers, counter_cache: true
 
   embeds_many :comments, as: :commentable, cascade_callbacks: true 
   

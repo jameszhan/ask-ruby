@@ -1,6 +1,5 @@
-class QuestionsController < ApplicationController
-
-  load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy, :follow, :unfollow]  
+class QuestionsController < ApplicationController  
+  load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy, :follow, :unfollow, :solve, :unsolve], :through => :current_node
  
   order_tabs :index => {
     newest: {
@@ -31,7 +30,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = Question.find(params[:id])
+    @question = current_node.questions.find(params[:id])
     @question.viewed!(request.remote_ip)
     respond_to do |format|
       format.html # show.html.erb
@@ -58,8 +57,8 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     #@question = Question.new(params[:question])
+    #@question.node = current_node
     @question.user_id = current_user.id
-    @question.node = current_node
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -98,6 +97,27 @@ class QuestionsController < ApplicationController
     end
   end
   
+  def solve
+    @answer = @question.answers.find(params[:answer_id])
+    @question.answered_with = @answer if @question.answered_with.nil?
+    @question.accepted = true
+    
+    if @question.save
+      current_user.on_activity(:close_question, current_node)
+      if current_user != @answer.user
+        @answer.user.update_reputation(:answer_picked_as_solution, current_node)
+      end     
+    end
+  end
+  
+  def unsolve
+    @answer = @question.answers.find(params[:answer_id])
+    @question.accepted = false
+    @question.answered_with = nil if @question.answered_with == @answer
+    
+    @question.save 
+  end  
+  
   def follow
     if @question.followed_by?(current_user)
       @question.unfollowed_by!(current_user)
@@ -108,8 +128,7 @@ class QuestionsController < ApplicationController
       format.html { redirect_to questions_url }
       format.json { head :no_content }
     end
-  end
-  
+  end  
 
   def preview
     @body = params[:body]

@@ -5,22 +5,27 @@ class Question
   include Mongoid::Votable
   include Mongoid::Followable
   
-  field :title, type: String
-  field :body, type: String
-  field :answers_count, type: Integer, default: 0
-  field :views_count, type: Integer, default: 0
-  field :votes_average, type: Integer, default: 0
-
+  field :title,         type: String
+  field :body,          type: String
+  field :views_count,   type: Integer, default: 0  
+  
+  field :accepted,      type: Boolean, default: false
+  field :closed,        type: Boolean, default: false
+  field :closed_at,     type: Time    
+  
   validates_presence_of :title
   validates_length_of   :title, in: 5..100
   validates_length_of   :body, minimum: 5, allow_blank: true
 
-  belongs_to :user, :counter_cache => true
-  belongs_to :node, :counter_cache => true
-
-  embeds_many :comments, as: :commentable, cascade_callbacks: true 
+  belongs_to :user, :inverse_of => :questions, :counter_cache => true
+  belongs_to :node, :inverse_of => :questions, :counter_cache => true
+  
+  belongs_to :answered_with, :class_name => "Answer"
+   
   has_many :answers, :dependent => :destroy
   has_many :badges, :as => :badgable
+  
+  embeds_many :comments, as: :commentable, cascade_callbacks: true  
   
   index :node_id => 1  
   

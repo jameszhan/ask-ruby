@@ -5,9 +5,6 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    puts "%" * 100
-    puts "current_user => #{current_user.email}"
-    puts "can_answer_question => #{can? :create, Answer}"
     authorize! :create, Answer
     @answer = @question.answers.build(params[:answer])
     @answer.user = current_user
@@ -44,6 +41,6 @@ class AnswersController < ApplicationController
   protected
 
     def find_question
-      @question = Question.find(params[:question_id])
+      @question = current_node.questions.find(params[:question_id])
     end
 end

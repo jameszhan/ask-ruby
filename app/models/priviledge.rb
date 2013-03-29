@@ -11,6 +11,7 @@ class Priviledge
   field :reputation_today, :type => Hash, :default => Hash.new(0)
   field :roles, :type => Array, :default => [:member]
   field :profile, :type => Hash, :default => {} 
+  field :last_activity_at, :type => Time
 
   embedded_in :user, :inverse_of => :priviledges
   belongs_to :node
