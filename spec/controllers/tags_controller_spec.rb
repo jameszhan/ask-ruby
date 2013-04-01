@@ -149,7 +149,7 @@ describe TagsController do
           tag.should_not be_nil
           # Trigger the behavior that occurs when invalid params are submitted
           Tag.any_instance.stub(:save).and_return(false)
-          put :update, {:id => tag.to_param, :tag => { "name" => "invalid value" }}
+          put :update, {:id => tag.to_param, :tag => { name: "" }}
           response.should render_template("edit")
         end
       end
