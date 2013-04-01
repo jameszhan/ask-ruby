@@ -21,14 +21,17 @@ require 'spec_helper'
 describe QuestionsController do
   
   let(:user) { FactoryGirl.create(:user) }
+  let(:node) { FactoryGirl.create(:node) }
   let(:admin) { FactoryGirl.create(:admin) }
-  let(:question) { FactoryGirl.create(:question, user: user) }
-  let(:another_question) { FactoryGirl.create(:another_question, user: admin) }
+  let(:question) { FactoryGirl.create(:question, node: node, user: user) }
+  let(:another_question) { FactoryGirl.create(:another_question, node: node, user: admin) }
                
   def valid_attributes 
     {
       title: "Question",
-      body: "Hello World! AAAAA"
+      body: "Hello World! AAAAA",
+      user: user,
+      node: node
     }
   end
   
@@ -121,12 +124,12 @@ describe QuestionsController do
         end
 
         it "assigns the requested question as @question" do
-          put :update, {:id => question.to_param, :question => valid_attributes}
+          put :update, {:id => question.to_param, :question => {title: "Question", body: "Hello World! AAAAA"} }
           assigns(:question).should eq(question)
         end
 
         it "redirects to the question" do
-          put :update, {:id => question.to_param, :question => valid_attributes}
+          put :update, {:id => question.to_param, :question => {title: "Question", body: "Hello World! AAAAA"} }
           response.should redirect_to(question)
         end
       end

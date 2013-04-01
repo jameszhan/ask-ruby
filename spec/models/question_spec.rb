@@ -3,8 +3,9 @@ require 'spec_helper'
 describe Question do
 
   before do
+    @node = Node.where(:name => "default").first_or_create
   	@user = User.create username: 'name1', password: "secert12", email: "mlx@gmail.com", uid: "123456", provider: "github"
-    @question = Question.create title: "who are you ?", body: "who are you ?", user: @user, views_count: 2, votes_count: 2, answers_count: 1 
+    @question = Question.create title: "who are you ?", body: "who are you ?", node: @node, user: @user, views_count: 2, votes_count: 2, answers_count: 1 
   end
   
   subject { @question }

@@ -1,0 +1,61 @@
+<div class="row box">
+  <h2 class="title">User info</h2>
+  <div class="span3">
+    <img width="196" height="196" src="https://secure.gravatar.com/avatar/5067f92a9ada7ea2567c28bac9d6b118?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png">
+  </div>
+  <div class="span6 ">
+    <table class="table table-hover">
+      <tr>
+        <td>Name:</td>
+        <td><%= @user.name -%></td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td><%= @user.email -%></td>
+      </tr>
+      <tr>
+        <td>Last sign in:</td>
+        <td><%= @user.last_sign_in_at -%></td>
+      </tr>
+      <tr>
+        <td>Last sign in ip:</td>
+        <td><%= @user.last_sign_in_ip -%></td>
+      </tr>
+      <tr>
+        <td>Following:</td>
+        <td><%= @user.following_count -%></td>
+      </tr>
+      <tr>
+        <td>Followers:</td>
+        <td><%= @user.followers_count -%></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="box">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab1" data-toggle="tab">My questions</a></li>
+      <li><a href="#tab2" data-toggle="tab">recently answers</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <table class="table table-hover">
+          <% @user.questions.each do |question| %>
+            <tr><td><%= link_to question.title, question %></td></tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <table class="table table-hover">
+          <% @user.answers.each do |answer| %>
+            <tr>
+              <td><%= link_to answer.question.title, answer.question %> <br/>reply: <%=  truncate(answer.body, :length => 50) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
