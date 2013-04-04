@@ -101,6 +101,23 @@ a {
   border-radius: 5px;
   background-color: #FAFAFA;
   clear: right;
+
+  .author {
+    clear: both;
+    .avatar_left {
+      float: left;
+      margin: 0 3px 5px 0;
+    }
+      
+    .timeago_info {
+      font-size: 11px;
+    }
+    
+    .user_info {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  }
 }
 
 .answers-tab {
@@ -110,6 +127,18 @@ a {
   border-radius: 5px;
   background-color: #DDD;
   clear: right;
+
+  .title {
+    font-size: 18px;
+    line-height: 30px;
+    margin-left: 10px;
+  }
+
+  #sort_tabs{
+    margin: 0 10px 0 0;
+    float: right;
+  }
+
 }
 
 .answer-title {
@@ -119,34 +148,6 @@ a {
 .answers-split {
   background-color: #AAAAAA;
   margin-left: 0px;
-}
-
-.answers-tab .title {
-  font-size: 18px;
-  line-height: 30px;
-  margin-left: 10px;
-}
-
-.answers-tab #sort_tabs{
-  margin: 0 10px 0 0;
-  float: right;
-}
-
-.activity-info .author {
-  clear: both;
-}
-.activity-info .author .avatar_left {
-  float: left;
-  margin: 0 3px 5px 0;
-}
-      
-.activity-info .author .timeago_info {
-  font-size: 11px;
-}
-
-.activity-info .author .user_info {
-  font-size: 11px;
-  line-height: 16px;
 }
 
 .edit-answer-form {
@@ -159,28 +160,29 @@ a {
 //comment
 .comment {
   margin: 20px 30px 0 30px;
-}
 
-.comment label {
-  background: url("comment.png") no-repeat scroll left center transparent;
-  color: #988E4C;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 0 3px 2px 22px;
-  text-decoration: none;
-  width: 120px;
-  margin-bottom: 30px;
-  &:hover {
-    color: #F5F0C9;
+  label {
+    background: url("comment.png") no-repeat scroll left center transparent;
+    color: #988E4C;
+    font-family: Arial;
+    font-size: 13px;
+    padding: 0 3px 2px 22px;
+    text-decoration: none;
+    width: 120px;
+    margin-bottom: 30px;
+    &:hover {
+      color: #F5F0C9;
+    }
   }
-}
-.comment #comment-form {
-  margin-left: 30px;
-}
-
-.comment .comment-content {
-  border-top: 1px dotted #DDDDDD;
-  margin-bottom: 10px; 
+  
+  #comment-form {
+    margin-left: 30px;
+  }
+  
+  .comment-content {
+    border-top: 1px dotted #DDDDDD;
+    margin-bottom: 10px; 
+  }
 }
 
 //new_question page
