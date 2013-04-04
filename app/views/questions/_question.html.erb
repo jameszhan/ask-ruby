@@ -11,9 +11,9 @@
   </div>
   
   <div class="short-summary span3 offset2">
-    <% if question.answers_count >= 1 %>
+    <% if question.answers.count >= 1 %>
       <div id="box-shadow-answers" class="answers">
-        <span class="item-count"><%= question.answers_count %></span>  
+        <span class="item-count"><%= question.answers.count %></span>  
         <div>answers</div> 
       </div>
     <% else %>
