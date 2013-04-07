@@ -37,6 +37,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.3.0.1'
   gem 'compass-rails'
+  gem 'chosen-rails'
 end
 
 gem 'jquery-rails'

@@ -8,6 +8,7 @@
   }
 }
 
+
 .logins {
   .icon-google { @include icons-sprite(google); }
   .icon-github { @include icons-sprite(github); }
@@ -183,6 +184,18 @@
   }
 }
 
+
+.tags {
+  .tag {
+    @include border-radius(3px);
+    border: 1px solid #cfcfcf;
+    font-family: 'Open Sans Condensed';
+    line-height: 25px;
+    padding: 3px 5px 3px 5px;
+    background-color: #f3f6f6;
+    color: #717179;
+  }
+}
 
 .selected-tags {
   font-family: 'Open Sans Condensed';

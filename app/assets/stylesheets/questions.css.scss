@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
+
 //questions page
 .short-summary {
 	position: relative;
@@ -11,77 +12,75 @@
   margin-bottom: 1px;
   overflow: hidden;
   float: left;
+  .stats-box {
+    text-align: center;
+    margin: 0 3px;
+    padding: 8px 2px 0px 2px;
+    width: 51px;
+    float: right;
+    height: 44px;
+    border: #dbdbdb 1px solid;
+    background: #F5F5F5;
+    .item-count {
+      font-size: 25px;
+    }
+  }
+  .no-count {
+  	font-size: 25px;
+  	color: #b1b5b6;
+  }
+  
+  .votes {
+    .item-count {  	
+  	  color: #4a757f;
+	  }
+	  &.shadow{
+  	  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
+  	}
+  }  
+  .views {
+    .item-count {
+  	  color: #D33F00;
+  	}
+  	&.shadow{
+  	  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
+  	}
+  }
+  .answers {
+    .item-count {
+  	  color: #EAB243;
+  	}
+  	&.shadow{
+  	  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
+  	}
+  }
+  .userinfo {
+  	text-align: right;
+    line-height: 16px;
+    font-family: Arial;
+    padding-right: 4px;
+    margin-top: 2px;
+    font-size: 11px;
+  }
 }
 
-.short-summary .votes,
-.short-summary .answers,
-.short-summary .views {
-  text-align: center;
-  margin: 0 3px;
-  padding: 8px 2px 0px 2px;
-  width: 51px;
-  float: right;
-  height: 44px;
-  border: #dbdbdb 1px solid;
-  background: #F5F5F5;
+.answers-tab {
+  margin-top: 10px;
+  margin-left: 0;
+  padding-top: 6px;
+  border-radius: 5px;
+  background-color: #DDD;
+  clear: right;
+  .title {
+    font-size: 18px;
+    line-height: 30px;
+    margin-left: 10px;
+  }
+  #sort_tabs{
+    margin: 0 10px 0 0;
+    float: right;
+  }
 }
-
-.short-summary .no-count {
-	font-size: 25px;
-	color: #b1b5b6;
-}
-
-.short-summary .votes .item-count {
-	font-size: 25px;
-	color: #4a757f;
-}
-
-.short-summary .views .item-count {
-	font-size: 25px;
-	color: #D33F00;
-}
-
-.short-summary .answers .item-count {
-	font-size: 25px;
-	color: #EAB243;
-}
-
-.short-summary .userinfo {
-	text-align: right;
-  line-height: 16px;
-  font-family: Arial;
-  padding-right: 4px;
-  margin-top: 2px;
-  font-size: 11px;
-}
-
-a {
-	cursor: pointer;
-}
-
-.tag-block {
-	margin: 15px
-}
-#box-shadow-answers {
-  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
-}
-#box-shadow-views {
-  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
-}
-#box-shadow-votes {
-  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
-}
-
-.inline-block {
-	@include inline-block;
-	@include box-shadow(#4A6B82 1px 1px 1px);
-  padding: 1px 4px;
-  background: #c4dae9;
-  color: #4a6b82;
-  font-size: 11px;
-  border-radius: 3px; 
-}
-
 
 .activity-info {
   @include box-shadow(#4A6B82 2px 2px 0); 
@@ -92,52 +91,37 @@ a {
   border-radius: 5px;
   background-color: #FAFAFA;
   clear: right;
+  .author {
+    clear: both;
+    .avatar_left {
+      float: left;
+      margin: 0 3px 5px 0;
+    }
+    .timeago_info {
+      font-size: 11px;
+    }
+    .user_info {
+      font-size: 11px;
+      line-height: 16px;
+    }    
+  }
 }
 
-.answers-tab {
-  margin-top: 10px;
-  margin-left: 0;
-  padding-top: 6px;
-  border-radius: 5px;
-  background-color: #DDD;
-  clear: right;
+
+.tag-block {
+	margin: 15px
 }
 
-.answer-title {
-  margin-left: 20px;
-}
 
-.answers-split {
-  background-color: #AAAAAA;
-  margin-left: 0px;
-}
 
-.answers-tab .title {
-  font-size: 18px;
-  line-height: 30px;
-  margin-left: 10px;
-}
-
-.answers-tab #sort_tabs{
-  margin: 0 10px 0 0;
-  float: right;
-}
-
-.activity-info .author {
-  clear: both;
-}
-.activity-info .author .avatar_left {
-  float: left;
-  margin: 0 3px 5px 0;
-}
-      
-.activity-info .author .timeago_info {
+.inline-block {
+	@include inline-block;
+	@include box-shadow(#4A6B82 1px 1px 1px);
+  padding: 1px 4px;
+  background: #c4dae9;
+  color: #4a6b82;
   font-size: 11px;
-}
-
-.activity-info .author .user_info {
-  font-size: 11px;
-  line-height: 16px;
+  border-radius: 3px; 
 }
 
 .edit-answer-form {
@@ -150,29 +134,29 @@ a {
 //comment
 .comment {
   margin: 20px 30px 0 30px;
-}
-
-.comment label {
-  background: url("comment.png") no-repeat scroll left center transparent;
-  color: #988E4C;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 0 3px 2px 22px;
-  text-decoration: none;
-  width: 120px;
-  margin-bottom: 30px;
-  &:hover {
-    color: #F5F0C9;
+  label {
+    background: url("comment.png") no-repeat scroll left center transparent;
+    color: #988E4C;
+    font-family: Arial;
+    font-size: 13px;
+    padding: 0 3px 2px 22px;
+    text-decoration: none;
+    width: 120px;
+    margin-bottom: 30px;
+    &:hover {
+      color: #F5F0C9;
+    }
+  }
+  #comment-form {
+    margin-left: 30px;
+  }
+  .comment-content {
+    border-top: 1px dotted #DDDDDD;
+    margin-bottom: 10px; 
   }
 }
-.comment #comment-form {
-  margin-left: 30px;
-}
 
-.comment .comment-content {
-  border-top: 1px dotted #DDDDDD;
-  margin-bottom: 10px; 
-}
+
 
 //new_question page
 form#new_question.form-horizontal {

@@ -10,6 +10,7 @@
  *
  *= require scaffolds
  *= require items
+ *= require chosen
  *= require bootstrap_and_override
  *= require_tree .
  *= require_self

@@ -1,47 +1,45 @@
 <div class="row-fluid" style="border-bottom: 1px solid #dbdbdb;">
   <div class="span7">
     <h3><%= link_to question.title, question_path(question) %></h3>
-    <div class="tag-block">          
+    <div class="tags">          
       <% question.tags.each do|tag| -%>
-      <div class="input-append">
-        <%= link_to tag, tagged_with_questions_path(tag), class: "add-on" %>
-      </div>
+        <%= link_to tag_name(tag), tagged_with_questions_path(tag), class: "tag" %>
       <% end -%>
     </div>
   </div>
   
   <div class="short-summary span3 offset2">
     <% if question.answers_count >= 1 %>
-      <div id="box-shadow-answers" class="answers">
+      <div class="answers stats-box shadow">
         <span class="item-count"><%= question.answers_count %></span>  
         <div>answers</div> 
       </div>
     <% else %>
-      <div class="answers">
+      <div class="answers stats-box">
         <span class="no-count">no</span>  
         <div>answers</div> 
       </div>
     <% end %>
 
     <% if question.views_count >= 1 %>
-      <div id="box-shadow-views" class="views">
+      <div class="views stats-box shadow">
         <span class="item-count"><%= question.views_count %></span>  
         <div>views</div> 
       </div>
     <% else %>
-      <div class="views">
+      <div class="views stats-box">
         <span class="no-count">no</span>  
         <div>views</div> 
       </div>
     <% end %>
 
     <% if question.votes_average >= 1 %>
-      <div id="box-shadow-votes" class="votes">
+      <div class="votes stats-box shadow">
         <span class="item-count"><%= question.votes_average %></span>
         <div>votes</div> 
       </div>
     <% else %>
-      <div class="votes">
+      <div class="votes stats-box">
         <span class="no-count">no</span>
         <div>votes</div> 
       </div>

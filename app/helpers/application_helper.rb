@@ -32,8 +32,16 @@ module ApplicationHelper
     path
   end
   
+  def tag_name(tag_id)
+    begin
+      current_node.tags.find(tag_id).name
+    rescue
+      tag_id
+    end
+  end
+  
   def tag_list
-    current_node.tags.map(&:id)
+    @tag_list ||= current_node.tags.map{|tag| [tag.name, tag.id]}
   end
   
   def find_widgets(position)
