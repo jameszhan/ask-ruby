@@ -2,7 +2,6 @@ class UsersController < Devise::RegistrationsController
   before_filter :find_user
   
   def show
-    @followed_questions = Question.followed_by(@user)
   end
 
   def follow

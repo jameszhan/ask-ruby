@@ -66,9 +66,9 @@
           <% end %>
         </table>
       </div>
-      <div class="tab-pane active" id="tab3">
+      <div class="tab-pane" id="tab3">
         <table class="table table-hover">
-          <% @followed_questions.each do |question| %>
+          <% @user.followed_questions.each do |question| %>
             <tr><td><%= link_to question.title, question %></td></tr>
           <% end %>
         </table>
