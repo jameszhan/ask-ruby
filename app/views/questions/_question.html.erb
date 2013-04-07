@@ -11,9 +11,9 @@
   </div>
   
   <div class="short-summary span3 offset2">
-    <% if question.answers_count >= 1 %>
+    <% if question.answers.count >= 1 %>
       <div id="box-shadow-answers" class="answers">
-        <span class="item-count"><%= question.answers_count %></span>  
+        <span class="item-count"><%= question.answers.count %></span>  
         <div>answers</div> 
       </div>
     <% else %>
@@ -48,7 +48,7 @@
     <% end %>
     <div style="clear:both"></div>
     <div class="userinfo">
-      <%= time_ago_in_words(question.created_at) %> ago <%= question.user.name %> 
+      <%= time_ago_in_words(question.created_at) %> ago <%= link_to question.user.name, question.user %> 
     </div>
   </div>
 </div>
