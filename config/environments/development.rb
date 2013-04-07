@@ -23,13 +23,12 @@ Ask::Application.configure do
   config.action_mailer.default :charset => "utf-8"
   
   config.action_mailer.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => "gmail.com",
-    :user_name => "askrubyist",
-    :password => "ask123456",
-    :authentication => "plain",
-    :enable_starttle_auto => true
+    :address => "smtpout.asia.secureserver.net",
+    :port => 25,
+    :domain => "askrubyist.org",
+    :user_name => "admin@askrubyist.org",
+    :password => "adminaskrubyist",
+    :authentication => :login
   }
   
   # Print deprecation notices to the Rails logger

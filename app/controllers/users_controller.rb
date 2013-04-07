@@ -19,6 +19,5 @@ class UsersController < Devise::RegistrationsController
   private
     def find_user
       @user = User.find(params[:id])
-      @followed_questions = Question.followed_by(@user)
     end
 end
