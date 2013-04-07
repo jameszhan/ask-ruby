@@ -3,6 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
+@mixin box {
+  text-align: center;
+  margin: 0 3px;
+  padding: 8px 2px 0px 2px;
+  width: 51px;
+  float: right;
+  height: 44px;
+  border: #dbdbdb 1px solid;
+  background: #F5F5F5;  
+}
+
+@mixin count-font($color) {
+  font-size: 25px;
+  color: $color;
+}
+
 
 //questions page
 .short-summary {
@@ -13,26 +29,15 @@
   overflow: hidden;
   float: left;
   .stats-box {
-    text-align: center;
-    margin: 0 3px;
-    padding: 8px 2px 0px 2px;
-    width: 51px;
-    float: right;
-    height: 44px;
-    border: #dbdbdb 1px solid;
-    background: #F5F5F5;
-    .item-count {
-      font-size: 25px;
-    }
+    @include box;
   }
   .no-count {
-  	font-size: 25px;
-  	color: #b1b5b6;
+  	@include count-font(#b1b5b6);
   }
   
   .votes {
     .item-count {  	
-  	  color: #4a757f;
+  	  @include count-font(#4a757f);
 	  }
 	  &.shadow{
   	  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
@@ -40,7 +45,7 @@
   }  
   .views {
     .item-count {
-  	  color: #D33F00;
+  	  @include count-font(#D33F00);
   	}
   	&.shadow{
   	  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
@@ -48,7 +53,7 @@
   }
   .answers {
     .item-count {
-  	  color: #EAB243;
+  	  @include count-font(#EAB243);
   	}
   	&.shadow{
   	  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
@@ -106,13 +111,6 @@
     }    
   }
 }
-
-
-.tag-block {
-	margin: 15px
-}
-
-
 
 .inline-block {
 	@include inline-block;

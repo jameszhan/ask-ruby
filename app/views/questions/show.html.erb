@@ -53,7 +53,7 @@
 <!--answers-->    
 <div id="question-answers">
   <div class="answers-tab row-fluid">
-    <span id="answers-count" class="title"><%= pluralize(@question.answers_count, "answer") %></span>
+    <span id="answers-count" class="title"><%= pluralize(@question.answers.count, "answer") %></span>
     <div id="sort_tabs" class="pagination">
     <ul>
       <li><span>Sort by »</span></li>  
