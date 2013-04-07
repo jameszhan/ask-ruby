@@ -31,6 +31,7 @@ class Question
   index :node_id => 1  
   
   scope :minimal, -> { without(:body, :answers, :comments) }
+  scope :followed_by, ->(*users){ where :follower_ids.in => users.map(&:id) }
 
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"
