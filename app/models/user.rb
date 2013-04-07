@@ -110,6 +110,10 @@ class User
     following.delete(user)
   end
   
+  def followed_questions
+    @followed_questions ||= Question.followed_by(self)
+  end
+  
   def password_required?
     @@validation && super
   end
