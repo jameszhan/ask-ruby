@@ -16,7 +16,7 @@ class NodeSelector
   end  
   
   def current_node
-    @current_node || self.lookup("")
+    @current_node
   end
   
   def lookup(params)

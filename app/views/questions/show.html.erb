@@ -6,13 +6,11 @@
     </div>
     <div class="span11" style="margin-left: 0px;">
       <h3><%= @question.title %></h3>
-      <ul class="inline">          
+      <div class="tags">          
         <% @question.tags.each do|tag| -%>
-        <li class="tag">
-          <%= link_to tag, tagged_with_questions_path(tag), class: "btn-small btn" %>
-        </li>
+          <%= link_to tag, tagged_with_questions_path(tag), class: "tag" %>
         <% end -%>
-      </ul>
+      </div>
       <div>
         <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
         <%= markdown @question.body %>

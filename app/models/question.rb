@@ -12,7 +12,7 @@ class Question
   field :accepted,      type: Boolean, default: false
   field :closed,        type: Boolean, default: false
   field :closed_at,     type: Time    
-  
+    
   validates_presence_of :title
   validates_length_of   :title, in: 5..100
   validates_length_of   :body, minimum: 5, allow_blank: true
@@ -22,7 +22,8 @@ class Question
   
   belongs_to :answered_with, :class_name => "Answer"
    
-  has_many :answers, :dependent => :destroy
+  has_many :answers, :dependent => :destroy  
+  field :answers_count, type: Integer, default: 0
   has_many :badges, :as => :badgable
   
   embeds_many :comments, as: :commentable, cascade_callbacks: true  

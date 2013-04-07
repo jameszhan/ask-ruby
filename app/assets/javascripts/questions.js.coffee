@@ -73,6 +73,11 @@ window.Questions =
         
 
 $(document).ready ->
+  # enable chosen js
+  $('.chzn-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+  
   $("#question_add_image").on "click", () ->
     $("#question_upload_images").click()
     return false

@@ -19,8 +19,8 @@
       input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" },
       :hint => "請使用 Markdown 格式編寫,可以試試用 <a href='http://mouapp.com' target='_blank'>Mou</a> 這個 App 来編寫。".html_safe %>
       
-    <%= f.input :tags, collection: tag_list, include_blank: false, :input_html => { :multiple => true }%>
-
+    <%= f.input :tags, collection: tag_list, include_blank: false, input_html: { class: 'chzn-select', :multiple => true } %>
+    
     <div class="form-actions">
       <%= f.submit t("common.save"), :class => "btn btn-primary", 'data-disable-with' => t("common.saving") %>
       <%= link_to t("common.cancel"), questions_path, :class => "btn reset" %>

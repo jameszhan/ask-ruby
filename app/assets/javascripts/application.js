@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chosen-jquery
 //= require bootstrap
 //= require util
 //= require_tree .
 
 
 $(function(){
-  $(".new_question input[name='question[tags][]']").remove()
+  $(".new_question input[name='question[tags][]'], .edit_question input[name='question[tags][]']").remove()
 });
