@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     if current_order
       @questions = @questions.order_by(current_order)
     end
+    @questions = @questions.page params[:page]
     respond_to do |format|
       format.html 
       format.json  { render json: @questions.to_json(:except => %w[node]) }

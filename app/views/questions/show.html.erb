@@ -69,7 +69,8 @@
     </div>
   </div>
   
-  <%= render @question.answers %>
+  <%= render @answers %>
+  <div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>
 </div>
 
 <!--answer box -->

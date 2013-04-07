@@ -8,6 +8,16 @@
   }
 }
 
+#answers-pagination, #questions-pagination{
+  margin-top: -16px;
+  padding: 0;
+  text-align: right;
+  .pagination{
+    margin-top: 0;
+    padding: 0;
+  }
+}
+
 
 .logins {
   .icon-google { @include icons-sprite(google); }

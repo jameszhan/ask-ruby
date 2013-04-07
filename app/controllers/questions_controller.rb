@@ -32,6 +32,7 @@ class QuestionsController < ApplicationController
   def show
     @question = current_node.questions.find(params[:id])
     @question.viewed!(request.remote_ip)
+    @answers = @question.answers.page params[:page]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
