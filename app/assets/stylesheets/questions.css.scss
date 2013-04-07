@@ -3,6 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
+@mixin box {
+  text-align: center;
+  margin: 0 3px;
+  padding: 8px 2px 0px 2px;
+  width: 51px;
+  float: right;
+  height: 44px;
+  border: #dbdbdb 1px solid;
+  background: #F5F5F5;  
+}
+
+@mixin count-font($color) {
+  font-size: 25px;
+  color: $color;
+}
+
 //questions page
 .short-summary {
 	position: relative;
@@ -11,49 +27,42 @@
   margin-bottom: 1px;
   overflow: hidden;
   float: left;
+  
+  .no-count {
+    @include count-font(#b1b5b6);
+  }
+
+  .userinfo {
+    text-align: right;
+    line-height: 16px;
+    font-family: Arial;
+    padding-right: 4px;
+    margin-top: 2px;
+    font-size: 11px;
+  }
+
+  .votes {
+    @include box;
+    .item-count {
+      @include count-font(#4a757f);
+    }
+  }  
+
+  .views {
+    @include box;
+    .item-count {
+      @include count-font(#D33F00);
+    }
+  }
+
+  .answers {
+    @include box;
+    .item-count {
+      @include count-font(#EAB243);
+    }
+  }
 }
 
-.short-summary .votes,
-.short-summary .answers,
-.short-summary .views {
-  text-align: center;
-  margin: 0 3px;
-  padding: 8px 2px 0px 2px;
-  width: 51px;
-  float: right;
-  height: 44px;
-  border: #dbdbdb 1px solid;
-  background: #F5F5F5;
-}
-
-.short-summary .no-count {
-	font-size: 25px;
-	color: #b1b5b6;
-}
-
-.short-summary .votes .item-count {
-	font-size: 25px;
-	color: #4a757f;
-}
-
-.short-summary .views .item-count {
-	font-size: 25px;
-	color: #D33F00;
-}
-
-.short-summary .answers .item-count {
-	font-size: 25px;
-	color: #EAB243;
-}
-
-.short-summary .userinfo {
-	text-align: right;
-  line-height: 16px;
-  font-family: Arial;
-  padding-right: 4px;
-  margin-top: 2px;
-  font-size: 11px;
-}
 
 a {
 	cursor: pointer;
@@ -92,6 +101,23 @@ a {
   border-radius: 5px;
   background-color: #FAFAFA;
   clear: right;
+
+  .author {
+    clear: both;
+    .avatar_left {
+      float: left;
+      margin: 0 3px 5px 0;
+    }
+      
+    .timeago_info {
+      font-size: 11px;
+    }
+    
+    .user_info {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  }
 }
 
 .answers-tab {
@@ -101,6 +127,18 @@ a {
   border-radius: 5px;
   background-color: #DDD;
   clear: right;
+
+  .title {
+    font-size: 18px;
+    line-height: 30px;
+    margin-left: 10px;
+  }
+
+  #sort_tabs{
+    margin: 0 10px 0 0;
+    float: right;
+  }
+
 }
 
 .answer-title {
@@ -110,34 +148,6 @@ a {
 .answers-split {
   background-color: #AAAAAA;
   margin-left: 0px;
-}
-
-.answers-tab .title {
-  font-size: 18px;
-  line-height: 30px;
-  margin-left: 10px;
-}
-
-.answers-tab #sort_tabs{
-  margin: 0 10px 0 0;
-  float: right;
-}
-
-.activity-info .author {
-  clear: both;
-}
-.activity-info .author .avatar_left {
-  float: left;
-  margin: 0 3px 5px 0;
-}
-      
-.activity-info .author .timeago_info {
-  font-size: 11px;
-}
-
-.activity-info .author .user_info {
-  font-size: 11px;
-  line-height: 16px;
 }
 
 .edit-answer-form {
@@ -150,28 +160,29 @@ a {
 //comment
 .comment {
   margin: 20px 30px 0 30px;
-}
 
-.comment label {
-  background: url("comment.png") no-repeat scroll left center transparent;
-  color: #988E4C;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 0 3px 2px 22px;
-  text-decoration: none;
-  width: 120px;
-  margin-bottom: 30px;
-  &:hover {
-    color: #F5F0C9;
+  label {
+    background: url("comment.png") no-repeat scroll left center transparent;
+    color: #988E4C;
+    font-family: Arial;
+    font-size: 13px;
+    padding: 0 3px 2px 22px;
+    text-decoration: none;
+    width: 120px;
+    margin-bottom: 30px;
+    &:hover {
+      color: #F5F0C9;
+    }
   }
-}
-.comment #comment-form {
-  margin-left: 30px;
-}
-
-.comment .comment-content {
-  border-top: 1px dotted #DDDDDD;
-  margin-bottom: 10px; 
+  
+  #comment-form {
+    margin-left: 30px;
+  }
+  
+  .comment-content {
+    border-top: 1px dotted #DDDDDD;
+    margin-bottom: 10px; 
+  }
 }
 
 //new_question page
