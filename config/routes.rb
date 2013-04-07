@@ -40,7 +40,11 @@ Ask::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   
   devise_scope :user do
-    resources :users, :only => [:show]
+    resources :users, :only => [:show] do
+      member do
+        post :follow
+      end
+    end
   end
 
   

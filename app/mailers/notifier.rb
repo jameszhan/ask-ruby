@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default from: "mulixiang199016@gmail.com"
+  default from: "admin@askrubyist.org"
 
   def answer_notify_email(answer)
   	@url = "http://127.0.0.1:3000#{question_path(answer.question)}"
