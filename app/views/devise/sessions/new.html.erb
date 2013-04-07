@@ -32,7 +32,7 @@
       <div class="control-group no-margin">
         <%= f.submit "Sign in", :class => "btn btn-primary" %>
         <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-          <%= link_to "Create a password-protected account", new_registration_path(resource_name) %><br />
+          <%= link_to "New user create your account", new_registration_path(resource_name) %><br />
         <% end -%> 
       </div>
         Still have trouble signing in? - 

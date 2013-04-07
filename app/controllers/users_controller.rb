@@ -2,6 +2,7 @@ class UsersController < Devise::RegistrationsController
   before_filter :find_user
   
   def show
+    @followed_questions = Question.followed_by(@user)
   end
 
   def follow
@@ -19,6 +20,5 @@ class UsersController < Devise::RegistrationsController
   private
     def find_user
       @user = User.find(params[:id])
-      @followed_questions = Question.followed_by(@user)
     end
 end
