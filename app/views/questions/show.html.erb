@@ -70,8 +70,9 @@
   </div>
   
   <%= render @answers %>
-  <div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>
 </div>
+
+<div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>
 
 <!--answer box -->
 <% if can? :create, Answer -%>

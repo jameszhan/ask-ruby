@@ -4,6 +4,8 @@ Ask::Application.routes.draw do
   
   resources :tags
   resources :badges, only: [:index, :show]
+  
+  post 'markdown/preview' => "application#preview"
       
   resources :questions do
     resources :comments, :only => [:create, :destroy]

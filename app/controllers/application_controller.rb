@@ -32,9 +32,28 @@ class ApplicationController < ActionController::Base
   def current_node
     @current_node
   end
-    
+  
+  def preview
+    @body = params[:body]
+    render :json => {:body => markdown(@body).html_safe}
+  end
+  
+  def markdown(text)
+    return "" unless text
+    renderer = Markdown::Render::HTML.new(hard_wrap: true, filter_html: true)
+    options = {
+      autolink: true,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      lax_html_blocks: true,
+      strikethrough: true,
+      superscript: true
+    }
+    Redcarpet::Markdown.new(renderer, options).render(text).html_safe  
+  end
+      
   helper :votes
-  helper_method :current_node, :current_tags
+  helper_method :current_node, :current_tags, :markdown
   
   private 
     def find_node
