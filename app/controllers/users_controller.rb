@@ -22,9 +22,8 @@ class UsersController < Devise::RegistrationsController
       redirect_to edit_user_registration_path, :flash => {:error => t("users.unbind_warning")}
       return
     end
-
     current_user.authentications.destroy_all({ :provider => provider })
-    redirect_to edit_user_registration_path, :flash => {:warring => t("users.unbind_success", :provider => provider.titleize )}
+    redirect_to edit_user_registration_path, :flash => {:warring => t("users.unbind_success", :provider => provider.titleize)}
   end
   
 

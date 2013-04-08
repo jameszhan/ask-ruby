@@ -6,7 +6,11 @@ class User
     included do
       #has_many :authentications, :dependent => :destroy
       embeds_many :authentications
-    end  
+    end      
+    
+    def bind_omniauth(omniauth)
+      authentications.create(omniauth.slice(:provider, :uid))
+    end
 
     module ClassMethods  
       @@validation = true
