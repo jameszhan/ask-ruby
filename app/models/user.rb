@@ -44,17 +44,9 @@ class User
       last_day = last_activity_at.at_beginning_of_day
     end
     config.set(:last_activity_at, date.utc)
-
-    if last_day && last_day != day
-      if last_day.utc.between?(day.yesterday - 12.hours, day.tomorrow)
-        config.inc(:activity_days, 1)
-      elsif !last_day.utc.today? && (last_day.utc != Time.now.utc.yesterday)
-        logger.info ">> Resetting act days!! last known day: #{last_day}"
-        config.set(:activity_days, 0)
-      end
-    end
-  end
-  
+    
+    set_activity_days(config, last_day, day)
+  end  
   
   def update_reputation(key, node, v = nil)
     value = v || node.reputation_rewards[key.to_s].to_i   
@@ -63,16 +55,8 @@ class User
     logger.info "#{self.name} received #{value} points of karma by #{key} on #{node.name}"      
     config = config_for(node)
     
-    today = Time.now.strftime("%Y%m%d")
-    if config.reputation_today.include?(today)
-      total_today = config.reputation_today[today] + value
-      if node.daily_cap != 0 && total_today > node.daily_cap
-        logger.info "#{id}@#{config.id} hitted daily cap"
-      end
-      config.set("reputation_today.#{today}", total_today)
-    else
-      config.set("reputation_today.#{today}", value)
-    end
+    update_reputation_today(config, node, value)
+    
     config.inc(:reputation, value)
   end
   
@@ -102,6 +86,30 @@ class User
           end
         end
       end
+    end
+    
+    def update_activity_days(config, last_day, day)
+      if last_day && last_day != day
+        if last_day.utc.between?(day.yesterday - 12.hours, day.tomorrow)
+          config.inc(:activity_days, 1)
+        elsif !last_day.utc.today? && (last_day.utc != Time.now.utc.yesterday)
+          logger.info ">> Resetting act days!! last known day: #{last_day}"
+          config.set(:activity_days, 0)
+        end
+      end
+    end
+    
+    def update_reputation_today(config, node, value)
+      today = Time.now.strftime("%Y%m%d")
+      if config.reputation_today.include?(today)
+        total_today = config.reputation_today[today] + value
+        if node.daily_cap != 0 && total_today > node.daily_cap
+          logger.info "#{id}@#{config.id} hitted daily cap"
+        end
+        config.set("reputation_today.#{today}", total_today)
+      else
+        config.set("reputation_today.#{today}", value)
+      end      
     end
     
     def logger 
