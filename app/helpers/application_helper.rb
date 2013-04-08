@@ -39,6 +39,11 @@ module ApplicationHelper
       tag_id
     end
   end
+
+  def hot_tags(tags)
+    tags = tags.sort_by{ |tag| tag.taged_questions.count }
+    tags.reverse.slice(0..19)
+  end
   
   def tag_list
     @tag_list ||= current_node.tags.map{|tag| [tag.name, tag.id]}

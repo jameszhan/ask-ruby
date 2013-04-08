@@ -33,6 +33,9 @@ class Question
   scope :minimal, -> { without(:body, :answers, :comments) }
   scope :followed_by, ->(*users){ where :follower_ids.in => users.map(&:id) }
 
+  scope :taged_by, ->(*tags){ where :tags.in => tags.map(&:id) }
+
+
   def viewed!(ip)
     view_count_id = "#{self.id}-#{ip}"
     if ViewsCount.where({ identity: view_count_id }).first.nil?

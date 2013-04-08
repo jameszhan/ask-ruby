@@ -13,9 +13,13 @@ class Tag
 
   belongs_to :user  
   embedded_in :node, :inverse_of => :tags
-    
+
   def self.list
     all.map(&:id)
+  end
+
+  def taged_questions
+    @taged_questions || Question.taged_by(self)
   end
   
 end
