@@ -42,30 +42,20 @@ module SessionFilter
       send(:hook_current_order)
     end
   end
-
+  
+  def table_drive(order_tabs, action, order)
+    order_tab = order_tabs[action] || order_tabs[:index]
+    @current_order_name = order && order.to_sym || order_tab.first.first
+    @current_order = order_tab[order.to_sym] || order_tab.first.last
+  end
   
   module ClassMethods
     def order_tabs(order_tabs)
       #order_tabs = order_tabs.symbolize_keys!
       define_method :hook_current_order do
         order = params[:order] || session[:order] 
-        if order
-          order_tab = order_tabs[params[:action].to_sym]
-          if order_tab
-            session[:order] = order if params[:order]  
-            @current_order_name = order.to_sym        
-            @current_order = order_tab[order.to_sym]
-          else
-            @current_order_name = order_tabs.first.last.first.first
-            @current_order = order_tabs.first.last.first.last
-          end      
-        else
-          order_tab = order_tabs[params[:action].to_sym]
-          if order_tab
-            @current_order_name = order_tab.first.first
-            @current_order =  order_tab.first.last 
-          end                
-        end     
+        table_drive(order_tabs, params[:action].to_sym, order.to_sym)
+        session[:order] = order if params[:order]   
       end      
     end
   end
