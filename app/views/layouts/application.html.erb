@@ -44,7 +44,7 @@
         </ul>        
         <% else %>
         <div class="nav logins pull-right" style="margin:0; padding:0;">
-            <%= link_to new_user_session_path do -%><i class="icon-home"></i><% end -%>
+          <%= link_to new_user_session_path do -%><i class="icon-home"></i><% end -%>
           <% User.omniauth_providers.each do |provider| -%>
             <%= link_to user_omniauth_authorize_path(provider) do -%><i class="icon-<%= provider %>"></i><% end -%>
           <% end -%>        

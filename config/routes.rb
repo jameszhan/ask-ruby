@@ -50,7 +50,7 @@ Ask::Application.routes.draw do
         post :follow
       end
       collection do
-        post "auth/:provider/unbind", to: "users#auth_unbind"
+        get "auth/:provider/unbind", to: :auth_unbind, as: :unbind_auth
       end
     end
   end
