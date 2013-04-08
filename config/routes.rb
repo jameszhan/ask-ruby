@@ -4,6 +4,8 @@ Ask::Application.routes.draw do
   
   resources :tags
   resources :badges, only: [:index, :show]
+  
+  post 'markdown/preview' => "application#preview"
       
   resources :questions do
     resources :comments, :only => [:create, :destroy]
@@ -37,12 +39,18 @@ Ask::Application.routes.draw do
 
   root :to => 'questions#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { 
+    omniauth_callbacks: "users/omniauth_callbacks", 
+    registrations: "users" 
+  }
   
   devise_scope :user do
     resources :users, :only => [:show] do
       member do
         post :follow
+      end
+      collection do
+        get "auth/:provider/unbind", to: :auth_unbind, as: :unbind_auth
       end
     end
   end
