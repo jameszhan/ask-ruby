@@ -37,12 +37,18 @@ Ask::Application.routes.draw do
 
   root :to => 'questions#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { 
+    omniauth_callbacks: "users/omniauth_callbacks", 
+    registrations: "users" 
+  }
   
   devise_scope :user do
     resources :users, :only => [:show] do
       member do
         post :follow
+      end
+      collection do
+        post "auth/:provider/unbind", to: "users#auth_unbind"
       end
     end
   end
