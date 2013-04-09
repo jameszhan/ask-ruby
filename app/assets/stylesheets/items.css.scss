@@ -208,6 +208,17 @@
   }
 }
 
+.tag_table {
+  @include border-radius(3px);
+  border: 1px solid #cfcfcf;
+  font-family: 'Open Sans Condensed';
+  line-height: 25px;
+  padding: 3px 5px 3px 5px;
+  background-color: #f3f6f6;
+  color: #717179;
+  text-decoration: none;
+}
+
 .selected-tags {
   font-family: 'Open Sans Condensed';
   line-height: 25px;
