@@ -1,22 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @tag.name %></h1>
 
-<p>
-  <b>Name:</b>
-  <%= @tag.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @tag.description %>
-</p>
-
-<p>
-  <b>Count:</b>
-  <%= @tag.count %>
-</p>
-
-
-<%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %>
-
+<div class="row box">
+  <%= render @tag.taged_questions %>  
+</div>
 

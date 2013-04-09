@@ -47,7 +47,7 @@ class Node
     def create_default_widgets
       unless widget_groups.where(name: 'default').first    
         widget_group = widget_groups.build(name: 'default')
-        %w[welcome markdown].each do |widget_name|
+        %w[welcome markdown tag_clould].each do |widget_name|
           widget_group.sidebar_widgets << Widget.new(name: widget_name)
         end
         widget_group.sidebar_widgets << Shared::QuestionStatsWidget.new
