@@ -1,5 +1,5 @@
 <div class="row-fluid" style="border-bottom: 1px solid #dbdbdb;">
-  <div class="span7">
+  <div class="span8">
     <h3><%= link_to question.title, question_path(question) %></h3>
     <div class="tags">          
       <% question.tags.each do|tag| -%>
@@ -8,7 +8,7 @@
     </div>
   </div>
   
-  <div class="short-summary span3 offset2">
+  <div class="short-summary span3 offset1">
     <% if question.answers_count >= 1 %>
       <div class="answers stats-box shadow">
         <span class="item-count"><%= question.answers_count %></span>  
