@@ -18,8 +18,8 @@ class Tag
     all.map(&:id)
   end
 
-  def taged_questions
-    @taged_questions || Question.taged_by(self)
+  def question_count
+    Question.tagged_with(id).count
   end
   
 end

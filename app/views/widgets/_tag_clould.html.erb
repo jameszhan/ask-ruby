@@ -1,11 +1,17 @@
 <div class="box">
   <%= render partial: "widgets/header", locals: {widget: widget} %>
-  <div class="tags">
     <% hot_tags(@current_node.tags).each do |tag| %>
-    	<% questions_count = tag.taged_questions.count %>
-    	<% if questions_count > 0 %>
-    	  <%= link_to tag_name(tag.name), tagged_with_questions_path(tag.id), class: "tag" %> x <%= questions_count %><br/>
+      <% if current_tags.include?(tag.id) %>
+        <div class="tags">
+    	  <%= link_to tag_name(tag.name), tagged_with_questions_path(tag.id), class: "tag" %> 
+    	  x <%= tag.question_count %> <br />
+    	  </div>
+      <% else %>
+        <div class="tags">
+    	  <%= link_to tag_name(tag.name), tagged_with_questions_path(tag.id), class: "tag" %> 
+    	  x <%= tag.question_count %> <br />
+    	  </div>
     	<% end %>
     <% end %>
-  </div>
+  
 </div>

@@ -7,7 +7,7 @@
       <tr>
         <% tag_tr.each do |tag| %>
           <td style="border-top: 0px;">
-            <%= link_to tag.name, tag_path(tag), class: "tag_table" %> <span>x <%= tag.taged_questions.count %></span> 
+            <%= link_to tag.name, tag_path(tag), class: "tag_table" %> <span>x <%= tag.question_count %></span> 
           </td>
         <% end %>
       </tr>

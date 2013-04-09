@@ -1,6 +1,6 @@
 <h1><%= @tag.name %></h1>
 
 <div class="row box">
-  <%= render @tag.taged_questions %>  
+  <%= render Question.tagged_with(@tag.id) %>  
 </div>
 

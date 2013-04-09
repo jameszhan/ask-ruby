@@ -19,8 +19,8 @@ module ApplicationHelper
   end
 
   def hot_tags(tags)
-    tags = tags.sort_by{ |tag| tag.taged_questions.count }
-    tags.reverse.slice(0..19)
+    tags = tags.sort{ |tag1, tag2| tag2.question_count <=> tag1.question_count }
+    tags.select{ |tag| tag.question_count > 0 }.take(20)
   end
   
   def tag_list
