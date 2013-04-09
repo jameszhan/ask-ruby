@@ -2,41 +2,19 @@
   <h1><%=t 'mongoid.models.tag', :default => Tag.model_name.human.pluralize %></h1>
 </div>
 <div id="tags">
-  <table class="table table-bordered table-striped table-condensed">
-    <tr class="head">
-      <td>编号</td>
-      <td><%= t("mongoid.attributes.tag.name") %></td>
-      <td><%= t("mongoid.attributes.tag.description") %></td>
-      <td><%= t("mongoid.attributes.tag.count") %></td>
-      <td>创建时间</td>
-      <td class="opts"></td>
-    </tr>
-    <% @tags.each do |item| %>
-    <tr class="<%= cycle("","even") %>">
-      <td><%= item.id %></td>
-      <td><%= link_to item.name, tag_path(item) %></td>
-      <td><%= item.description %></td>
-      <td><%= item.count %></td>
-      <td><%= l(item.created_at, :format => :long) %></td>
-      <td>
-        <% if can? :edit, item %>
-          <%= link_to edit_tag_path(item.id), :class => 'btn btn-mini' do %>
-            <i class="icon-pencil"></i><%= t('.edit', :default => t("helpers.links.edit")) %>
-          <% end %>
+  <table class="table">
+    <% @tags.each_slice(4) do |tag_tr| %>
+      <tr>
+        <% tag_tr.each do |tag| %>
+          <td style="border-top: 0px;">
+            <%= link_to tag.name, tag_path(tag), class: "tag_table" %> <span>x <%= tag.taged_questions.count %></span> 
+          </td>
         <% end %>
-        <% if can? :destroy, item %>
-        <%= link_to tag_path(item.id),
-                    :method => :delete,
-                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                    :class => 'btn btn-mini btn-danger' do %>
-          <i class="icon-trash"></i><%= t('.destroy', :default => t("helpers.links.destroy")) %>
-        <% end %>
-        <% end %>
-      </td>
-    </tr>
+      </tr>
     <% end %>
   </table>
 </div>
+
 <div class="tools">
   <%= link_to t('.new', :default => t("helpers.links.new")),
               new_tag_path,
