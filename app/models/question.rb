@@ -12,6 +12,8 @@ class Question
   field :accepted,      type: Boolean, default: false
   field :closed,        type: Boolean, default: false
   field :closed_at,     type: Time    
+  
+  field :answers_count, type: Integer, default: 0
     
   validates_presence_of :title
   validates_length_of   :title, in: 5..100
@@ -23,12 +25,11 @@ class Question
   belongs_to :answered_with, :class_name => "Answer"
    
   has_many :answers, :dependent => :destroy  
-  field :answers_count, type: Integer, default: 0
   has_many :badges, :as => :badgable
   
   embeds_many :comments, as: :commentable, cascade_callbacks: true  
   
-  index :node_id => 1  
+  index :node_id => 1
   
   scope :minimal, -> { without(:body, :answers, :comments) }
   scope :followed_by, ->(*users){ where :follower_ids.in => users.map(&:id) }
