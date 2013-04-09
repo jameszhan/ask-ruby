@@ -3,6 +3,10 @@ module Shared
     field :settings, :type => Hash, :default => { 'limit' => 30, :on_mainlist => true, :style => "tag_cloud" }
     before_save :limit_to_int
 
+    def accept?(params)
+      (params[:controller] == "questions" && params[:action] == "index") || params[:controller] == "tags"
+    end
+    
     def cache_keys(params)
       if params[:controller] == "tags"
         params[:id]
