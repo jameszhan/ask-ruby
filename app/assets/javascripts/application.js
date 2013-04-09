@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require chosen-jquery
+//= require jquery.caret
+//= require jquery-fileupload/basic
+//= require jquery-crop
 //= require bootstrap
 //= require util
 //= require_tree .

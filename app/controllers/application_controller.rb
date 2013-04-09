@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :find_node
+  before_filter :set_locale
   
   rescue_from CanCan::AccessDenied do |exception|
     if request.xhr?
@@ -55,12 +56,16 @@ class ApplicationController < ActionController::Base
   helper :votes
   helper_method :current_node, :current_tags, :markdown
   
-  private 
+  protected 
     def find_node
       @current_node ||= begin
         NodeSelector.lookup params
       end
       @current_node
+    end    
+    
+    def set_locale
+      #I18n.locale = :zh
     end
     
     def find_resource_by_nested_path

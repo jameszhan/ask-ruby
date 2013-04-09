@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box question-form-box">
 <% modal_view ||= true -%>
 <%= simple_form_for @question do |f| %>
   <fieldset>
@@ -27,5 +27,13 @@
     </div>
   </fieldset>
 <% end %>
+
+  <div class="hide">
+  <%= simple_form_for Photo.new, html: { class: "form-inline upload-photo-form" } do |f| %>
+    <%= f.input :image, label: false, input_html: { 
+      class: "upload-photo-images", multiple: true, name: "photo[image]" } %>
+  <% end %>
+  </div>
 </div>
+
 

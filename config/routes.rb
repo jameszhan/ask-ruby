@@ -6,6 +6,8 @@ Ask::Application.routes.draw do
   resources :badges, only: [:index, :show]
   
   post 'markdown/preview' => "application#preview"
+  
+  resources :photos, only: [:create]
       
   resources :questions do
     resources :comments, :only => [:create, :destroy]

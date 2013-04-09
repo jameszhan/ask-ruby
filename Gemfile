@@ -14,12 +14,15 @@ gem 'rails', '3.2.12'
 #gem 'sqlite3'
 gem 'mongoid'
 gem 'mongoid-votable'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-weibo', git: 'git://github.com/jameszhan/omniauth-weibo.git'
 gem 'cancan'
 
+gem 'rmagick'
+gem 'carrierwave-mongoid'
 gem 'kaminari'
 gem 'simple_form', "2.0.2"
 gem 'redcarpet'
@@ -39,6 +42,9 @@ group :assets do
   gem 'bootstrap-sass', '~> 2.3.0.1'
   gem 'compass-rails'
   gem 'chosen-rails'
+  gem 'jquery-fileupload-rails'
+  gem 'jquery-crop-rails'
+  gem 'jquery-caret-rails'
 end
 
 gem 'jquery-rails'

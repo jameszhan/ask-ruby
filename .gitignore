@@ -22,6 +22,9 @@ doc/
 
 config/mongoid.yml
 
+/public/uploads/*
+/public/system/*
+/public/photos/*
 
 .DS_Store
 *~

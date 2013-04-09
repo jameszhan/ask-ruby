@@ -12,6 +12,57 @@ window.Questions =
         preview_box.html data.body
       "json"
       
+  appendImagesToEditor: (srcs, editor)->
+    caret_pos = editor.caret()
+    src_merged = ""
+    for src in srcs
+      src_merged = "![](#{src})\n"
+    source = editor.val()
+    before_text = source.slice(0, caret_pos)
+    editor.val(before_text + src_merged + source.slice(caret_pos + 1, source.count))
+    editor.caret(caret_pos + src_merged.length)
+    editor.focus()
+  
+  initUploader: (context)->
+    parent = $(context)
+    parent.on "click", "a.add-photo-image[rel=new_photo]", (e)->
+      $(this).closest(".question-form-box, .answer-form-box").find(".upload-photo-images").click()
+      return false
+      
+    parent.find("form.upload-photo-form").fileupload
+      dataType: "json"
+      add: (e, data) ->
+        types = /(\.|\/)(gif|jpe?g|png)$/i
+        file = data.files[0]       
+        if types.test(file.type) || types.test(file.name)
+          upload_button = $(this).closest(".question-form-box, .answer-form-box").find("a.add-photo-image[rel=new_photo]")
+          upload_button.hide().before("<span class='loading'>上传中...</span>")
+          data.submit()
+        else
+          alert("#{file.name} is not a gif, jpeg, or png image file")
+        return
+        
+      progress: (e, data) ->
+        if data.context
+          progress = parseInt(data.loaded / data.total * 100, 10)
+        return
+
+      done: (e, data) ->
+        editor = $(this).closest(".question-form-box, .answer-form-box").find("textarea.questions_editor, textarea.answers_editor")
+        Questions.appendImagesToEditor([data.result.image.url], editor)
+        upload_button = $(this).closest(".question-form-box, .answer-form-box").find("a.add-photo-image[rel=new_photo]")
+        upload_button.parent().find("span").remove()
+        upload_button.show()
+        return
+
+      fail: (e, data) ->
+        upload_button = $(this).closest(".question-form-box, .answer-form-box").find("a.add-photo-image[rel=new_photo]")
+        upload_button.parent().find("span").remove()
+        upload_button.show()
+        alert("#{data.files[0].name} failed to upload.")
+        return
+    return
+          
   hookPreview: (switcher, textarea, context_selector) ->
     ctx = $(context_selector)
     preview_box = $(document.createElement("div")).addClass "preview_box"
@@ -32,7 +83,6 @@ window.Questions =
       preview_box.show()
       $(textarea, form).hide()
       markdown_content = $(textarea, form).val()
-      console.log(markdown_content)
       Questions.preview(markdown_content, preview_box)
       false
 
@@ -59,7 +109,8 @@ window.Questions =
       return
     parent.on "click", ".edit-answer-button", (e) ->
       $('#edit_answer_form_modal').find(".modal-body").html($(this).next("div.edit-answer-form").html())
-      Questions.hookPreview(".editor_toolbar", ".answers_editor", "#edit_answer_form_modal")
+      Questions.initUploader('#edit_answer_form_modal')
+      Questions.hookPreview(".editor_toolbar", ".answers_editor", "#edit_answer_form_modal")      
       return
   
   hookCommentsCallback: (context) ->
@@ -73,19 +124,16 @@ window.Questions =
     parent.on "click", ".comment-form a", () ->
       $(this).closest(".comment-form").hide().closest(".comment").find("label").show()
       return
-        
-        
+      
+      
 
 $(document).ready ->
   # enable chosen js
   $('.chzn-select').chosen
     allow_single_deselect: true
-    no_results_text: 'No results matched'
+    no_results_text: '没有匹配的结果'
   
-  $("#question_add_image").on "click", () ->
-    $("#question_upload_images").click()
-    return false
-    
+  Questions.initUploader('body')
   Questions.hookQuestionsCallback('body')  
   Questions.hookAnswersCallback('body') 
   Questions.hookCommentsCallback('body')  
