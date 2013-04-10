@@ -6,7 +6,7 @@
 
   <div class="form-inputs">
     <%= f.input :name, :required => true, autofocus: true %>
-    <%= f.input :email, :required => true, :autofocus => true %>
+    <%= f.input :email, :required => true, :autofocus => true, disabled: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
@@ -27,6 +27,11 @@
 </div>
 
 <ul class="box logins">
+  <% if resource.avatar.present? %>
+    <%= link_to "编辑头像", avatar_users_path %><br />
+    <%= link_to image_tag(current_user.avatar_url(:thumb), size: "60x60"), avatar_users_path %>
+  <% end %>
+  <br /><br />
 绑定第三方账号:
 <% User.omniauth_providers.each do |provider| -%>
   <% if resource.bind_auth?(provider) %>
