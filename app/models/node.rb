@@ -52,6 +52,7 @@ class Node
         widget_group.sidebar_widgets << Shared::ContributorsWidget.new
         widget_group.sidebar_widgets << Shared::MarkdownWidget.new
         widget_group.sidebar_widgets << Shared::TagCloudWidget.new
+        widget_group.sidebar_widgets << Shared::BadgeWidget.new
       end
     end
     

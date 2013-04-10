@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+
+  def all_users
+    User.all
+  end
+
+  def avatar_url(user)
+    user.avatar_url(:thumb) ? user.avatar_url(:thumb) : "/assets/default_avatar.png"
+  end
   
   def tagged_with_questions_path(tag, remove = false)
     path = questions_path + "/tags:" 
