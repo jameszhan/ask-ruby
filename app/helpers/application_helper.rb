@@ -1,8 +1,9 @@
 module ApplicationHelper
 
 
-  def all_users
-    User.all
+  def activity_users
+    users = User.all.sort { |user1,user2| (user2.questions.count+user2.answers.count) <=> (user1.questions.count+user1.answers.count) }
+    users.take(20)
   end
 
   def avatar_url(user)
