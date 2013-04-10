@@ -43,7 +43,7 @@ group :assets do
   gem 'compass-rails'
   gem 'chosen-rails'
   gem 'jquery-fileupload-rails'
-  gem 'jquery-crop-rails'
+  gem 'jquery-crop-rails', git: 'git://github.com/jameszhan/jquery-crop-rails.git'
   gem 'jquery-caret-rails'
 end
 

@@ -10,6 +10,7 @@
  *
  *= require scaffolds
  *= require items
+ *= require jquery-crop
  *= require chosen
  *= require bootstrap_and_override
  *= require_tree .

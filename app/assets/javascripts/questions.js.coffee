@@ -131,7 +131,7 @@ $(document).ready ->
   # enable chosen js
   $('.chzn-select').chosen
     allow_single_deselect: true
-    no_results_text: '没有匹配的结果'
+    no_results_text: 'No Search Results...'
   
   Questions.initUploader('body')
   Questions.hookQuestionsCallback('body')  

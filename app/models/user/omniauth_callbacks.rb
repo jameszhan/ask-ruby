@@ -37,7 +37,6 @@ class User
             end  
           end
         end
-        user.login_type = :omniauth
         user
       end
 

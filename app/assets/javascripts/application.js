@@ -12,14 +12,23 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require chosen-jquery
 //= require jquery.caret
 //= require jquery-fileupload/basic
+//= require chosen-jquery
 //= require jquery-crop
-//= require bootstrap
+//= require bootstrap-transition
+//= require bootstrap-alert
+//= require bootstrap-modal
+//= require bootstrap-dropdown
+//= require bootstrap-tab
+//= require bootstrap-tooltip
+//= require bootstrap-button
 //= require util
 //= require_tree .
 
+/*
+  TODO it seems there is some conficate between bootstrap-dropdown and jcrop
+*/
 
 $(function(){
   $(".new_question input[name='question[tags][]'], .edit_question input[name='question[tags][]']").remove()

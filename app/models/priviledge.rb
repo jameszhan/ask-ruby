@@ -13,7 +13,7 @@ class Priviledge
   field :profile, :type => Hash, :default => {} 
   field :last_activity_at, :type => Time
 
-  embedded_in :user, :inverse_of => :priviledges
+  embedded_in :user, inverse_of: :priviledges
   belongs_to :node
 
   validates_presence_of :node

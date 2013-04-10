@@ -7,6 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       user = User.from_omniauth(request.env["omniauth.auth"])
       if user.persisted?
+        session[:login_type] = "omniauth"
         flash.notice = "Signed in!"
         sign_in_and_redirect user
       elsif user.email && User.where(email: user.email)

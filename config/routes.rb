@@ -53,6 +53,8 @@ Ask::Application.routes.draw do
       end
       collection do
         get "auth/:provider/unbind", to: :auth_unbind, as: :unbind_auth
+        get 'avatar'
+        put 'crop'
       end
     end
   end

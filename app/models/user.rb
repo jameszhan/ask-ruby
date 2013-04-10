@@ -5,16 +5,23 @@ class User
   include Mongoid::Friendship
   include Mongoid::Relationship
   
-  attr_accessor :login_type
-  
-  field :name, :type => String
+  mount_uploader :avatar, AvatarUploader  
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  embeds_many :priviledges
+  field :name, :type => String
   
+  embeds_many :priviledges
+    
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy 
   
-  has_many :notifications, :dependent => :destroy  
+  has_many :notifications, :dependent => :destroy 
+  
+  after_update :crop_avatar
+  
+  def crop_avatar
+    avatar.recreate_versions! if crop_x.present?
+  end 
     
   def followed_questions
     @followed_questions ||= Question.followed_by(self)
