@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def login_with_omniauth
       user = User.from_omniauth(request.env["omniauth.auth"])
       if user.persisted?
-        login_success
+        login user
       elsif user.email && User.where(email: user.email).first
         redirect_to new_user_session_path, alert: "用户 #{user.email} 已经存在，你可以先用该账号登陆，然后绑定#{env["omniauth.auth"][:provider]} 帐号。"
       else
@@ -29,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to edit_user_registration_path, notice: "成功绑定了 #{env["omniauth.auth"][:provider]} 帐号。"
     end
     
-    def login_success
+    def login(user)
       session[:login_type] = "omniauth"
       flash.notice = "Signed in!"
       sign_in_and_redirect user
