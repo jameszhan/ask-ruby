@@ -41,18 +41,10 @@ class UsersController < Devise::RegistrationsController
 
   def create
    build_resource
-
    if resource.save
-     if resource.active_for_authentication?
-       create_success
-     else
-       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-       expire_session_data_after_sign_in!
-       respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-     end
+     create_success
    else
-     clean_up_passwords resource
-     respond_with resource
+     create_failure
    end
   end
 
@@ -64,19 +56,24 @@ class UsersController < Devise::RegistrationsController
     if password_required ? resource.update_with_password(resource_params) : resource.update_attributes(resource_params) 
       update_success prev_unconfirmed_email, password_required
     else
-      clean_up_passwords resource
-      respond_with resource
+      update_failure
     end
   end  
 
   protected
     def create_success
-      set_flash_message :notice, :signed_up if is_navigational_format?
-      sign_up(resource_name, resource)
-      if params[:user][:avatar].present?
-        render action: 'avatar'
+      if resource.active_for_authentication?        
+        set_flash_message :notice, :signed_up if is_navigational_format?
+        sign_up(resource_name, resource)
+        if params[:user][:avatar].present?
+          render action: 'avatar'
+        else
+          respond_with resource, :location => after_sign_up_path_for(resource)
+        end
       else
-        respond_with resource, :location => after_sign_up_path_for(resource)
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+        expire_session_data_after_sign_in!
+        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     end
      
@@ -93,6 +90,13 @@ class UsersController < Devise::RegistrationsController
          respond_with resource, :location => after_update_path_for(resource)
        end
     end
+    
+    def update_failure
+      clean_up_passwords resource
+      respond_with resource
+    end
+    
+    alias_method :create_failure, :update_failure
       
     def login_required
       unless current_user

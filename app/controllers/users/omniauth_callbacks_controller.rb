@@ -2,9 +2,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def auth    
     if current_user
-      current_user.bind_omniauth(env["omniauth.auth"])#Add an auth to existing
-      redirect_to edit_user_registration_path, notice: "成功绑定了 #{env["omniauth.auth"][:provider]} 帐号。"
+      bind_omniauth_account
     else
+      login_with_omniauth
+    end   
+  end
+  
+  alias_method :github, :auth
+  alias_method :weibo, :auth
+  
+  protected
+    def login_with_omniauth
       user = User.from_omniauth(request.env["omniauth.auth"])
       if user.persisted?
         session[:login_type] = "omniauth"
@@ -16,10 +24,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session["devise.user_attributes"] = user.attributes
         redirect_to new_user_registration_url
       end
-    end   
-  end
-  
-  alias_method :github, :auth
-  alias_method :weibo, :auth
-  
+    end
+    
+    def bind_omniauth_account
+      current_user.bind_omniauth(env["omniauth.auth"]) #Add an auth to existing
+      redirect_to edit_user_registration_path, notice: "成功绑定了 #{env["omniauth.auth"][:provider]} 帐号。"
+    end
+      
 end
