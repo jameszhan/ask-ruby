@@ -1,6 +1,19 @@
 <div class="box">
   <%= render partial: "widgets/header", locals: {widget: widget} %>
-  <div>
-    Question Stats.
+  <div class="question_stats">
+    <table class="table table-hover">
+    	<tr>
+    		<td>Asked:</td>
+    		<td><%= @question.created_at.strftime("%b %d '%y")  %></td>
+    	</tr>
+    	<tr>
+    		<td>User:</td>
+    		<td><%= @question.user.name %></td>
+    	</tr>
+    	<tr>
+    		<td>Updated:</td>
+    		<td><%= @question.updated_at.strftime("%b %d '%y")  %></td>
+    	</tr>
+    </table>
   </div>
 </div>
