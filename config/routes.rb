@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+  
 Ask::Application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   
   resources :notifications, :only => [:index, :destroy]
   

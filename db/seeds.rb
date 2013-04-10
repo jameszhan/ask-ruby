@@ -23,14 +23,14 @@ if Rails.env == "development"
     User.create(name: Faker::NameCN.last_first, email: Faker::Internet.email, password: "11111111")
   end
   
-  users = User.all
+  users = User.all.to_a
   puts "Load 100 Sample Questions"
   100.times do
     node.questions.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph(10), user: users.sample)
   end
   
   node.questions.sample(80).each do|question|
-    puts "Create Answer to Question #{question.title}"
+    puts "Create Answer to Question '#{question.title}'"
     (1..100).to_a.sample.times do
       question.answers.create(body: Faker::Lorem.paragraph, user: users.sample)
     end

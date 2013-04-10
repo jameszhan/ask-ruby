@@ -1,9 +1,9 @@
 class MailWorker
   include Sidekiq::Worker
 
-  def perform(name, resource_class, id)
-    resource = resource_class.constantize.find(id)
-    Notifier.try(name, resource).deliver
+  def perform(method, resource_class, resource_id)
+    resource = resource_class.classify.constantize.find(resource_id)
+    Notifier.send(method.to_sym, resource)
   end
   
 end
