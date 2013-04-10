@@ -6,3 +6,9 @@ ask-ruby
 An idea project of Q&amp;A site use ruby implementation.
 
   Introduction
+  
+  
+###Load Sample Data
+    
+    rake db:drop
+    rake db:seed

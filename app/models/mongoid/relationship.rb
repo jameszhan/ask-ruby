@@ -17,15 +17,15 @@ module Mongoid
     end   
     
     def follow?(user)
-      following.include?(user)
+      following.include?(user) if user
     end  
 
     def followed_by?(user)
-      followers.include?(user)
+      followers.include?(user) if user
     end
 
     def follow!(user)
-      if self.id != user.id && !following.include?(user)
+      if user && self.id != user.id && !following.include?(user)
         following << user
       end
     end

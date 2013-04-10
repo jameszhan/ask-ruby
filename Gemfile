@@ -25,9 +25,11 @@ gem 'rmagick'
 gem 'carrierwave-mongoid'
 gem 'kaminari'
 gem 'simple_form', "2.0.2"
+gem 'md_emoji'
 gem 'redcarpet'
 gem 'coderay'
 
+gem 'sidekiq'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,14 +45,12 @@ group :assets do
   gem 'compass-rails'
   gem 'chosen-rails'
   gem 'jquery-fileupload-rails'
-  gem 'jquery-crop-rails', git: 'git://github.com/jameszhan/jquery-crop-rails.git'
+  gem 'jquery-crop-rails'
   gem 'jquery-caret-rails'
 end
 
 gem 'jquery-rails'
 
-#emoji
-gem 'md_emoji'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -69,6 +69,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
+  gem 'ffaker'
 
   #spork
   gem 'guard-spork'

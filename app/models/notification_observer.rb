@@ -30,8 +30,8 @@ class NotificationObserver < Mongoid::Observer
       answer.user.update_reputation("answer_question", answer.question.node)
     end
     
-    def after_user_create(user)      
-      Notifier.user_welcome_email(user).deliver! unless user.email.blank?
+    def after_user_create(user)           
+      MailWorker.perform_async(:user_welcome_email, :user, user.id) unless user.email.blank?
       Node.all.each do |node|        
         user.update_reputation(:user_sign_up, node, 20)
       end
@@ -39,12 +39,7 @@ class NotificationObserver < Mongoid::Observer
     
     def after_answer_create(answer)
       if answer.persisted?  
-        begin      
-          #send_notication(answer, answer.question.user)        
-          Notifier.answer_notify_email(answer).deliver
-        rescue Exception => e
-          logger.warn e.message + e.backtrace.join("\n")   
-        end      
+        MailWorker.perform_async(:answer_notify_email, :answer, answer.id)    
       end
     end
     
