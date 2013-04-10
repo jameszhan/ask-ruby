@@ -39,7 +39,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.3.0.1'
+  gem 'bootstrap-sass'
   gem 'compass-rails'
   gem 'chosen-rails'
   gem 'jquery-fileupload-rails'

@@ -8,7 +8,7 @@ class AvatarUploader < BaseUploader
 
   version :thumb do
     process :crop
-    resize_to_fill(100, 100)
+    resize_to_fill(160, 160)
   end
 
   def crop

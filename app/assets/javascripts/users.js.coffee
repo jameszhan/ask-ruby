@@ -1,7 +1,5 @@
 
 jQuery ->
-  $(document).on 'click', "#cropbox", (e)->
-    alert 111
   new AvatarCropper()
 
 class AvatarCropper
@@ -10,7 +8,7 @@ class AvatarCropper
       onSelect: @update
       onChange: @update
       aspectRatio: 1
-      setSelect: [0, 0, 100, 100]
+      setSelect: [0, 0, 160, 160]
       
   update: (coords) =>
     $('#user_crop_x').val(coords.x)
@@ -20,8 +18,8 @@ class AvatarCropper
     @updatePreview(coords)
     
   updatePreview: (coords) =>
-    rx = 100 / coords.w
-    ry = 100 / coords.h
+    rx = 160 / coords.w
+    ry = 160 / coords.h
     $('#preview').css
       width: Math.round(rx * $('#cropbox').width()) + 'px'
       height: Math.round(ry * $('#cropbox').height()) + 'px'
