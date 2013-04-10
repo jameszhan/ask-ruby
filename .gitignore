@@ -25,6 +25,7 @@ config/mongoid.yml
 /public/uploads/*
 /public/system/*
 /public/photos/*
+/public/users/*
 
 .DS_Store
 *~
