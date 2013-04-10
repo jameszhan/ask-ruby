@@ -1,0 +1,14 @@
+//contributors
+.contributors{
+  a {
+    width: 40px;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+  .uface {
+    margin-bottom: 3px;
+    width: 45px;
+    height: 45px;
+  }
+}

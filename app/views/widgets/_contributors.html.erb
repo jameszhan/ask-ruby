@@ -1,6 +1,10 @@
 <div class="box">
   <%= render partial: "widgets/header", locals: {widget: widget} %>
-  <div>
-    Contributors
+  <div class="contributors">
+    <% all_users.each do |user| %>
+      <a href="<%= user_path(user) %>" title="<%= user.name %>">
+        <%= image_tag avatar_url(user), :class => "uface" %>
+      </a>
+    <% end %>
   </div>
 </div>
