@@ -14,6 +14,8 @@ en:
       site:
         desc: '200 chars'
         url: "Don't forget http://"
+      user:
+        email: "Can't modify after create！"
     # Labels and hints examples
     # labels:
     #   defaults:
