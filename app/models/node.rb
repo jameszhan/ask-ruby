@@ -50,9 +50,10 @@ class Node
         widget_group.sidebar_widgets << Widget.new(name: "welcome")
         widget_group.sidebar_widgets << Shared::QuestionStatsWidget.new
         widget_group.sidebar_widgets << Shared::ContributorsWidget.new
-        widget_group.sidebar_widgets << Shared::MarkdownWidget.new
+        widget_group.sidebar_widgets << Shared::RelatedQuestionsWidget.new
         widget_group.sidebar_widgets << Shared::TagCloudWidget.new
         widget_group.sidebar_widgets << Shared::BadgeWidget.new
+        widget_group.sidebar_widgets << Shared::MarkdownWidget.new
       end
     end
     
