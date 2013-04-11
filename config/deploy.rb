@@ -4,7 +4,7 @@ set :user, 'ubuntu'
 set :application, "askrubyist"
 set :scm, "git"
 set :repository,  "git://github.com/jameszhan/ask-ruby.git"
-set :branch, "master"
+set :branch, "deploy"
 set :deploy_via, :remote_cache 
 set :use_sudo, false
 

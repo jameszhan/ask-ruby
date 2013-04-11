@@ -69,11 +69,11 @@ gem 'unicorn'
 # To use debugger
 # gem 'debugger'
 
+gem 'ffaker'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'ffaker'
 
   #spork
   gem 'guard-spork'

@@ -23,6 +23,12 @@ namespace :mongodb do
     template "mongoid.yml.erb", "#{shared_path}/config/mongoid.yml"
   end   
   after "deploy:setup", "mongodb:setup"  
+  
+  desc "Symlink the mongoid.yml file into latest release"
+  task :symlink, roles: :app do
+    run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+  end
+  after "deploy:finalize_update", "mongodb:symlink"
 
   %w[start stop restart].each do|command|
     desc "#{command} nginx"
