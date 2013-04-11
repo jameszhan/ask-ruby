@@ -1,44 +1,44 @@
-<div class="box">  
-  <div class="logins row-fluid">
-    <h5 class="text-info">Please click any of the icons below to sign in</h5>
-    <%- resource_class.omniauth_providers.each do |provider| %>
-    <div class="login-button">
-      <%= link_to omniauth_authorize_path(resource_name, provider) do -%>
-        <span class="icon-<%= provider %>"><%= provider.to_s.humanize %></span>
+<div class="row-fluid">  
+  <div class="box">
+    <h2 class="title"><%= t("users.prompts.omniauth_login", default: "Please click any of the icons below to sign in") %></h2>
+    <div class="logins row-fluid">
+      <%- resource_class.omniauth_providers.each do |provider| %>
+      <div class="login-button">
+        <%= link_to omniauth_authorize_path(resource_name, provider) do -%>
+          <span class="icon-<%= provider %>"><%= provider.to_s.humanize %></span>
+        <% end -%>
+      </div>
       <% end -%>
     </div>
-    <% end -%>
   </div>
-  <div>   
-    <h5>or enter your AskRubyist user name and password, then sign in</h5>
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal devise-form' }) do |f| %>
-      <div class="control-group">
-        <%= f.label :email, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :email, :class => 'text_field' %>
-        </div>
-      </div>
+  
+  <div class="box">   
+    <h2 class="title"><%= t("users.prompts.password_login", default: "or enter your AskRubyist user name and password, then sign in") %></h2>
+    <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal devise-form' }) do |f| %>
+      <%= f.input :email, required: true, autofocus: true, hint: false %>
       <div class="control-group">
         <%= f.label :password, :class => 'control-label' %>
         <div class="controls">
           <%= f.password_field :password, :class => 'text_field' %>
           <% if devise_mapping.rememberable? -%>
             <label class="checkbox">
-              <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+              <%= f.check_box :remember_me %><%= t("common.remember_me", default: "Remember Me") %>
             </label>
           <% end -%>
         </div>
       </div>  
-      <div class="control-group no-margin">
-        <%= f.submit "Sign in", :class => "btn btn-primary" %>
-        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-          <%= link_to "New user create your account", new_registration_path(resource_name) %><br />
-        <% end -%> 
+      <div class="form-actions">
+        <%= f.submit t("common.login"), :class => "btn btn-primary" %>  
+        <div class="pull-right">
+          <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+            <%= link_to t("users.prompts.create_password_account", default: "New user create your account"), new_registration_path(resource_name) %><br />
+          <% end -%> 
+          <%= t("users.prompts.login_with_trouble", default: "Still have trouble signing in?") %> - 
+          <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+            <%= link_to t("users.prompts.recover_password", default: "recover your account via email"), new_password_path(resource_name) %><br />
+          <% end -%>
+        </div>
       </div>
-        Still have trouble signing in? - 
-        <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-          <%= link_to "recover your account via email", new_password_path(resource_name) %><br />
-        <% end -%>
     <% end %>
   </div>
 </div>
