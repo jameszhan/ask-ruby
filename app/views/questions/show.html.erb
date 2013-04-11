@@ -55,17 +55,16 @@
   <div class="answers-tab row-fluid">
     <span id="answers-count" class="title"><%= pluralize(@question.answers.count, "answer") %></span>
     <div id="sort_tabs" class="pagination">
-    <ul>
-      <li><span>Sort by »</span></li>  
-      <li>
-        <a id="by_answers" href="/questions?sort=answers-desc" 
-          data-sort="answers-asc" title="click to see the most answered questions"><span>by answers</span></a>
-      </li>
-      <li>
-        <a id="by_votes" href="/questions?sort=votes-desc" 
-          data-sort="votes-asc" title="click to see most voted questions"><span>by votes</span></a>
-      </li>
-    </ul> 
+      <ul>
+        <li><span>Sort by »</span></li>  
+        <% [:newest, :oldest, :votes].each do |order| -%>
+          <% if order == current_order_name -%>
+            <li class="active"><%= link_to "#{order.to_s.humanize}▼", question_path(@question, order: order) %></li>
+          <% else -%>
+            <li><%= link_to "#{order.to_s.humanize}", question_path(@question, order: order) %></li>
+          <% end -%>
+        <% end -%>
+      </ul> 
     </div>
   </div>
   

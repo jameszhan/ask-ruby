@@ -61,4 +61,4 @@ rules_config:
   - ["delete_own_comments", "Comment", {destroy: true}]
   - ["create_new_tags", "Tag", {create: false}]
   - ["ask", "Question", {create: false, update: true}]
-  - ["answer", "Answer", {create: false, update: true}]
+  - ["answer", "Answer", {create: false, update: true, destroy: true}]
