@@ -6,7 +6,7 @@
       </span>
     </div>
     <div class="avatar_left">
-      <%= image_tag avatar_url(user), :size => "32x32" %>
+      <%= image_tag user.avatar_url(:thumb), :size => "32x32" %>
     </div>
     <div class="user_info">
       <%= link_to user.name, user %><br>
