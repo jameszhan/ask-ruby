@@ -5,47 +5,46 @@ production:
   # 'default'.
   sessions:
     # Define the default session.
-    default:
+    default:      
+      database: <%= mongodb_database %>
       # A session can have any number of hosts. Usually 1 for a single
       # server setup, and at least 3 for a replica set. Hosts must be
       # an array of host:port pairs. This session is single server.
       hosts:
-      <% mongodb_endpoints.each do |endpoint| %>
+<% mongodb_endpoints.each do |endpoint| -%>
         - <%= endpoint %>
-      <% end %>
+<% end -%>
       # Define the default database name.
-      database: <%= mongodb_database %>
       # Since this database points at a session connected to MongoHQ, we must
       # provide the authentication details.
-      username: <%= mongodb_user %>
-      password: <%= mongodb_password %>
+      #username: <%= mongodb_user %>
+      #password: <%= mongodb_password %>
     # This defines a secondary session at a replica set.
     #replica_set:
       # This configuration is a 3 node replica set.
       #hosts:
-      <% replica_sets.each do |endpoint|%>
+<% replica_sets.each do |endpoint| -%>
       #  - <%= endpoint %>
-      <% end %>
-      database: <%= mongodb_database %>
+<% end -%>
       # We can set session specific options, like reads executing
       # on secondary nodes, and defaulting the session to safe mode.
-      #options:
+      options:
       #  consistency: :eventual
       #  safe: true
     # This defines a tertiary session at a Mongos fronted shard.
     #shard:
       # This configuration is a Mongos shard server.
      # hosts:
-      <% mongos_servers.each do |endpoint|%>
+<% mongos_servers.each do |endpoint| -%>
       #  - <%= endpoint %>
-      <% end %>
+<% end -%>
       #database: mongoid
     # This configuration shows an authenticated replica set via a uri.
     # another:
       # uri: mongodb://user:pass@59.1.22.1:27017,59.1.22.2:27017/mongoid
   # Here we put the Mongoid specific configuration options. These are explained
   # in more detail next.
-  #options:
+  options:
     #allow_dynamic_fields: false
     #identity_map_enabled: true
     #include_root_in_json: true

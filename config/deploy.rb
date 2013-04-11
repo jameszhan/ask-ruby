@@ -1,4 +1,5 @@
-server "ec2-54-244-136-78.us-west-2.compute.amazonaws.com", :web, :app, :db, primary: true
+#server "ec2-54-244-136-78.us-west-2.compute.amazonaws.com", :web, :app, :db, primary: true
+server "ec2-184-169-199-112.us-west-1.compute.amazonaws.com", :web, :app, :db, primary: true
 
 set :user, 'ubuntu'
 set :application, "askrubyist"
