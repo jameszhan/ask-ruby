@@ -1,4 +1,4 @@
-"en":
+en:
   users:
     bios: "Bio"
     city: "City"
@@ -28,3 +28,6 @@
     hot_users: "Most active users"
     recent_joined: "Most recently joined users"
     edit_on_gravatar: "Change you avatar you can go:"
+    edit_profile: "Edit User Profile"
+    prompts:
+      create_password_account: "Create password protected account"
