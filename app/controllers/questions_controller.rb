@@ -2,24 +2,36 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy, :follow, :unfollow, :solve, :unsolve], :through => :current_node
  
   order_tabs :index => {
-    newest: {
-      created_at: :desc,
-    },
-    votes: {
-      votes_average: :desc,
-      views_count: :desc
-    },
-    activity: {
-      updated_at: :desc, 
-      created_at: :desc
-    },
-    hot: {
-      views_count: :desc
-    },
-    answers: {
-      answers_count: :desc
-    }
-  }
+                newest: {
+                  created_at: :desc,
+                },
+                votes: {
+                  votes_average: :desc,
+                  views_count: :desc
+                },
+                activity: {
+                  updated_at: :desc, 
+                  created_at: :desc
+                },
+                hot: {
+                  views_count: :desc
+                },
+                answers: {
+                  answers_count: :desc
+                }
+              },
+             :show => {
+                newest: {
+                  created_at: :desc,
+                },
+                oldest: {
+                  created_at: :asc,
+                },
+                votes: {
+                  votes_average: :desc,
+                  views_count: :desc
+                }
+             }
    
   # GET /questions
   # GET /questions.json
@@ -32,7 +44,7 @@ class QuestionsController < ApplicationController
   def show
     @question = current_node.questions.find(params[:id])
     @question.viewed!(request.remote_ip)
-    @answers = @question.answers.page params[:page]
+    @answers = (@question.answers.page params[:page]).order_by(current_order)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
