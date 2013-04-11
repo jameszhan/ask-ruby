@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
     end    
     
     def set_locale
-      #I18n.locale = :zh
+      I18n.locale = "zh-CN"
     end
     
     def find_resource_by_nested_path
