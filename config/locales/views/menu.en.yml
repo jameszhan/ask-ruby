@@ -1,0 +1,11 @@
+en:
+  menu:
+    home: "Home"
+    question_list: "Question List"
+    ask_question: "Ask Question"
+    tags: "Tags"
+    badges: "Badges"
+    users: "Users"
+    profile: "Profile"
+    settings: "Settings"
+    logout: "Logout"

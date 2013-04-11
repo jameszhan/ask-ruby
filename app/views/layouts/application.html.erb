@@ -23,11 +23,11 @@
       <%= link_to "AskRubyist", root_path, class: "brand" %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Question List", questions_path %></li>
-          <li><%= link_to "Ask Question", new_question_path %></li>
-          <li><%= link_to "Tags", tags_path %></li>
-          <li><%= link_to "Badges", badges_path %></li>
+          <li><%= link_to t("menu.home", default: "Home"), root_path %></li>
+          <li><%= link_to t("menu.question_list", default: "Question List"), questions_path %></li>
+          <li><%= link_to t("menu.ask_question", default:"Ask Question"), new_question_path %></li>
+          <li><%= link_to t("menu.tags", default: "标签"), tags_path %></li>
+          <li><%= link_to t("menu.badges", default: "Badges"), badges_path %></li>
         </ul>               
         <% if user_signed_in? %>  
         <ul class="nav pull-right">
@@ -35,10 +35,10 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", user_path(current_user) %></li>
-              <li><%= link_to "Settings", edit_user_registration_path %></li>
+              <li><%= link_to t("menu.profile", default: "Profile"), user_path(current_user) %></li>
+              <li><%= link_to t("menu.settings", default: "Settings"), edit_user_registration_path %></li>
               <li class="divider"></li>
-              <li><%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "navbar-link" %></li>
+              <li><%= link_to t("menu.logout", default:"Logout"), destroy_user_session_path, :method => :delete, :class => "navbar-link" %></li>
             </ul>
           </li>
         </ul>        

@@ -8,13 +8,13 @@
 
 </div>
 <div id="sort_tabs" class="pagination">
-  <ul class="breadcrumb">
-    <li><span>Sort by »</span></li>
+  <ul>
+    <li><span><%= t("menu.sorts.title", default: "Sort by") %> »</span></li>
     <% [:newest, :activity, :answers, :hot, :votes].each do |order| -%>
       <% if order == current_order_name -%>
-        <li class="active"><%= link_to "#{order.to_s.humanize}▼", questions_path(order: order) %></li>
+        <li class="active"><%= link_to "#{t("menu.sorts.#{order}", default: "#{order.to_s.humanize}")}▼", questions_path(order: order) %></li>
       <% else -%>
-        <li><%= link_to "#{order.to_s.humanize}", questions_path(order: order) %></li>
+        <li><%= link_to t("menu.sorts.#{order}", default: "#{order.to_s.humanize}"), questions_path(order: order) %></li>
       <% end -%>
     <% end -%>
   </ul> 

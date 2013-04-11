@@ -1,0 +1,18 @@
+zh-CN:
+  menu:
+    home: "首页"
+    question_list: "所有问题"
+    ask_question: "新问题"
+    tags: "标签"
+    badges: "奖章"
+    users: "用户"
+    profile: "用户信息"
+    settings: "基本信息"
+    logout: "退出登陆"
+    sorts:
+      title: "排序"
+      newest: "最新"
+      activity: "活跃度"
+      answers: "答案数"
+      hot: "热门"
+      votes: "投票"
