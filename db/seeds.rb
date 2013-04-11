@@ -25,15 +25,17 @@ if Rails.env == "development"
   
   users = User.all.to_a
   tags = node.tags.map(&:id)
-  puts "Load 100 Sample Questions"
+  puts "Load 100 Sample Questions"  
   100.times do
-    node.questions.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph(10), user: users.sample, tags: tags.sample((1..6).to_a.sample))
+    lorem = [true, false].sample ? Faker::Lorem : Faker::LoremCN
+    node.questions.create(title: lorem.sentence, body: lorem.paragraph(10), user: users.sample, tags: tags.sample((1..8).to_a.sample))
   end
   
   node.questions.sample(80).each do|question|
     puts "Create Answer to Question '#{question.title}'"
     (1...100).to_a.sample.times do
-      question.answers.create(body: Faker::Lorem.paragraph, user: users.sample)
+      lorem = [true, false].sample ? Faker::Lorem : Faker::LoremCN
+      question.answers.create(body: lorem.paragraph(6), user: users.sample)
     end
   end  
   
