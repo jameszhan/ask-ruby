@@ -3,7 +3,7 @@
   <div class="contributors">
     <% activity_users.each do |user| %>
       <a href="<%= user_path(user) %>" title="<%= user.name %>">
-        <%= image_tag avatar_url(user), :class => "uface" %>
+        <%= image_tag user.avatar_url(:thumb), :class => "uface" %>
       </a>
     <% end %>
   </div>

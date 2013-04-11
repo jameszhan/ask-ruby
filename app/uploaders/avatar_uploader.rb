@@ -10,6 +10,10 @@ class AvatarUploader < BaseUploader
     process :crop
     resize_to_fill(160, 160)
   end
+  
+  def default_url
+    "/assets/" + [version_name, "default_avatar.png"].compact.join('_')
+  end
 
   def crop
     if model.crop_x.present?

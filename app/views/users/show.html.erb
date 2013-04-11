@@ -1,7 +1,7 @@
 <div class="row box">
   <h2 class="title">User info</h2>
   <div class="span3">
-    <%= image_tag avatar_url(@user) %>
+    <%= image_tag @user.avatar_url(:thumb) %>
     <% if @user != current_user %>
       <% followed = @user.followed_by?(current_user) -%>
       <%= link_to (followed ? "Unfollow" : "Follow"), "#", 
