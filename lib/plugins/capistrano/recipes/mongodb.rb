@@ -9,7 +9,9 @@ set_default(:mongodb_database) { "#{application}_production" }
 namespace :mongodb do
   desc "Install latest stable release of mongodb"
   task :install, roles: :db do
-    run "#{sudo} add-apt-repository ppa:gias-kay-lee/mongodb"
+    run "#{sudo} add-apt-repository ppa:gias-kay-lee/mongodb" do|ch, stream, data|
+      press_enter( ch, stream, data)
+    end
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install mongodb"
   end

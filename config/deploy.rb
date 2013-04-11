@@ -1,10 +1,7 @@
-role :web, "10.211.55.15"                          # Your HTTP server, Apache/etc
-role :app, "10.211.55.15"                          # This may be the same as your `Web` server
-role :db,  "10.211.55.15", :primary => true # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
+server "ec2-54-244-136-78.us-west-2.compute.amazonaws.com", :web, :app, :db, primary: true
 
 set :user, 'ubuntu'
-set :application, "ask"
+set :application, "askrubyist"
 set :scm, "git"
 set :repository,  "git://github.com/jameszhan/ask-ruby.git"
 set :branch, "master"
@@ -34,6 +31,6 @@ namespace :deploy do
    end
 end
 
-set :recipe_mods, [:rbenv, :check, :nginx, :nodejs, :unicorn, :mongodb]
+set :recipe_mods, [:rbenv, :check, :nginx, :nodejs, :unicorn, :redis]
 
 require File.expand_path("../../lib/plugins/capistrano/init", __FILE__)

@@ -13,6 +13,17 @@ Capistrano::Configuration.instance.instance_eval do
     put ERB.new(tmpl).result(binding), to
   end
   
+  #BUG for "Press [ENTER] to continue or ctrl-c to cancel adding it"
+  def press_enter(ch, stream, data)
+    if data =~ /Press.\[ENTER\].to.continue/
+      # prompt, and then send the response to the remote process
+      ch.send_data("\n")
+    else
+      # use the default handler for all other text
+      Capistrano::Configuration.default_io_proc.call(ch, stream, data)
+    end
+  end
+  
   namespace :deploy do
     task :install do
       run "#{sudo} apt-get -y update"
