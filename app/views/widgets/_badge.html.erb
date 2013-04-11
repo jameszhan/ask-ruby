@@ -1,6 +1,14 @@
 <div class="box">
   <%= render partial: "widgets/header", locals: {widget: widget} %>
-  <div>
-    Badge
+  <div class="badge_item">
+    <div style="margin: 3px 0;">
+      <%= link_to "Gold", "", class: "badge gold", title: 'badge.description' %> × 3
+    </div>
+    <div style="margin: 3px 0;">
+      <%= link_to "Silver", "", class: "badge silver", title: 'badge.description' %> × 3
+    </div>
+    <div style="margin: 3px 0;">
+      <%= link_to "Bronze", "", class: "badge bronze", title: 'badge.description' %> × 3
+    </div>
   </div>
 </div>

@@ -11,8 +11,7 @@ class Ability
       can :manage, :all
     elsif user.config_for(current_node).roles_in?(:member, :user)      
       #auth_control(user, Question, Tag, Answer, Comment)
-      reputation_rules(user)  
-      can :destroy, Answer
+      reputation_rules(user)
       can :follow, Question
       can :unfollow, Question
       can :solve, Question do |question|
