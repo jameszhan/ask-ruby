@@ -1,5 +1,3 @@
-
-
 .simple_form {
   label.required {
     abbr { color:#c00; }
@@ -7,18 +5,3 @@
 }
 
 abbr[title] { border:0; cursor:default; }
-
-.devise-form{
-  .control-group {
-    &.no-margin{
-      margin: 0;
-      margin-top: -20px;
-    }
-    .control-label {
-      width: 50px;
-    }
-    .controls {
-      margin-left: 80px;
-    }
-  }
-}

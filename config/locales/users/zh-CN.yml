@@ -28,6 +28,7 @@ zh-CN:
     hot_users: "活跃会员"
     recent_joined: "最新加入的会员"
     edit_on_gravatar: "如需修改头像，请进入"
+    edit_profile: "编辑用户基本信息"
     menu:
       topics: "帖子"
       recent_reply_topics: "最近回帖"
@@ -35,3 +36,9 @@ zh-CN:
       profile: "个人信息"
       favorites: "收藏"
       notes: "记事本"
+    prompts:
+      create_password_account: "创建密码保护账号"
+      login_with_trouble: "登陆有问题?"
+      recover_password: "通过邮箱找回密码"
+      omniauth_login: "通过第三方平台登陆"
+      password_login: "通过密码登陆"
