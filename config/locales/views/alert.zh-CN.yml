@@ -1,0 +1,12 @@
+zh-CN:
+  alert:
+    vote:
+      vote_up: "感谢您的投票支持."
+      revote: "您已放弃投票."
+      error: "您目前没有投票权限."
+    answer:
+      create_success: "感谢您的回答."
+      update_success: "答案修改成功."
+    question:
+      create_success: "问题创建成功."
+      update_success: "问题修改成功."

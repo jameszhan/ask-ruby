@@ -18,20 +18,20 @@ class VotesController < ApplicationController
         @votable.vote!(value, current_user)      
         @average = @votable.votes_average
       else
-        @error = "You don't have permission to vote."
+        @error = t('alert.vote.error')
       end
     end
       
     def should_vote(value)
       current_value = current_user.vote_on(@votable) || 0
       if value * current_value > 0
-        @msg = "You have revoke your vote #{@vote_type}"
+        @msg = t('alert.vote.revote', vote_type: @vote_type)
         value * -1
       elsif value * current_value < 0
         @msg = "You have change your attitude to vote #{@vote_type}"
         value * 2
       else
-        @msg = "Thanks for your vote #{@vote_type}"
+        @msg = t('alert.vote.vote_up', vote_type: @vote_type)
         value        
       end        
     end

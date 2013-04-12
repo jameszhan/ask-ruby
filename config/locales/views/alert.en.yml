@@ -1,0 +1,12 @@
+en:
+  alert:
+    vote:
+      vote_up: "Thanks for your vote %{vote_type}"
+      revote: "You have revoke your vote %{vote_type}"
+      error: "You don't have permission to vote."
+    answer:
+      create_success: "Answer was successfully created."
+      update_success: "Update Successful."
+    question:
+      create_success: "Question was successfully created."
+      update_success: "Question was successfully updated."
