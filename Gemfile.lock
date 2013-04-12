@@ -123,7 +123,6 @@ GEM
       tins (~> 0.5)
     formatador (0.2.4)
     fssm (0.2.10)
-    growl (1.0.3)
     guard (1.7.0)
       formatador (>= 0.2.4)
       listen (>= 0.6.0)
@@ -254,7 +253,6 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.4)
-    rb-fsevent (0.9.3)
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.2.2)
@@ -368,7 +366,6 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   ffaker
-  growl (= 1.0.3)
   guard-rspec
   guard-spork
   jquery-caret-rails
@@ -388,7 +385,6 @@ DEPENDENCIES
   pry-doc
   rails (= 3.2.12)
   rails-i18n
-  rb-fsevent
   redcarpet
   rmagick
   rspec-rails
