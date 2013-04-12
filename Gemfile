@@ -20,7 +20,7 @@ gem 'mongoid-votable'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
-gem 'omniauth-weibo'#, git: 'git://github.com/jameszhan/omniauth-weibo.git'
+gem 'omniauth-weibo', git: 'git://github.com/jameszhan/omniauth-weibo.git'
 gem 'cancan'
 
 gem 'rmagick'

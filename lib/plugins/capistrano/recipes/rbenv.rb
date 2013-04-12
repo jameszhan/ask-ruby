@@ -1,5 +1,5 @@
 set_default :ruby_version, "2.0.0-p0"
-set_default :rbenv_bootstrap, "bootstrap-ubuntu-12-10"
+set_default :rbenv_bootstrap, "bootstrap-ubuntu-12-04"
 
 namespace :rbenv do
   desc "Install rbenv, Ruby, and the Bundler gem"
