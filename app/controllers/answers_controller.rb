@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build(params[:answer])
     @answer.user = current_user
     if @answer.save
-      @msg = t("questions.answer_success", default: 'Answer was successfully created.')
+      @msg = t("alert.answer.create_success", default: 'Answer was successfully created.')
     else
       @msg = @answer.errors.full_messages.join("<br />")
     end
@@ -22,7 +22,7 @@ class AnswersController < ApplicationController
     authorize! :update, @answer
     
     if @answer.update_attributes(params[:answer])
-      @msg = "Update Successful."
+      @msg = t("alert.answer.update_success", default: 'Update Successful.')
     else
       @msg = @error = @answer.errors.full_messages.join("<br />")
     end   
