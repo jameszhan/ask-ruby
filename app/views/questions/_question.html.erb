@@ -45,7 +45,7 @@
     <% end %>
     <div style="clear:both"></div>
     <div class="userinfo">
-      <%= time_ago_in_words(question.created_at) %><%= t("common.ago") %> <%= link_to question.user.name, question.user %> 
+      <%= time_ago(question.created_at) %><%= link_to question.user.name, question.user %> 
     </div>
   </div>
 </div>

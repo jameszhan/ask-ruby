@@ -5,6 +5,10 @@ module ApplicationHelper
     users.take(20)
   end
 
+  def time_ago(datetime)
+    time_ago_in_words(datetime) + " " + t("common.ago", default: "ago")
+  end
+
   def tagged_with_questions_path(tag, remove = false)
     path = questions_path + "/tags:" 
     unless remove
