@@ -73,7 +73,7 @@ class QuestionsController < ApplicationController
     @question.user_id = current_user.id
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to @question, notice: t('alert.question.create_success', default: 'Question was successfully created.') }
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
     #@question = Question.find(params[:id])
     respond_to do |format|
       if @question.update_attributes(params[:question])
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to @question, notice: t('alert.question.update_success', default: 'Question was successfully updated.') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

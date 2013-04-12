@@ -7,7 +7,7 @@ zh-CN:
     badges: "奖章"
     users: "用户"
     profile: "用户信息"
-    settings: "基本信息"
+    settings: "修改信息"
     logout: "退出登陆"
     sorts:
       title: "排序"
