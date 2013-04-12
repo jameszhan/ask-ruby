@@ -9,11 +9,16 @@ set_default(:mongodb_database) { "#{application}_production" }
 namespace :mongodb do
   desc "Install latest stable release of mongodb"
   task :install, roles: :db do
-    run "#{sudo} add-apt-repository ppa:gias-kay-lee/mongodb" do|ch, stream, data|
-      press_enter( ch, stream, data)
-    end
-    run "#{sudo} apt-get -y update"
-    run "#{sudo} apt-get -y install mongodb"
+    run "#{sudo} apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10"
+    run "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /tmp/10gen.list"
+    run "#{sudo} mv /tmp/10gen.list /etc/apt/sources.list.d/"
+    run "#{sudo} apt-get update"
+    run "#{sudo} apt-get install mongodb-10gen"
+#    run "#{sudo} add-apt-repository ppa:gias-kay-lee/mongodb" do|ch, stream, data|
+#      press_enter( ch, stream, data)
+#    end
+#    run "#{sudo} apt-get -y update"
+#    run "#{sudo} apt-get -y install mongodb"
   end
   after "deploy:install", "mongodb:install"
   
@@ -23,6 +28,12 @@ namespace :mongodb do
     template "mongoid.yml.erb", "#{shared_path}/config/mongoid.yml"
   end   
   after "deploy:setup", "mongodb:setup"  
+  
+  desc "Symlink the mongoid.yml file into latest release"
+  task :symlink, roles: :app do
+    run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+  end
+  after "deploy:finalize_update", "mongodb:symlink"
 
   %w[start stop restart].each do|command|
     desc "#{command} nginx"

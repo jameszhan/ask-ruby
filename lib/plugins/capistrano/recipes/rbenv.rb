@@ -1,10 +1,12 @@
-set_default :ruby_version, "1.9.3-p385"
+set_default :ruby_version, "2.0.0-p0"
 set_default :rbenv_bootstrap, "bootstrap-ubuntu-12-04"
 
 namespace :rbenv do
   desc "Install rbenv, Ruby, and the Bundler gem"
   task :install, roles: :app do
     run "#{sudo} apt-get -y install curl git-core"
+    #Install rmagick
+    run "#{sudo} apt-get -y install libdjvulibre-dev libjpeg-dev libtiff-dev libwmf-dev libmagickcore-dev libmagickwand-dev libmagick++-dev"
     run "curl -L https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash"
     bashrc = <<-BASHRC
 if [ -d $HOME/.rbenv ]; then 

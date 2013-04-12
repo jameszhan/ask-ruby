@@ -10,7 +10,7 @@ Capistrano::Configuration.instance.instance_eval do
 
   def template(from, to)
     tmpl = File.read(File.expand_path("recipes/templates/#{from}", File.dirname(__FILE__)))    
-    put ERB.new(tmpl).result(binding), to
+    put ERB.new(tmpl, nil, "-").result(binding), to
   end
   
   #BUG for "Press [ENTER] to continue or ctrl-c to cancel adding it"

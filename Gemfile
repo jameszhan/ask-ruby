@@ -1,9 +1,4 @@
 # encoding: UTF-8
-
-require 'rbconfig'
-
-HOST_OS = RbConfig::CONFIG['host_os']
-
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
@@ -20,7 +15,7 @@ gem 'mongoid-votable'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
-gem 'omniauth-weibo'#, git: 'git://github.com/jameszhan/omniauth-weibo.git'
+gem 'omniauth-weibo', git: 'git://github.com/jameszhan/omniauth-weibo.git'
 gem 'cancan'
 
 gem 'rmagick'
@@ -69,11 +64,11 @@ gem 'unicorn'
 # To use debugger
 # gem 'debugger'
 
+gem 'ffaker'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'ffaker'
 
   #spork
   gem 'guard-spork'
@@ -98,6 +93,9 @@ group :test do
   
   gem 'shoulda-matchers', '~> 1.4.2'
 
+=begin
+  require 'rbconfig'
+  HOST_OS = RbConfig::CONFIG['host_os']
   case HOST_OS
     when /linux/i
       #Linux relative gem
@@ -108,6 +106,7 @@ group :test do
       gem 'rb-fsevent', :require => false
       gem 'growl', '1.0.3'
   end
+=end
 end
 
 
