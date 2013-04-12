@@ -1,0 +1,19 @@
+en:
+  widgets:
+    welcome:
+      title: "Welcome"
+    contributors:
+      title: "contributors"
+    question_stats:
+      title: "Question stats"
+      asked_at: "Asked"
+      user: "User"
+      updated_at: "Updated"
+    related_questions:
+      title: "Related questions"
+    tag_cloud:
+      title: "Tag cloud"
+    badge:
+      title: "Badge"
+    markdown:
+      title: "Markdown"

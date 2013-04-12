@@ -2,7 +2,7 @@
   <div class="author">
     <div class="timeago_info">
       <span>
-        <%= updated_text %> <%= time_ago_in_words(created_at)%> ago
+        <%= t("common.updated") %><%= time_ago_in_words(created_at)%><%= t("common.ago") %> 
       </span>
     </div>
     <div class="avatar_left">
@@ -10,7 +10,7 @@
     </div>
     <div class="user_info">
       <%= link_to user.name, user %><br>
-      <span>wojiao jinsanpangwojiao</span>
+      <span></span>
     </div>
   </div>
 </div>  
