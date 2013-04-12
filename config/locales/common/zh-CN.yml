@@ -54,3 +54,5 @@ zh-CN:
     access_denied: "访问拒绝，请先登陆."
     editor_toolbar_edit: "编辑"
     editor_toolbar_preview: "预览"
+    ago: "以前"
+    updated: "更新"

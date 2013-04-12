@@ -12,7 +12,8 @@ zh-CN:
     sorts:
       title: "排序"
       newest: "最新"
+      oldest: "时间"
       activity: "活跃度"
-      answers: "答案数"
+      answers: "答案"
       hot: "热门"
       votes: "投票"

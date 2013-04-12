@@ -56,3 +56,4 @@ en:
     access_denied: "Access denied, Please sign in and make sure you have proper permission."
     editor_toolbar_edit: "Edit"
     editor_toolbar_preview: "Preview"
+    ago: "ago"
