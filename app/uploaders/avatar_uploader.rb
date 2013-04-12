@@ -14,6 +14,10 @@ class AvatarUploader < BaseUploader
   def default_url
     "/assets/" + [version_name, "default_avatar.png"].compact.join('_')
   end
+  
+  def filename
+    "#{model.id}.#{file.extension.downcase}"
+  end
 
   def crop
     if model.crop_x.present?

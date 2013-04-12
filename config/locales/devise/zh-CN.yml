@@ -1,5 +1,8 @@
 zh-CN:
   devise:
+    users:
+      user:
+        updated: 更新成功
     confirmations:
       confirmed: 您的帐号已经确认，您现在已登录.
       send_instructions: 几分钟后，您将收到确认帐号的电子邮件.
