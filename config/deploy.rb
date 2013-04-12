@@ -16,6 +16,9 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" #keep only the last 5 releases
 
+after 'deploy:cold' do
+   run "RAILS_ENV=#{rails_env} #{bundle} exec rake seed"
+end
 
 #File.join(__dir__, 'recipes/*.rb')
 
