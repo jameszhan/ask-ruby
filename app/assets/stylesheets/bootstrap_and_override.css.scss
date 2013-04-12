@@ -29,7 +29,6 @@ form {
 }
 .form-horizontal .edit_tools { text-align:left; margin-bottom:0px }
 
-
 .navbar .brand {
   color: $yellow;
 }
@@ -50,6 +49,10 @@ form {
     color:#999; line-height:100%;
     border-bottom:1px solid #ddd; padding-bottom:8px;
   }
+  &.box_gray {
+    background-color: #F5F5F5;
+    padding: 0;
+  }  
 }
 
 .icon {
@@ -77,4 +80,4 @@ form {
     }
   }
 }
-.input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge { width: 510px;}
+.input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge { width: 510px; }

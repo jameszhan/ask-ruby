@@ -132,7 +132,7 @@ $(document).ready ->
   $('.chzn-select').chosen
     allow_single_deselect: true
     no_results_text: 'No Search Results...'
-  
+  $(".questions  > .question:even").css("background-color", "#fcfcfc")
   Questions.initUploader('body')
   Questions.hookQuestionsCallback('body')  
   Questions.hookAnswersCallback('body') 

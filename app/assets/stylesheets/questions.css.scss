@@ -19,55 +19,81 @@
   color: $color;
 }
 
+.selected-tags{
+  margin-bottom: 5px;
+}
 
-//questions page
-.short-summary {
-	position: relative;
-  padding: 10px 0 3px 0;
-  margin-top: 16px;
-  margin-bottom: 1px;
-  overflow: hidden;
-  float: left;
-  .stats-box {
-    @include box;
-  }
-  .no-count {
-  	@include count-font(#b1b5b6);
-  }
-  
-  .votes {
-    .item-count {  	
-  	  @include count-font(#4a757f);
-	  }
-	  &.shadow{
-  	  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
-  	}
-  }  
-  .views {
-    .item-count {
-  	  @include count-font(#D33F00);
-  	}
-  	&.shadow{
-  	  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
-  	}
-  }
-  .answers {
-    .item-count {
-  	  @include count-font(#EAB243);
-  	}
-  	&.shadow{
-  	  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
-  	}
-  }
-  .userinfo {
-  	text-align: right;
-    line-height: 16px;
-    font-family: Arial;
-    padding-right: 4px;
-    margin-top: 2px;
-    font-size: 11px;
+#sort_tabs{
+  padding: 3px 0 0 3px;
+  margin: 0;
+}
+
+#answers-pagination, #questions-pagination{
+  padding: 0 2px 0 0;
+  text-align: right;
+  .pagination{
+    margin-top: 0;
+    padding: 0;
   }
 }
+.questions{
+  .question{
+    background-color: #ffffff;
+    border-bottom: 1px solid #cfcfcf;
+    min-height: 100px;
+    .title{
+      padding: 0 0 5px 10px;
+    }
+    .short-summary {
+      padding-right: 10px;
+      margin-top: 16px;
+      margin-bottom: 1px;
+      overflow: hidden;
+      .stats-box {
+        @include box;
+      }
+      .no-count {
+      	@include count-font(#c9cccf);
+      }
+
+      .votes {
+        .item-count {  	
+      	  @include count-font(#4a757f);
+    	  }
+    	  &.shadow{
+      	  @include box-shadow(rgba(0, 0, 128, 0.6) 0 0 3px, rgba(0, 0, 128, 0.1) 0 0 16px 6px inset); 
+      	}
+      }  
+      .views {
+        .item-count {
+      	  @include count-font(#D33F00);
+      	}
+      	&.shadow{
+      	  @include box-shadow(rgba(255, 128, 0, 0.6) 0 0 3px, rgba(255, 128, 0, 0.3) 0 0 16px 6px inset); 
+      	}
+      }
+      .answers {
+        .item-count {
+      	  @include count-font(#EAB243);
+      	}
+      	&.shadow{
+      	  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
+      	}
+      }
+      .userinfo {
+      	text-align: right;
+        line-height: 16px;
+        font-family: Arial;
+        padding-right: 4px;
+        margin-top: 2px;
+        font-size: 11px;
+      }
+    }
+  }  
+}
+
+
+
 
 .answers-tab {
   margin-top: 10px;

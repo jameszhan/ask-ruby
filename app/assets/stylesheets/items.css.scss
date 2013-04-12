@@ -8,21 +8,6 @@
   }
 }
 
-#sort_tabs{
-  margin-bottom: 0;
-  margin-top: -6px;
-}
-#answers-pagination, #questions-pagination{
-  margin-top: -16px;
-  padding: 0;
-  text-align: right;
-  .pagination{
-    margin-top: 0;
-    padding: 0;
-  }
-}
-
-
 .logins {
   .icon-google { @include icons-sprite(google); }
   .icon-github { @include icons-sprite(github); }

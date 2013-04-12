@@ -1,27 +1,29 @@
-<div class="row-fluid selected-tags">
+<div class="selected-tags">
 <% current_tags.each do |tag| -%>
   <div class="input-prepend input-append tag">
     <span class="add-on tag-name"><%= tag_name(tag) %></span>
     <span class="add-on remove-tag"><%= link_to 'x', tagged_with_questions_path(tag, true) %></span>
   </div>
 <% end -%>
-
 </div>
-<div id="sort_tabs" class="pagination">
-  <ul>
-    <li><span><%= t("menu.sorts.title", default: "Sort by") %> »</span></li>
-    <% [:newest, :activity, :answers, :hot, :votes].each do |order| -%>
-      <% if order == current_order_name -%>
-        <li class="active"><%= link_to "#{t("menu.sorts.#{order}", default: "#{order.to_s.humanize}")}▼", questions_path(order: order) %></li>
-      <% else -%>
-        <li><%= link_to t("menu.sorts.#{order}", default: "#{order.to_s.humanize}"), questions_path(order: order) %></li>
+
+<div class="box box_gray">
+  <div id="sort_tabs" class="pagination">
+    <ul>
+      <li><span><%= t("menu.sorts.title", default: "Sort by") %> »</span></li>
+      <% [:newest, :activity, :answers, :hot, :votes].each do |order| -%>
+        <% if order == current_order_name -%>
+          <li class="active"><%= link_to "#{t("menu.sorts.#{order}", default: "#{order.to_s.humanize}")}▼", questions_path(order: order) %></li>
+        <% else -%>
+          <li><%= link_to t("menu.sorts.#{order}", default: "#{order.to_s.humanize}"), questions_path(order: order) %></li>
+        <% end -%>
       <% end -%>
-    <% end -%>
-  </ul> 
+    </ul> 
+  </div>
+  <div class="questions">
+    <%= render @questions %>  
+  </div>
+  <div id="questions-pagination"><%= paginate @questions %></div>
 </div>
 
-<div class="row box">
-  <%= render @questions %>  
-</div>
-<div class="row-fluid" id="questions-pagination"><%= paginate @questions %></div>
 
