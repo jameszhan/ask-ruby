@@ -52,7 +52,7 @@ class User
     end
     config.set(:last_activity_at, date.utc)
     
-    set_activity_days(config, last_day, day)
+    update_activity_days(config, last_day, day)
   end  
   
   def update_reputation(key, node, v = nil)
