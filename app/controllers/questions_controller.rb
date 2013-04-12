@@ -2,36 +2,35 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource :only => [:new, :edit, :create, :update, :destroy, :follow, :unfollow, :solve, :unsolve], :through => :current_node
  
   order_tabs :index => {
-                newest: {
-                  created_at: :desc,
-                },
-                votes: {
-                  votes_average: :desc,
-                  views_count: :desc
-                },
-                activity: {
-                  updated_at: :desc, 
-                  created_at: :desc
-                },
-                hot: {
-                  views_count: :desc
-                },
-                answers: {
-                  answers_count: :desc
-                }
-              },
-             :show => {
-                newest: {
-                  created_at: :desc,
-                },
-                oldest: {
-                  created_at: :asc,
-                },
-                votes: {
-                  votes_average: :desc,
-                  views_count: :desc
-                }
-             }
+    newest: {
+      created_at: :desc,
+    },
+    votes: {
+      votes_average: :desc,
+      views_count: :desc
+    },
+    activity: {
+      updated_at: :desc,
+      created_at: :desc
+    },
+    hot: {
+      views_count: :desc
+    },
+    answers: {
+      answers_count: :desc
+    }
+  }, :show => {
+    newest: {
+      created_at: :desc,
+    },
+    oldest: {
+      created_at: :asc,
+    },
+    votes: {
+      votes_average: :desc,
+      views_count: :desc
+    }
+  }
    
   # GET /questions
   # GET /questions.json
