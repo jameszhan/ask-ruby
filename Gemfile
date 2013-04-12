@@ -97,7 +97,7 @@ group :test do
   gem 'capybara', '1.1.2'
   
   gem 'shoulda-matchers', '~> 1.4.2'
-=begin
+
   case HOST_OS
     when /linux/i
       #Linux relative gem
@@ -108,7 +108,7 @@ group :test do
       gem 'rb-fsevent', :require => false
       gem 'growl', '1.0.3'
   end
-=end
+
 end
 
 
