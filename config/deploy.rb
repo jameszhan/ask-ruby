@@ -16,9 +16,25 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" #keep only the last 5 releases
 
-after 'deploy:cold' do
-   run "RAILS_ENV=#{rails_env} #{bundle} exec rake seed"
+namespace :db do
+  desc "load db seed."
+  task :seed, :roles => :db, :only => { :primary => true } do
+    rake = fetch(:rake, "rake")
+    rails_env = fetch(:rails_env, "production")
+    migrate_env = fetch(:migrate_env, "")
+    migrate_target = fetch(:migrate_target, :latest)
+
+    directory = case migrate_target.to_sym
+      when :current then current_path
+      when :latest  then latest_release
+      else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
+    end
+
+    run "cd #{directory} && #{rake} RAILS_ENV=#{rails_env} #{migrate_env} db:seed"
+  end
 end
+after "deploy:migrate", "db:seed"
+
 
 #File.join(__dir__, 'recipes/*.rb')
 
