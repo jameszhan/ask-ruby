@@ -12,7 +12,7 @@
         <% end -%>
       </div>
       <div>
-        <%= render "shared/user_info", updated_text: "asked", created_at: @question.created_at, user: @question.user -%>  
+        <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
         <%= markdown @question.body %>
       </div>
 
@@ -56,12 +56,12 @@
     <span id="answers-count" class="title"><%= pluralize(@question.answers.count, "answer") %></span>
     <div id="sort_tabs" class="pagination">
       <ul>
-        <li><span>Sort by »</span></li>  
+        <li><span><%= t("menu.sorts.title", default: "Sort by") %> »</span></li>  
         <% [:newest, :oldest, :votes].each do |order| -%>
           <% if order == current_order_name -%>
-            <li class="active"><%= link_to "#{order.to_s.humanize}▼", question_path(@question, order: order) %></li>
+            <li class="active"><%= link_to "#{t("menu.sorts.#{order}", default: "#{order.to_s.humanize}")}▼", question_path(@question, order: order) %></li>
           <% else -%>
-            <li><%= link_to "#{order.to_s.humanize}", question_path(@question, order: order) %></li>
+            <li><%= link_to "#{t("menu.sorts.#{order}", default: "#{order.to_s.humanize}")}▼", question_path(@question, order: order) %></li>
           <% end -%>
         <% end -%>
       </ul> 
