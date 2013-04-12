@@ -4,7 +4,7 @@
       <%= render "shared/vote_box", votable: answer, url: question_answer_votes_path(@question, answer) %>
     </div>
     <div class="span11" style="margin-left: 6px;">
-      <%= render "shared/user_info",updated_text: "answered", created_at: answer.created_at, user: answer.user -%>
+      <%= render "shared/user_info", created_at: answer.created_at, user: answer.user -%>
       <div class="answer-content">
         <%= markdown answer.body %>
       </div>

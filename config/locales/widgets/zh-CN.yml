@@ -1,0 +1,19 @@
+zh-CN:
+  widgets:
+    welcome:
+      title: "欢迎"
+    contributors:
+      title: "活跃用户"
+    question_stats:
+      title: "问题状态"
+      asked_at: "提问时间:"
+      user: "用户:"
+      updated_at: "更新时间:"
+    related_questions:
+      title: "相关问题"
+    tag_cloud:
+      title: "热门标签"
+    badge:
+      title: "徽章"
+    markdown:
+      title: "Markdown"

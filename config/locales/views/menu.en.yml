@@ -9,3 +9,11 @@ en:
     profile: "Profile"
     settings: "Settings"
     logout: "Logout"
+    sorts:
+      title: "Sort by"
+      newest: "newest"
+      oldest: "oldest"
+      activity: "activity"
+      answers: "answers"
+      hot: "hot"
+      votes: "votes"
