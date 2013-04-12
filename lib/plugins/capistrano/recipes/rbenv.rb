@@ -5,7 +5,8 @@ namespace :rbenv do
   desc "Install rbenv, Ruby, and the Bundler gem"
   task :install, roles: :app do
     run "#{sudo} apt-get -y install curl git-core"
-    run "#{sudo} apt-get -y install imagemagick --fix-missing"
+    #Install rmagick
+    run "#{sudo} apt-get -y install libdjvulibre-dev libjpeg-dev libtiff-dev libwmf-dev libmagickcore-dev libmagickwand-dev libmagick++-dev"
     run "curl -L https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash"
     bashrc = <<-BASHRC
 if [ -d $HOME/.rbenv ]; then 
