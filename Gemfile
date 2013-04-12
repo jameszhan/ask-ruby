@@ -1,9 +1,4 @@
 # encoding: UTF-8
-
-require 'rbconfig'
-
-HOST_OS = RbConfig::CONFIG['host_os']
-
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
@@ -98,6 +93,9 @@ group :test do
   
   gem 'shoulda-matchers', '~> 1.4.2'
 
+=begin
+  require 'rbconfig'
+  HOST_OS = RbConfig::CONFIG['host_os']
   case HOST_OS
     when /linux/i
       #Linux relative gem
@@ -108,7 +106,7 @@ group :test do
       gem 'rb-fsevent', :require => false
       gem 'growl', '1.0.3'
   end
-
+=end
 end
 
 
