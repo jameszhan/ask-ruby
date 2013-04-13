@@ -16,7 +16,7 @@ class AvatarUploader < BaseUploader
   end
   
   def filename
-    "#{model.id}.#{file.extension.downcase}"
+    "#{model.id}.#{file.extension.downcase}" if file
   end
 
   def crop
