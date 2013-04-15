@@ -10,7 +10,7 @@ Ask::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
-
+  
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
@@ -41,6 +41,7 @@ Ask::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_store, {:expires_in => 1.minutes}
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -66,7 +67,7 @@ Ask::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
   
-  config.action_mailer.default_url_options = { :host => 'example.com' }
+  config.action_mailer.default_url_options = { :host => 'askrubyist.org' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp

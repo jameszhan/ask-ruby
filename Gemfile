@@ -1,7 +1,7 @@
 # encoding: UTF-8
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'rails-i18n'
 
@@ -57,14 +57,11 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
-
-
 # To use debugger
 # gem 'debugger'
 
 gem 'ffaker'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -73,6 +70,14 @@ group :development, :test do
   #spork
   gem 'guard-spork'
   gem 'spork'
+end
+
+group :production do
+#  gem 'redis-store'
+  gem 'redis-rails'
+  # Use unicorn as the app server
+  gem 'unicorn'
+  
 end
 
 group :development do
