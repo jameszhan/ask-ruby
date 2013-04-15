@@ -17,3 +17,6 @@ en:
       answers: "answers"
       hot: "hot"
       votes: "votes"
+    answers:
+      title: "%{answers} answers"
+      answer_text: "Your Answer"

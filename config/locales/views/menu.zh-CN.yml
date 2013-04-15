@@ -17,3 +17,6 @@ zh-CN:
       answers: "答案"
       hot: "热门"
       votes: "投票"
+    answers:
+      title: "%{answers} 个回答"
+      answer_text: "回答:"

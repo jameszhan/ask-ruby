@@ -4,6 +4,10 @@ zh-CN:
     hour: '小时'
     minute: '分钟'
     edit: "编辑"
+    follow: "关注"
+    unfollow: "取消关注"
+    solution: "采用该回答"
+    cancel_solution: "放弃该回答"
     create: "创建"
     avatar: "头像"
     save: "保存"

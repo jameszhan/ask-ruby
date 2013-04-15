@@ -12,7 +12,7 @@
     <%= f.input :body, as: :text, label: false, input_html:{ :class => "answers_editor closewarning xxlarge", :style => "height:200px" } %>
     <%= f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } %>
     <div class="form-actions">
-      <%= f.submit t("common.save"), :class => "btn btn-primary" %> or 
+      <%= f.submit t("common.save"), :class => "btn btn-primary" %>
       <%= link_to t("common.cancel"), question_path(@question), :class => "cancel-link btn", data: {dismiss: "modal"} %>
     </div>
   </fieldset>

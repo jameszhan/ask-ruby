@@ -4,6 +4,10 @@ en:
     hour: 'Hour'
     minute: 'Minute'
     edit: "Edit"
+    follow: "Follow"
+    unfollow: "Unfollow"
+    solution: "As Solution"
+    cancel_solution: "Cancel this solution"
     create: "Create"
     avatar: "Avatar"
     save: "Save"
