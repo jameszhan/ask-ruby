@@ -21,7 +21,7 @@ An idea project of Q&amp;A site use ruby implementation.
     
 ###Deploy to EC2
 
-    #ssh 
+    #ssh without password
     cat ~/.ssh/id_rsa.pub | ssh -v -i ~/.ssh/xxx.pem ubuntu@ip_address 'cat >> ~/.ssh/authorized_keys'
     
     git checkout master
