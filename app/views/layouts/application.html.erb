@@ -23,7 +23,6 @@
       <%= link_to "AskRubyist", root_path, class: "brand" %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to t("menu.home", default: "Home"), root_path %></li>
           <li><%= link_to t("menu.question_list", default: "Question List"), questions_path %></li>
           <li><%= link_to t("menu.ask_question", default:"Ask Question"), new_question_path %></li>
           <li><%= link_to t("menu.tags", default: "Tags"), tags_path %></li>
