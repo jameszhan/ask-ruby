@@ -1,5 +1,5 @@
 <div class="row box">
-  <h2 class="title">User info</h2>
+  <h2 class="title"><%= t("users.title") %></h2>
   <div class="span3">
     <%= image_tag @user.avatar_url(:thumb) %>
     <% if @user != current_user %>
@@ -12,28 +12,28 @@
   <div class="span6 ">
     <table class="table table-hover">
       <tr>
-        <td>Name:</td>
+        <td><%= t("users.name") %></td>
         <td><%= @user.name -%></td>
       </tr>
       <tr>
-        <td>Email:</td>
+        <td><%= t("users.email") %></td>
         <td><%= @user.email -%></td>
       </tr>
       <tr>
-        <td>Last sign in:</td>
-        <td><%= @user.last_sign_in_at -%></td>
-      </tr>
-      <tr>
-        <td>Last sign in ip:</td>
-        <td><%= @user.last_sign_in_ip -%></td>
-      </tr>
-      <tr>
-        <td>Following:</td>
+        <td><%= t("users.following") %>:</td>
         <td><%= @user.following.count -%></td>
       </tr>
       <tr>
-        <td>Followers:</td>
+        <td><%= t("users.followers") %>:</td>
         <td><%= @user.followers_count -%></td>
+      </tr>
+      <tr>
+        <td><%= t("users.last_sign_in") %></td>
+        <td><%= @user.last_sign_in_at -%></td>
+      </tr>
+      <tr>
+        <td><%= t("users.last_sign_in_ip") %></td>
+        <td><%= @user.last_sign_in_ip -%></td>
       </tr>
     </table>
   </div>
@@ -42,11 +42,11 @@
 <div class="box">
   <div class="tabbable">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#tab1" data-toggle="tab">My questions</a></li>
-      <li><a href="#tab2" data-toggle="tab">recently answers</a></li>
-      <li><a href="#tab3" data-toggle="tab">Following Questions</a></li>
-      <li><a href="#tab4" data-toggle="tab">Following</a></li>
-      <li><a href="#tab5" data-toggle="tab">Followers</a></li>
+      <li class="active"><a href="#tab1" data-toggle="tab"><%= t("users.my_questions") %></a></li>
+      <li><a href="#tab2" data-toggle="tab"><%= t("users.recent_answers") %></a></li>
+      <li><a href="#tab3" data-toggle="tab"><%= t("users.following_questions") %></a></li>
+      <li><a href="#tab4" data-toggle="tab"><%= t("users.following") %></a></li>
+      <li><a href="#tab5" data-toggle="tab"><%= t("users.followers") %></a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="tab1">

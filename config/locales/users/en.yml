@@ -1,5 +1,15 @@
 en:
   users:
+    title: "User Info"
+    name: "Name:"
+    email: "Email:"
+    last_sign_in: "Last Sign In:"
+    last_sign_in_ip: "Last Sign In IP:"
+    following: "Following"
+    follower: "Followers"
+    my_questions: "My Questions"
+    recent_answers: "Recent Answers"
+    following_questions: "Following Questions"
     bios: "Bio"
     city: "City"
     join_time: "Joined at"

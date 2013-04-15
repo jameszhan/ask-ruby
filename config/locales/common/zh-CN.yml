@@ -4,6 +4,10 @@ zh-CN:
     hour: '小时'
     minute: '分钟'
     edit: "编辑"
+    follow: "关注"
+    unfollow: "取消关注"
+    solution: "采用该回答"
+    cancel_solution: "放弃该回答"
     create: "创建"
     avatar: "头像"
     save: "保存"
@@ -44,7 +48,9 @@ zh-CN:
     vip_user: "VIP"
     normal_user: "普通用户"
     limit_user: "受限用户"
-    title: "标题"
+    title: "标题:"
+    body: "内容:"
+    tags: "标签:"
     reply_count: "回复数"
     last_reply_time: "最后回复在"
     reply: "回复"
@@ -56,3 +62,6 @@ zh-CN:
     editor_toolbar_preview: "预览"
     ago: "以前"
     updated: "更新"
+    new: "新建"
+    unhappy: "不高兴"
+    back: "返回"
