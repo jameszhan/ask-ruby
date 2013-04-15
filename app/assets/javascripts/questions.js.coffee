@@ -96,10 +96,10 @@ window.Questions =
     $(context).on "click", ".follow-question", (e)->
       $.post $(this).data('url')
       if $(this).data('status')        
-        $(this).text('Follow')
+        $(this).text('关注')
         $(this).data("status", false)
       else
-        $(this).text('Unfollow')
+        $(this).text('取消关注')
         $(this).data("status", true)      
         
   hookAnswersCallback: (context) -> 
