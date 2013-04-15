@@ -45,8 +45,9 @@ module ApplicationHelper
   end
 
   def cache_key_for(name, *args)
-    args.unshift(name.parameterize, current_node.id, params[:controller], params[:action], I18n.locale)
-    args.join("_")
+    args << I18n.locale
+    args.unshift(name.parameterize, current_node.name, params[:controller], params[:action])
+    args.join(":")
   end
   
   def render_widget(widget)

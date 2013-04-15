@@ -29,8 +29,7 @@
 
   <div class="hide">
   <%= simple_form_for Photo.new, html: { class: "form-inline upload-photo-form" } do |f| %>
-    <%= f.input :image, label: false, input_html: { 
-      class: "upload-photo-images", multiple: true, name: "photo[image]" } %>
+    <%= f.input :image, label: false, input_html: { class: "upload-photo-images" } %>
   <% end %>
   </div>
 </div>
