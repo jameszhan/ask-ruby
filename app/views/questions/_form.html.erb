@@ -6,8 +6,7 @@
       <legend><%= controller.action_name.capitalize %> Question</legend>
     <% end -%>
     <%= render "shared/error_messages", :target => @question %>
-
-    <%= f.input :title, input_html: { class: "xxlarge" } %>
+    <%= f.input :title, label: t("common.title"), input_html: { class: "xxlarge" } %>
     
     <div class="control-group edit_tools">
       <label class="control-label"></label>
@@ -15,11 +14,11 @@
         <%= render "editor_toolbar" %>
       </div>
     </div>
-    <%= f.input :body, as: :text, 
+    <%= f.input :body, label: t("common.body"), as: :text, 
       input_html:{ :class => "questions_editor closewarning xxlarge", :style => "height:300px" },
       :hint => "請使用 Markdown 格式編寫,可以試試用 <a href='http://mouapp.com' target='_blank'>Mou</a> 這個 App 来編寫。".html_safe %>
       
-    <%= f.input :tags, collection: tag_list, include_blank: false, input_html: { class: 'chzn-select', :multiple => true } %>
+    <%= f.input :tags, label: t("common.tags"), collection: tag_list, include_blank: false, input_html: { class: 'chzn-select', :multiple => true } %>
     
     <div class="form-actions">
       <%= f.submit t("common.save"), :class => "btn btn-primary", 'data-disable-with' => t("common.saving") %>
