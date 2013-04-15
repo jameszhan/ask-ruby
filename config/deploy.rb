@@ -16,6 +16,8 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" #keep only the last 5 releases
 
+set :shared_children, shared_children + %w{public/users public/uploads}
+
 namespace :db do
   desc "load db seed."
   task :seed, :roles => :db, :only => { :primary => true } do

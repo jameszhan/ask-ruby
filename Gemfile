@@ -21,7 +21,7 @@ gem 'cancan'
 gem 'rmagick'
 gem 'carrierwave-mongoid'
 gem 'kaminari'
-gem 'simple_form', "2.0.2"
+gem 'simple_form'
 gem 'md_emoji'
 gem 'redcarpet'
 gem 'coderay'
