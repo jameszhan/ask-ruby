@@ -1,5 +1,15 @@
 zh-CN:
   users:
+    title: "用户信息"
+    name: "用户名："
+    email: "邮箱:"
+    last_sign_in: "最近登录："
+    last_sign_in_ip: "最近登录IP："
+    following: "关注"
+    followers: "粉丝"
+    my_questions: "我的问题"
+    recent_answers: "最近的回答"
+    following_questions: "关注的问题"
     bios: "个人介绍"
     city: "城市"
     company: "公司"
