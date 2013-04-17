@@ -1,6 +1,6 @@
 <div class="row-fluid question">
   <div class="title span8">
-    <h3><%= link_to question.title, question_path(question) %></h3>
+    <h3><%= link_to question.title, question_path(question), title: truncate(question.body, :length => 160)%></h3>
     <div class="tags">          
       <% question.tags.each do|tag| -%>
         <%= link_to tag_name(tag), tagged_with_questions_path(tag), class: "tag" %>
