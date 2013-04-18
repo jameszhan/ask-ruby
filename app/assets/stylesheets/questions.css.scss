@@ -26,6 +26,10 @@
 #sort_tabs{
   padding: 3px 0 0 3px;
   margin: 0;
+  .tab_pos {
+    float:right;
+    margin-top: 8px;
+  }
 }
 
 #answers-pagination, #questions-pagination{
