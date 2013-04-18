@@ -12,7 +12,7 @@
         <% end -%>
       </div>
       <div>
-        <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
+        <%= render "shared/user_info", param: @question -%>  
         <%= markdown @question.body %>
       </div>
 
@@ -67,8 +67,8 @@
       </ul> 
     </div>
   </div>
-  
-  <%= render @answers %>
+  <% answers = @question.accepted ? sloved(@question,@answers) : @answers -%>
+  <%= render answers %>
 </div>
 
 <div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>

@@ -9,10 +9,10 @@
   </div>  
   <div class="short-summary span3 offset1">
     <% if question.answers_count >= 1 %>
-      <div class="answers stats-box shadow">
+      <%= content_tag :div, class: "answers stats-box shadow#{question.accepted ? ' marker' : ''}" do %>  
         <span class="item-count"><%= question.answers_count %></span>  
         <div><%= t("questions.units.answers", default: "answers") %></div> 
-      </div>
+      <% end %>
     <% else %>
       <div class="answers stats-box">
         <span class="no-count"><%= t("questions.units.empty", default: "no") %></span>  

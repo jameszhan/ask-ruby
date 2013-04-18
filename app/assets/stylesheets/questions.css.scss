@@ -80,6 +80,9 @@
         .item-count {
       	  @include count-font(#EAB243);
       	}
+        &.marker {
+          background: url("/assets/accept.png") no-repeat top right;
+        }
       	&.shadow{
       	  @include box-shadow(rgba(0, 128, 0, 0.6) 0 0 3px, rgba(0, 128, 0, 0.2) 0 0 16px 6px inset); 
       	}
