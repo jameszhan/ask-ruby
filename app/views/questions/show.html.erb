@@ -67,8 +67,15 @@
       </ul> 
     </div>
   </div>
-  <% answers = @question.accepted ? sloved(@question,@answers) : @answers -%>
-  <%= render answers %>
+  <% if !@answers.empty?-%>
+    <% if @question.accepted  %>
+      <%= render "answers/answer", answer: @question.answered_with %>
+    <% end -%>
+    <% @answers.each do |answer| %>
+      <% next if answer == @question.answered_with -%>
+      <%= render "answers/answer", answer: answer %>
+    <% end -%>
+  <% end -%>
 </div>
 
 <div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>
