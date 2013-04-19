@@ -1,6 +1,6 @@
 <div class="row-fluid question">
   <div class="title span8">
-    <h3><%= link_to question.title, question_path(question) %></h3>
+    <h3><%= link_to question.title, question_path(question), title: truncate(question.body, :length => 160)%></h3>
     <div class="tags">          
       <% question.tags.each do|tag| -%>
         <%= link_to tag_name(tag), tagged_with_questions_path(tag), class: "tag" %>
@@ -9,10 +9,10 @@
   </div>  
   <div class="short-summary span3 offset1">
     <% if question.answers_count >= 1 %>
-      <div class="answers stats-box shadow">
+      <%= content_tag :div, class: "answers stats-box shadow#{question.accepted ? ' marker' : ''}" do %>  
         <span class="item-count"><%= question.answers_count %></span>  
         <div><%= t("questions.units.answers", default: "answers") %></div> 
-      </div>
+      <% end %>
     <% else %>
       <div class="answers stats-box">
         <span class="no-count"><%= t("questions.units.empty", default: "no") %></span>  
