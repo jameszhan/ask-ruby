@@ -12,7 +12,7 @@
         <% end -%>
       </div>
       <div>
-        <%= render "shared/user_info", created_at: @question.created_at, user: @question.user -%>  
+        <%= render "shared/user_info", param: @question -%>  
         <%= markdown @question.body %>
       </div>
 
@@ -67,8 +67,15 @@
       </ul> 
     </div>
   </div>
-  
-  <%= render @answers %>
+  <% if !@answers.empty?-%>
+    <% if @question.accepted  %>
+      <%= render "answers/answer", answer: @question.answered_with %>
+    <% end -%>
+    <% @answers.each do |answer| %>
+      <% next if answer == @question.answered_with -%>
+      <%= render "answers/answer", answer: answer %>
+    <% end -%>
+  <% end -%>
 </div>
 
 <div class="row-fluid" id="answers-pagination"><%= paginate @answers %></div>

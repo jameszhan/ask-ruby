@@ -2,14 +2,19 @@
   <div class="author">
     <div class="timeago_info">
       <span>
-        <%= t("common.updated") %><%= time_ago(created_at) %> 
+        <%= t("common.updated") %><%= time_ago(param.created_at) %> 
       </span>
     </div>
     <div class="avatar_left">
-      <%= image_tag user.avatar_url(:thumb), :size => "32x32" %>
+      <%= image_tag param.user.avatar_url(:thumb), :size => "32x32" %>
     </div>
     <div class="user_info">
-      <%= link_to user.name, user %><br>
+
+      <%= link_to param.user.name, param.user %>
+      <% if param.instance_of?(Answer)&&(param.question.answered_with == param) %>
+        <img src="/assets/answer-accepted-on.png">
+      <% end %>
+      <br>
       <span></span>
     </div>
   </div>

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end  
  
   def find_questions()    
-    @questions = current_node.questions.minimal
+    @questions = current_node.questions
     unless current_tags.empty?
       @questions = @questions.tagged_with(*current_tags)
     end
