@@ -1,3 +1,4 @@
+puts "2: #{self}"
 set_default(:mongodb_endpoints, ["localhost:27017"])
 set_default(:replica_sets, [])
 set_default(:mongos_servers, [])
