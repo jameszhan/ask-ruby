@@ -4,7 +4,7 @@
     <%= image_tag @user.avatar_url(:thumb) %>
     <% if @user != current_user %>
       <% followed = @user.followed_by?(current_user) -%>
-      <%= link_to (followed ? "Unfollow" : "Follow"), "#", 
+      <%= link_to (followed ? t("common.unfollow", default: "Unfollow") : t("common.follow", default: "Follow")), "#", 
         data: { url: follow_user_path(@user), status: followed }, 
         class: "btn btn-small btn-primary follow-question" %>
     <% end %>  
